@@ -109,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.loginBtn:
                 signIn(loginEmail.getText().toString(), loginPwd.getText().toString());
+                break;
             case R.id.forgotTextView:
                 setDialog();
             default:
