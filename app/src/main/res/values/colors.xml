@@ -3,4 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!-- Local4fun colors-->
+    <color name="blueDark">#425E76</color>
+    <color name="blueWhite">#6895BB</color>
+
 </resources>
