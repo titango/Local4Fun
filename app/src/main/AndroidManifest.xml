@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".screens.FlashScreen.FlashActivity"></activity>
+        <activity android:name=".screens.FlashScreen.FlashActivity" />
+        <activity android:name=".screens.ExploreScreen.ExploreActivity"></activity>
     </application>
 
 </manifest>
