@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "179131740301",
+    "firebase_url": "https://local4fun.firebaseio.com",
+    "project_id": "local4fun",
+    "storage_bucket": "local4fun.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:179131740301:android:2c62a1d93da99ad4",
+        "android_client_info": {
+          "package_name": "com.example.tanthinh.local4fun"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "179131740301-5njf47riefhdvqj0hiqt85l5bis31rcg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tanthinh.local4fun",
+            "certificate_hash": "ba5e041e9c25f5d3539221fa86217c1d6d4df1e1"
+          }
+        },
+        {
+          "client_id": "179131740301-rclflsk1ltg7uroqh2ta4o1q2o3ou3k9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcAmJWdawoiNZaEajH3zzvIZymTv282Gg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "179131740301-rclflsk1ltg7uroqh2ta4o1q2o3ou3k9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
