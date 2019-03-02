@@ -73,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void loadProfileScreenFragment(){
-        toolbar.setTitle("Profile");
         Fragment fragment = new ProfileScreenFragment();
         loadFragment(fragment);
     }
