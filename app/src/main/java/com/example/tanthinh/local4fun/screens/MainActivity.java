@@ -63,15 +63,20 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(fragment);
                 return true;
                 case R.id.profile_screen_fragment:
-                    toolbar.setTitle("Profile");
-                    fragment = new ProfileScreenFragment();
-                    loadFragment(fragment);
+                    loadProfileScreenFragment();
                 return true;
             }
             return false;
         }
 
     };
+
+
+    private void loadProfileScreenFragment(){
+        toolbar.setTitle("Profile");
+        Fragment fragment = new ProfileScreenFragment();
+        loadFragment(fragment);
+    }
 
     private void loadFragment(Fragment fragment) {
         // load fragment
