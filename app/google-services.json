@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "179131740301-6990nnvors6ibeit541q2kqvtceuci55.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tanthinh.local4fun",
+            "certificate_hash": "656402cb4377805fee7900475352fb09f6173832"
+          }
+        },
+        {
           "client_id": "179131740301-5njf47riefhdvqj0hiqt85l5bis31rcg.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
