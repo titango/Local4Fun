@@ -2,6 +2,7 @@ package com.example.tanthinh.local4fun.screens.LoginScreen;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -40,6 +41,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         loginBtn.setOnClickListener(this);
         forgotTV.setOnClickListener(this);
         mAuth = FirebaseAuth.getInstance();
+
+        //Setbg image alpha 0.3
+        View rootView = findViewById(R.id.rootLogin);
+        Drawable bgDrawable = rootView.getBackground();
+        bgDrawable.setAlpha(30);
 
     }
 
