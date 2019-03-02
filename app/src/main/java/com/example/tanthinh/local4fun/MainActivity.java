@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.forgotTextView:
                 setDialog();
+                break;
             default:
                 break;
         }
