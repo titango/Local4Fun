@@ -14,14 +14,18 @@ import android.widget.ListView;
 
 import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.adapters.ProfileAdapter;
+import com.example.tanthinh.local4fun.screens.BecomeHostScreen;
+import com.example.tanthinh.local4fun.screens.ChangePasswordScreen;
+import com.example.tanthinh.local4fun.screens.EditProfileScreen;
+import com.example.tanthinh.local4fun.screens.LoginScreen.LoginActivity;
 
 public class ProfileScreenFragment extends Fragment {
 
 
-    String[] list = {"Edit Profile", "Become a host", "Contact us", "Turn Off Notification", "Change Password", "Sign out"};
-    int[] list_icon = {R.drawable.ic_card_giftcard_white_24dp, R.drawable.ic_card_giftcard_white_24dp,
-            R.drawable.ic_card_giftcard_white_24dp, R.drawable.ic_card_giftcard_white_24dp, R.drawable.ic_card_giftcard_white_24dp,
-            R.drawable.ic_card_giftcard_white_24dp};
+    String[] list = {"Edit Profile", "Become a host", "Contact us", "Change Password", "Sign out"};
+    int[] list_icon = {R.drawable.edit_black_24dp, R.drawable.host_black_24dp,
+            R.drawable.contact_mail_black_24dp, R.drawable.change_password_black_24dp,
+            R.drawable.sign_out_black_24dp};
 
     public ProfileScreenFragment() {
         // Required empty public constructor
@@ -51,18 +55,28 @@ public class ProfileScreenFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i){
-                    case 0:
+                    case 0: //Edit profile
+                        Intent edit_profile = new Intent(view.getContext(), EditProfileScreen.class);
+                        startActivity(edit_profile);
                         break;
-                    case 1:
+                    case 1: //Become a host
+                        Intent become_host = new Intent(view.getContext(), BecomeHostScreen.class);
+                        startActivity(become_host);
                         break;
-                    case 2:
-                    case 3:
-                    case 4:
+                    case 2: //Contact us
                         Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                                 "mailto","email@email.com", null));
                         intent.putExtra(Intent.EXTRA_SUBJECT, "Hi");
                         intent.putExtra(Intent.EXTRA_TEXT, "Hello");
                         startActivity(Intent.createChooser(intent, "Choose an Email client :"));
+                        break;
+                    case 3: //Change Password
+                        Intent change_pass = new Intent(view.getContext(), ChangePasswordScreen.class);
+                        startActivity(change_pass);
+                        break;
+                    case 4: //Logout
+                        Intent logout = new Intent(view.getContext(), LoginActivity.class);
+                        startActivity(logout);
                         break;
                     default:
                         break;

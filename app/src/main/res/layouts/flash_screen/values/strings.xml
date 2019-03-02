@@ -15,4 +15,12 @@
     <string name="register_pwd_label">Password:</string>
     <string name="register_repeatPwd_label">Confirm Password:</string>
     <string name="register_btn_name">Register</string>
+    <string name="email">Email</string>
+    <string name="fullname">Fullname</string>
+    <string name="phone">Phone</string>
+    <string name="update">Update</string>
+    <string name="about_us">About us</string>
+    <string name="current_password">Current Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
 </resources>
