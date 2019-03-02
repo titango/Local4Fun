@@ -26,7 +26,7 @@
         <activity android:name=".screens.FlashScreen.FlashActivity" />
         <activity android:name=".screens.MainActivity">
         </activity>
-        <activity android:name=".acountRegister"></activity>
+        <activity android:name=".utilities.accountRegister"></activity>
         <meta-data
         tools:node="replace"
         android:name="android.support.VERSION"

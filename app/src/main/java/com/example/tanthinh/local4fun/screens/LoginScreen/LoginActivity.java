@@ -2,7 +2,6 @@ package com.example.tanthinh.local4fun.screens.LoginScreen;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -11,22 +10,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tanthinh.local4fun.R;
-import com.example.tanthinh.local4fun.acountRegister;
+import com.example.tanthinh.local4fun.utilities.accountRegister;
 import com.example.tanthinh.local4fun.screens.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
-import static android.widget.ListPopupWindow.MATCH_PARENT;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private FirebaseAuth mAuth;
@@ -56,6 +50,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void signIn(String email, String password) {
         Log.d(TAG, "signIn:" + email);
+        //Cheat
+        if(email.equals("") || email.equals(null))
+        {
+            email = "a";
+        }
+        if(password.equals("") || password.equals(null))
+        {
+            password = "b";
+        }
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -114,7 +117,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         int i = view.getId();
         switch (i){
             case R.id.registerTextView:
-                Intent it = new Intent(LoginActivity.this, acountRegister.class);
+                Intent it = new Intent(LoginActivity.this, accountRegister.class);
                 startActivity(it);
                 break;
             case R.id.loginBtn:
