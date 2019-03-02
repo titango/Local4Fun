@@ -1,4 +1,4 @@
-package com.example.tanthinh.local4fun;
+package com.example.tanthinh.local4fun.utilities;
 
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -7,16 +7,15 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tanthinh.local4fun.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
-public class acountRegister extends AppCompatActivity {
+public class accountRegister extends AppCompatActivity {
     public String TAG = "accountRegister";
     EditText emailTV, pwdTV, cofPwdTV;
     private FirebaseAuth mAuth;
@@ -62,7 +61,6 @@ public class acountRegister extends AppCompatActivity {
         }
 
 
-
         return valid;
     }
     private void createAccount(String email, String password) {
@@ -80,7 +78,7 @@ public class acountRegister extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(acountRegister.this, "Authentication failed.",
+                            Toast.makeText(accountRegister.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
 

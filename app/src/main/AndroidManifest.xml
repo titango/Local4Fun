@@ -12,10 +12,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".screens.ChangePasswordScreen"></activity>
-        <activity android:name=".screens.BecomeHostScreen" />
-        <activity android:name=".screens.EditProfileScreen" />
+        android:theme="@style/AppTheme.NoActionBar">
+        
         <activity android:name=".screens.LoginScreen.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,10 +21,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
         <activity android:name=".screens.FlashScreen.FlashActivity" />
-        <activity android:name=".screens.MainActivity" />
-        <activity android:name=".acountRegister" />
-
+        <activity android:name=".screens.MainActivity"/>
+        <activity android:name=".utilities.accountRegister"/>
+        <activity android:name=".screens.ChangePasswordScreen"/>
+        <activity android:name=".screens.BecomeHostScreen" />
+        <activity android:name=".screens.EditProfileScreen" />
+        
+        
         <meta-data
             android:name="android.support.VERSION"
             android:value="26.1.0"

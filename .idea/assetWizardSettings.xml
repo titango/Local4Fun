@@ -13,26 +13,15 @@
                       <PersistentState>
                         <option name="children">
                           <map>
-                            <entry key="actionbar">
-                              <value>
-                                <PersistentState>
-                                  <option name="values">
-                                    <map>
-                                      <entry key="theme" value="HOLO_DARK" />
-                                      <entry key="themeColor" value="ffffff" />
-                                    </map>
-                                  </option>
-                                </PersistentState>
-                              </value>
-                            </entry>
                             <entry key="launcher">
                               <value>
                                 <PersistentState>
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundLayerName" value="ic_launcher_background" />
-                                      <entry key="foregroundImage" value="C:\Users\300279621\Desktop\Local4Fun\app\src\main\res\drawable\edit_black_24dp.png" />
-                                      <entry key="outputName" value="ic_edit_black_24dp" />
+                                      <entry key="foregroundImage" value="$USER_HOME$/Downloads/person_price_icon.svg" />
+                                      <entry key="foregroundLayerName" value="ic_launcher_foreground" />
+                                      <entry key="outputName" value="person_price_icon" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -59,8 +48,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_explore_24px" />
-                            <entry key="sourceFile" value="$USER_HOME$/baseline-explore-24px.svg" />
+                            <entry key="outputName" value="ic_person_price_icon" />
+                            <entry key="sourceFile" value="$USER_HOME$/Downloads/person_price_icon.svg" />
                           </map>
                         </option>
                       </PersistentState>
