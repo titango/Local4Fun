@@ -54,9 +54,9 @@ public class ExploreScreenFragment extends Fragment {
 
         this.context = getActivity();
         postList = new ArrayList();
-        postList.add("first");
-        postList.add("second");
-        postList.add("third");
+        postList.add("Discover the beauty of city with me in Vancouver.");
+        postList.add("This is the second app title that maybe extend to the second line for showing purpose lol");
+        postList.add("This is the third app title that may extend to the second line");
 
         recyclerView = (RecyclerView)v.findViewById(R.id.post_block_id_rec_view);
         recyclerView.setHasFixedSize(true);

@@ -26,12 +26,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         public ViewPager viewPager; // for slider
-        public TextView textView;
+        public TextView postTitle;
 
         public MyViewHolder(View v) {
             super(v);
             viewPager = v.findViewById(R.id.viewPager);
-            textView = v.findViewById(R.id.fakeText);
+            postTitle = v.findViewById(R.id.postTitle);
         }
     }
 
@@ -65,7 +65,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         indicator.setViewPager(holder.viewPager);
         viewPagerAdapter.registerDataSetObserver(indicator.getDataSetObserver());
 
-        holder.textView.setText((String)postList.get(position) + "");
+        holder.postTitle.setText((String)postList.get(position) + "");
     }
 
     @Override

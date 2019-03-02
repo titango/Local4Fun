@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="350dp"
+    android:orientation="vertical"
+    android:scrollbars="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="10dp"
+        android:layout_margin="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- FIRST HALF - IMAGE SLIDER-->
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="6">
+            </android.support.v4.view.ViewPager>
+            <!-- WITH CIRCLE INDICATOR SUPPORT-->
+            <me.relex.circleindicator.CircleIndicator
+                android:id="@+id/viewPagerIndicator"
+                app:ci_width="7dp"
+                app:ci_height="7dp"
+                app:ci_drawable="@drawable/circleindicator_round"
+                app:ci_drawable_unselected="@drawable/circileindicator_round_unselected"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginTop="-20dp"
+                />
+
+            <!-- SECOND HALF -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:orientation="horizontal">
+
+                <!-- POST INFO AREA-->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:orientation="vertical"
+                    android:padding="3dp">
+
+                    <!-- POST TITLE-->
+                    <TextView
+                        android:id="@+id/postTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:textSize="17dp"
+                        android:textColor="@color/blueDark"
+                        android:textStyle="bold"
+                        android:fontFamily="sans-serif"
+                        android:padding="3dp"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:scrollHorizontally="true"
+                        android:textAllCaps="true"
+                        android:layout_weight="2"/>
+
+                    <!-- TIME - PRICE -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+                            <android.support.v7.widget.AppCompatImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/ic_person_price_icon"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"></LinearLayout>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"></LinearLayout>
+                    </LinearLayout>
+
+                    <!-- LOCATION-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"></LinearLayout>
+
+                </LinearLayout>
+
+                <!-- VERTICAL LINES -->
+                <LinearLayout
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent">
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="fill_parent"
+                        android:background="@drawable/utility_vertical_line" />
+                </LinearLayout>
+
+                <!-- USER's AREA -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="6">
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
