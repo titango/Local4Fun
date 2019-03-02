@@ -20,7 +20,7 @@
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="280dp">
+                android:layout_height="@dimen/logo_banner_height">
 
 
                 <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -75,9 +75,12 @@
             </android.support.constraint.ConstraintLayout>
         </LinearLayout>
 
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/padding30"
+            android:scrollbars="vertical">
 
             <ListView
                 android:id="@+id/profile_setting"
@@ -85,6 +88,7 @@
                 android:layout_height="match_parent" />
 
         </LinearLayout>
+
 
     </LinearLayout>
 

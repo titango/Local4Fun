@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.tanthinh.local4fun"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:node="replace"
-    >
+    package="com.example.tanthinh.local4fun"
+    tools:node="replace">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -14,25 +13,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-
+        
         <activity android:name=".screens.LoginScreen.LoginActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+        
         <activity android:name=".screens.FlashScreen.FlashActivity" />
-        <activity android:name=".screens.MainActivity">
-        </activity>
-        <activity android:name=".utilities.accountRegister"></activity>
+        <activity android:name=".screens.MainActivity"/>
+        <activity android:name=".utilities.accountRegister"/>
+        <activity android:name=".screens.ChangePasswordScreen"/>
+        <activity android:name=".screens.BecomeHostScreen" />
+        <activity android:name=".screens.EditProfileScreen" />
+        
+        
         <meta-data
-        tools:node="replace"
-        android:name="android.support.VERSION"
-        android:value="26.1.0"
-        />
+            android:name="android.support.VERSION"
+            android:value="26.1.0"
+            tools:node="replace" />
     </application>
 
 </manifest>
