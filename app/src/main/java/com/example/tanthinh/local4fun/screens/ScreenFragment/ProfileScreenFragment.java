@@ -23,7 +23,7 @@ public class ProfileScreenFragment extends Fragment {
 
 
     String[] list = {"Edit Profile", "Become a host", "Contact us", "Change Password", "Sign out"};
-    int[] list_icon = {R.drawable.edit_black_24dp, R.drawable.host_black_24dp,
+    int[] list_icon = {R.drawable.host_black_24dp, R.drawable.host_black_24dp,
             R.drawable.contact_mail_black_24dp, R.drawable.change_password_black_24dp,
             R.drawable.sign_out_black_24dp};
 
