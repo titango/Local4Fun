@@ -9,16 +9,21 @@ public class Post {
     private String userId;
     private Double hours;
     private Double pricePerPerson;
+
+
+
     private ArrayList<String> pictures = new ArrayList<String>();
 
-    public Post(String title, String description, String userId, Double hours, Double pricePerPerson) {
+    public Post(String userId, String title, String description,  Double hours, Double pricePerPerson) {
         this.title = title;
         this.description = description;
         this.userId = userId;
         this.hours = hours;
         this.pricePerPerson = pricePerPerson;
     }
-
+    public ArrayList<String> getPictures() {
+        return pictures;
+    }
     public void addPicture(String path){
         pictures.add(path);
     }

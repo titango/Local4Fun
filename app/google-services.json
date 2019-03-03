@@ -31,6 +31,14 @@
           }
         },
         {
+          "client_id": "179131740301-8q8dq1qigqibihv0ljj1t4s71chup5sb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tanthinh.local4fun",
+            "certificate_hash": "872299cf2b41f040117b9dc364844d1edb3b9a9d"
+          }
+        },
+        {
           "client_id": "179131740301-rclflsk1ltg7uroqh2ta4o1q2o3ou3k9.apps.googleusercontent.com",
           "client_type": 3
         }

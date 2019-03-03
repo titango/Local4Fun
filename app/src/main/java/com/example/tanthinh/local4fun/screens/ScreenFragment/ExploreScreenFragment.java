@@ -45,8 +45,8 @@ public class ExploreScreenFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private Context context;
-    private List postList;
-    ArrayList<Post> posts = new ArrayList<Post>();
+    private ArrayList<Post> posts = new ArrayList<Post>();
+    View v;
 
 //    private OnFragmentInteractionListener mListener;
 
@@ -61,24 +61,11 @@ public class ExploreScreenFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.explore_fragment, container, false);
+        v = inflater.inflate(R.layout.explore_fragment, container, false);
 
-        //Fake images
+        getPosts();
 
         this.context = getActivity();
-        postList = new ArrayList();
-        postList.add("first");
-        postList.add("second");
-        postList.add("third");
-
-        recyclerView = (RecyclerView)v.findViewById(R.id.post_block_id_rec_view);
-        recyclerView.setHasFixedSize(true);
-
-        layoutManager = new LinearLayoutManager(context);
-        recyclerView.setLayoutManager(layoutManager);
-
-        mAdapter = new PostAdapter(context, postList);
-        recyclerView.setAdapter(mAdapter);
 
         // Inflate the layout for this fragment
         return v;
@@ -100,9 +87,6 @@ public class ExploreScreenFragment extends Fragment {
 //            throw new RuntimeException(context.toString()
 //                    + " must implement OnFragmentInteractionListener");
 //        }
-
-        getPosts();
-
     }
 
     @Override
@@ -130,11 +114,20 @@ public class ExploreScreenFragment extends Fragment {
                             Double.parseDouble(singleSnapshot.child("hours").getValue().toString()),
                             Double.parseDouble(singleSnapshot.child("pricePerPerson").getValue().toString()));
 
-                    for(DataSnapshot picSnapshot : singleSnapshot.child("pictures").getChildren()){
+                    for(DataSnapshot picSnapshot : singleSnapshot.child("pictures/addresses").getChildren()){
                         p.addPicture(picSnapshot.getValue().toString());
                     }
                     posts.add(p);
                 }
+
+                recyclerView = (RecyclerView)v.findViewById(R.id.post_block_id_rec_view);
+                recyclerView.setHasFixedSize(true);
+
+                layoutManager = new LinearLayoutManager(context);
+                recyclerView.setLayoutManager(layoutManager);
+
+                mAdapter = new PostAdapter(context, posts);
+                recyclerView.setAdapter(mAdapter);
 
 
             }
@@ -146,13 +139,6 @@ public class ExploreScreenFragment extends Fragment {
 
     }
 
-    private void getPictures(){
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        // Create a storage reference from our app
-        StorageReference storageRef = storage.getReference();
-        // Create a reference with an initial file path and name
-        StorageReference pathReference = storageRef.child("aacom/stars.jpg");
-    }
 
 //    public interface OnFragmentInteractionListener {
 //        void onFragmentInteraction(Uri uri);
