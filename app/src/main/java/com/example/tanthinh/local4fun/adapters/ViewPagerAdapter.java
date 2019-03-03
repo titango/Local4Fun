@@ -6,14 +6,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 public class ViewPagerAdapter extends PagerAdapter {
 
     private Context context;
-    private String[] imageUrls;
+    private ArrayList<String> imageUrls;
 
-    public ViewPagerAdapter(Context context, String[] imageUrls)
+    public ViewPagerAdapter(Context context, ArrayList<String> imageUrls)
     {
         this.context = context;
         this.imageUrls = imageUrls;
@@ -21,7 +28,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return imageUrls.length;
+        return imageUrls.size();
     }
 
     @Override
@@ -35,13 +42,29 @@ public class ViewPagerAdapter extends PagerAdapter {
         imageView.setElevation(0.0f);
         imageView.setTranslationZ(0.0f);
 
-        Picasso.get().load(imageUrls[position])
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        // Create a storage reference from our app
+        StorageReference storageRef = storage.getReference("aacom/freerider-498473_1280.jpg");
+
+
+        Picasso.get().load(imageUrls.get(position))
                 .fit()
                 .centerCrop()
                 .into(imageView);
         container.addView(imageView);
 
         return imageView;
+    }
+
+    private void getPictures(){
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        // Create a storage reference from our app
+        StorageReference storageRef = storage.getReference();
+        // Create a reference with an initial file path and name
+        StorageReference pathReference = storageRef.child("aacom/stars.jpg");
     }
 
     @Override

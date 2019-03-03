@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.tanthinh.local4fun.R;
+import com.example.tanthinh.local4fun.models.Post;
 
 import java.util.List;
 
@@ -57,17 +58,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        String[] imgurl = new String[]{
-                "https://cdn.pixabay.com/photo/2014/09/21/17/56/wanderer-455338_1280.jpg",
-                "https://cdn.pixabay.com/photo/2014/10/22/18/04/freerider-498473_1280.jpg",
-                "https://cdn.pixabay.com/photo/2018/01/06/23/25/snow-3066167_1280.jpg",
-                "https://cdn.pixabay.com/photo/2016/02/19/09/59/taj-mahal-1209004_1280.jpg"
-        };
-        viewPagerAdapter = new ViewPagerAdapter(context, imgurl);
+        viewPagerAdapter = new ViewPagerAdapter(context, ((Post)postList.get(position)).getPictures());
         holder.viewPager.setAdapter(viewPagerAdapter);
         indicator.setViewPager(holder.viewPager);
         viewPagerAdapter.registerDataSetObserver(indicator.getDataSetObserver());
-
         holder.postTitle.setText((String)postList.get(position) + "");
     }
 
