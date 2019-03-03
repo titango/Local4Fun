@@ -11,5 +11,6 @@
     <string name="register_pwd_label">Password:</string>
     <string name="register_repeatPwd_label">Confirm Password:</string>
     <string name="register_btn_name">Register</string>
-
+    <string name="facebook_app_id">386979122101007</string>
+    <string name="fb_login_protocol_scheme">fb386979122101007</string>
 </resources>
