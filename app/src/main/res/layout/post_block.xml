@@ -87,10 +87,11 @@
 
                     <!-- POST TITLE-->
                     <TextView
-                        android:id="@+id/postTitle"
+                        android:id="@+id/explore_post_title"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:textSize="17dp"
+                        android:text="\@explore_post_title"
                         android:textColor="@color/blueDark"
                         android:textStyle="bold"
                         android:fontFamily="sans-serif"
@@ -120,9 +121,10 @@
                                 app:srcCompat="@drawable/ic_person_price_icon"
                                 />
                             <TextView
+                                android:id="@+id/explore_price_person"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="$300"
+                                android:text="\@explore_price_person"
                                 android:textStyle="bold"
                                 android:textSize="18dp"
                                 android:textColor="@color/redLight"/>
@@ -141,9 +143,10 @@
                                 app:srcCompat="@drawable/ic_city_icon"
                                 />
                             <TextView
+                                android:id="@+id/explore_tour"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="City"
+                                android:text="\@explore_tour"
                                 android:textStyle="bold"
                                 android:textSize="12dp"
                                 android:layout_gravity="center_vertical"
@@ -163,9 +166,10 @@
                                 app:srcCompat="@drawable/ic_time_icon"
                                 />
                             <TextView
+                                android:id="@+id/explore_post_hour"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="10.5 hrs"
+                                android:text="\@explore_post_hour"
                                 android:textStyle="bold"
                                 android:textSize="12dp"
                                 android:layout_gravity="center_vertical"
@@ -186,9 +190,10 @@
                             app:srcCompat="@drawable/ic_location_marker_icon"
                             />
                         <TextView
+                            android:id="@+id/explore_location"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text="Toronto, ON, Canada"
+                            android:text="\@explore_location"
                             android:textStyle="bold"
                             android:textSize="14dp"
                             android:layout_gravity="center_vertical"
@@ -225,10 +230,11 @@
 
                     <!-- USER NAME-->
                     <TextView
+                        android:id="@+id/explore_user_name"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="3"
-                        android:text="\@User name"
+                        android:text="\@user_name"
                         android:textStyle="bold"
                         android:textSize="14dp"
                         android:layout_gravity="center_vertical"

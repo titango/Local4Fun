@@ -19,7 +19,7 @@ import me.relex.circleindicator.CircleIndicator;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> {
 
-    private List postList; // Temporary List
+    private List<Post> postList; // Temporary List
     private Context context;
     private ViewPagerAdapter viewPagerAdapter;
     private CircleIndicator indicator;
@@ -28,11 +28,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
         public ViewPager viewPager; // for slider
         public TextView postTitle;
+        public TextView postHour;
+        public TextView postTour;
+        public TextView postPrice;
+        public TextView postLocation;
 
         public MyViewHolder(View v) {
             super(v);
             viewPager = v.findViewById(R.id.viewPager);
-            postTitle = v.findViewById(R.id.postTitle);
+            postTitle = v.findViewById(R.id.explore_post_title);
+            postHour = v.findViewById(R.id.explore_post_hour);
+            postTour = v.findViewById(R.id.explore_tour);
+            postPrice = v.findViewById(R.id.explore_price_person);
+            postLocation = v.findViewById(R.id.explore_location);
         }
     }
 
@@ -62,7 +70,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         holder.viewPager.setAdapter(viewPagerAdapter);
         indicator.setViewPager(holder.viewPager);
         viewPagerAdapter.registerDataSetObserver(indicator.getDataSetObserver());
-        holder.postTitle.setText((String)postList.get(position) + "");
+
+        Post p = postList.get(position);
+        holder.postTitle.setText(p.getTitle());
+        holder.postHour.setText(p.getHours() + "");
+        holder.postTour.setText(p.getTourType() + "");
+        holder.postPrice.setText(p.getPricePerPerson() + "");
+        holder.postLocation.setText(p.getLocation() + "");
+
     }
 
     @Override

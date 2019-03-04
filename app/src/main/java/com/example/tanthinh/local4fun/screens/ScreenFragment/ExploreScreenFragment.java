@@ -124,9 +124,10 @@ public class ExploreScreenFragment extends Fragment {
 
                     Post p = new Post(singleSnapshot.child("userId").getValue().toString(),
                             singleSnapshot.child("title").getValue().toString(),
-                            singleSnapshot.child("description").getValue().toString(),
+                            singleSnapshot.child("tour").getValue().toString(),
                             Double.parseDouble(singleSnapshot.child("hours").getValue().toString()),
-                            Double.parseDouble(singleSnapshot.child("pricePerPerson").getValue().toString()));
+                            Double.parseDouble(singleSnapshot.child("pricePerPerson").getValue().toString()),
+                            singleSnapshot.child("location").getValue().toString());
 
                     for(DataSnapshot picSnapshot : singleSnapshot.child("pictures/addresses").getChildren()){
                         p.addPicture(picSnapshot.getValue().toString());
@@ -142,7 +143,6 @@ public class ExploreScreenFragment extends Fragment {
 
                 mAdapter = new PostAdapter(context, posts);
                 recyclerView.setAdapter(mAdapter);
-
 
             }
             @Override
