@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#d9d9d9</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- Local4fun colors-->
+    <!-- WHITE -->
+    <color name="whiteLight">#F3F3F3</color>
+
+    <!-- BLUE -->
+    <color name="blueDarkest">#3F5C73</color>
+    <color name="blueDark">#425E76</color>
+    <color name="blueWhite">#6895BB</color>
+    <color name="blueLight">#6BCDFD</color>
+
+    <!-- CYAN -->
+    <color name="cyanLight">#08AE9E</color>
+
+    <!-- RED -->
+    <color name="redLight">#FD676A</color>
+    <color name="redPink">#FC1268</color>
+    <color name="redDark">#650205</color>
+
+    <!-- GRAY -->
+    <color name="grayLight">#808080</color>
+
+    <!-- GREEN -->
+    <color name="greenLight">#679868</color>
+
+    <!-- ORANGE -->
+    <color name="orangeLight">#FD996B</color>
+    <color name="orangeDark">#FD6721</color>
+
+    <!-- PURPLE -->
+    <color name="purpleDark">#650A65</color>
+
+    <!-- YELLOW -->
+    <color name="yellowLight">#FDCA2E</color>
+
+
+</resources>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/rootLogin"
+    android:background="@drawable/background"
+    tools:context=".screens.LoginScreen.LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="250sp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/logo" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="30sp"
+        android:paddingRight="30sp">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="80sp"
+            android:layout_height="wrap_content"
+            android:text="@string/login_page_email"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="76dp"
+            tools:layout_editor_absoluteY="256dp" />
+
+        <EditText
+            android:id="@+id/loginEmail"
+            android:layout_width="230sp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="14sp"
+            tools:layout_editor_absoluteX="132dp"
+            tools:layout_editor_absoluteY="244dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="30sp"
+        android:paddingRight="30sp">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="80sp"
+            android:layout_height="wrap_content"
+            android:text="@string/Login_page_password"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="48dp"
+            tools:layout_editor_absoluteY="298dp" />
+
+        <EditText
+            android:id="@+id/loginPwd"
+            android:layout_width="230sp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="14sp"
+            tools:layout_editor_absoluteX="132dp"
+            tools:layout_editor_absoluteY="284dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="30sp"
+        android:paddingRight="30sp">
+
+        <Button
+            android:id="@+id/loginBtn"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:paddingLeft="30sp"
+            android:paddingRight="30sp"
+            android:text="@string/login_page_signInBtn"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="42dp"
+            tools:layout_editor_absoluteY="332dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/forgotTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="30sp"
+            android:text="@string/login_page_forgotPwd"
+            android:textColor="@color/colorPrimary"
+            tools:layout_editor_absoluteX="230dp"
+            tools:layout_editor_absoluteY="398dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="left"
+        android:orientation="horizontal"
+        android:paddingLeft="30sp"
+        android:paddingTop="10sp">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_page_register_label"
+            tools:layout_editor_absoluteX="47dp"
+            tools:layout_editor_absoluteY="416dp" />
+
+        <TextView
+            android:id="@+id/registerTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_page_register_text"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            tools:layout_editor_absoluteX="190dp"
+            tools:layout_editor_absoluteY="417dp" />
+    </LinearLayout>
+
+</LinearLayout>

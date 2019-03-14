@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="350dp"
+    android:orientation="vertical"
+    android:scrollbars="vertical"
+    tools:context=".screens.ScreenFragment.BookingScreenFragment">
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        card_view:cardCornerRadius="10dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:elevation="1.0dp"
+            android:translationZ="1.0dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profile_explore_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="128dp"
+                android:elevation="1.0dp"
+                android:src="@drawable/ic_user_icon"
+                android:translationZ="1.0dp"
+                app:civ_border_color="@color/whiteLight"
+                app:civ_border_width="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.934"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="0dp"
+            android:orientation="vertical">
+
+            <!-- FIRST HALF - IMAGE SLIDER-->
+            <LinearLayout
+                android:id="@+id/explore_image_slider_area"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="6"
+                android:orientation="vertical">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></android.support.v4.view.ViewPager>
+            </LinearLayout>
+
+            <!-- WITH CIRCLE INDICATOR SUPPORT-->
+            <me.relex.circleindicator.CircleIndicator
+                android:id="@+id/viewPagerIndicator"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginTop="-20dp"
+                app:ci_drawable="@drawable/circleindicator_round"
+                app:ci_drawable_unselected="@drawable/circileindicator_round_unselected"
+                app:ci_height="7dp"
+                app:ci_width="7dp" />
+
+            <!-- SECOND HALF -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:orientation="horizontal">
+
+                <!-- POST INFO AREA-->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:orientation="vertical"
+                    android:padding="3dp">
+
+                    <!-- POST TITLE-->
+                    <TextView
+                        android:id="@+id/explore_post_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1.7"
+                        android:ellipsize="end"
+                        android:fontFamily="sans-serif"
+                        android:maxLines="2"
+                        android:padding="3dp"
+                        android:scrollHorizontally="true"
+                        android:text="\@explore_post_title"
+                        android:textAllCaps="true"
+                        android:textColor="@color/blueDark"
+                        android:textSize="17dp"
+                        android:textStyle="bold" />
+
+                    <!-- TIME - PRICE -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <!-- PERSON -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:gravity="center">
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/ic_person_price_icon" />
+
+                            <TextView
+                                android:id="@+id/explore_price_person"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="\@explore_price_person"
+                                android:textColor="@color/redLight"
+                                android:textSize="18dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <!-- TOUR -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3.5"
+                            android:gravity="center">
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/ic_city_icon" />
+
+                            <TextView
+                                android:id="@+id/explore_tour"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="center_vertical"
+                                android:text="\@explore_tour"
+                                android:textColor="@color/blueDarkest"
+                                android:textSize="12dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- TIME -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3.5"
+                            android:gravity="center">
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/ic_time_icon" />
+
+                            <TextView
+                                android:id="@+id/explore_post_hour"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="center_vertical"
+                                android:text="\@explore_post_hour"
+                                android:textColor="@color/blueDarkest"
+                                android:textSize="12dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- LOCATION-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@drawable/ic_location_marker_icon" />
+
+                        <TextView
+                            android:id="@+id/explore_location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:text="\@explore_location"
+                            android:textColor="@color/blueDarkest"
+                            android:textSize="14dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- VERTICAL LINES -->
+                <LinearLayout
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent">
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="fill_parent"
+                        android:background="@drawable/utility_vertical_line" />
+                </LinearLayout>
+
+                <!-- USER's AREA -->
+                <LinearLayout
+                    android:id="@+id/explore_user_area"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="6"
+                    android:orientation="vertical">
+
+                    <!-- Reserved for profile-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="4"></LinearLayout>
+
+                    <!-- USER NAME-->
+                    <TextView
+                        android:id="@+id/explore_user_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:text="\@user_name"
+                        android:textColor="@color/blueDarkest"
+                        android:textSize="14dp"
+                        android:textStyle="bold"></TextView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="3"
+                        android:gravity="center">
+
+                        <RatingBar
+                            style="@style/Widget.AppCompat.RatingBar.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="0dp"
+                            android:foregroundGravity="center"
+                            android:numStars="5"
+                            android:rating="3"
+                            android:stepSize="1"
+                            android:transformPivotX="0dp"
+                            android:transformPivotY="0dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"></LinearLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/post_block"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:paddingBottom="30dp"
+        android:scrollbars="vertical">
+
+    </android.support.v7.widget.RecyclerView>
+
+
+</LinearLayout>

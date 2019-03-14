@@ -1,0 +1,68 @@
+<resources>
+    <string name="app_name">Local4Fun</string>
+    <string name="explore">Explore</string>
+    <string name="booking">Booking</string>
+    <string name="message">Message</string>
+    <string name="profile">Profile</string>
+    <string name="login_page_email">Email:</string>
+    <string name="Login_page_password">Password:</string>
+    <string name="login_page_forgotPwd"><u>Forgot password?</u></string>
+    <string name="login_page_register_label">Don\'t have an account?</string>
+    <string name="login_page_register_text"><u>Register here</u></string>
+    <string name="login_page_signInBtn">Sign in</string>
+    <string name="title_activity_acount_register">acountRegister</string>
+    <string name="register_email_label">Email:</string>
+    <string name="register_pwd_label">Password:</string>
+    <string name="register_repeatPwd_label">Confirm Password:</string>
+    <string name="register_btn_name">Register</string>
+    <string name="email">Email</string>
+    <string name="fullname">Fullname</string>
+    <string name="phone">Phone</string>
+    <string name="update">Update</string>
+    <string name="about_us">About us</string>
+    <string name="current_password">Current Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="txtPostName">Post Name:</string>
+    <string name="editTextPostName">Post Name</string>
+    <string name="txtTour">Tour:</string>
+    <string name="txtDuration">Duration:</string>
+    <string name="txtPrice">Price:</string>
+    <string name="txtQuote">Quote:</string>
+    <string name="editTextQuote">Your quote</string>
+    <string name="txtMeetingPoint">Meeting Point:</string>
+    <string name="editTextMeetingPoint">Address</string>
+    <string name="btnCreatePost">Create a post</string>
+    <string-array name="tourTypes">
+        <item>City tour</item>
+        <item>Food tour</item>
+        <item>Historic tour</item>
+        <item>Photo tour</item>
+        <item>Sport &amp; Leisure</item>
+        <item>Workshops</item>
+    </string-array>
+
+    <string-array name="duration">
+        <item>1 hour</item>
+        <item>1.5 hours</item>
+        <item>2 hours</item>
+        <item>2.5 hours</item>
+        <item>3 hours</item>
+        <item>3.5 hours</item>
+        <item>4 hours</item>
+        <item>4.5 hours</item>
+        <item>5 hours</item>
+    </string-array>
+
+    <string-array name="price">
+        <item>$5</item>
+        <item>$10</item>
+        <item>$15</item>
+        <item>$20</item>
+        <item>$25</item>
+        <item>$30</item>
+        <item>$35</item>
+        <item>$40</item>
+        <item>$50</item>
+    </string-array>
+</resources>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/explore_screen_fragment"
+        android:icon="@drawable/explore_black_24dp"
+        android:title="@string/explore" />
+
+    <item
+        android:id="@+id/booking_screen_fragment"
+        android:icon="@drawable/booking_black_24dp"
+        android:title="@string/booking" />
+
+    <item
+        android:id="@+id/message_screen_fragment"
+        android:icon="@drawable/message_black_24dp"
+        android:title="@string/message" />
+
+    <item
+        android:id="@+id/profile_screen_fragment"
+        android:icon="@drawable/profile_black_24dp"
+        android:title="@string/profile" />
+
+</menu>
