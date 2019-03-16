@@ -1,23 +1,28 @@
 package com.example.tanthinh.local4fun.screens.ScreenFragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.adapters.PostAdapter;
-
 import com.example.tanthinh.local4fun.models.Post;
-
+import com.example.tanthinh.local4fun.screens.CreateNewPostScreen;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,7 +53,7 @@ public class ExploreScreenFragment extends Fragment {
     private ArrayList<Post> posts = new ArrayList<Post>();
     View v;
 
-//    private OnFragmentInteractionListener mListener;
+    private static String LOG_TAG = "Explore Screen";
 
     public ExploreScreenFragment() {}
 
@@ -85,7 +90,53 @@ public class ExploreScreenFragment extends Fragment {
         return v;
     }
 
-//    // TODO: Rename method, update argument and hook method into UI event
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        recyclerView = (RecyclerView)v.findViewById(R.id.post_block_id_rec_view);
+        recyclerView.setHasFixedSize(true);
+
+        layoutManager = new LinearLayoutManager(context);
+        recyclerView.setLayoutManager(layoutManager);
+
+        mAdapter = new PostAdapter(context, posts);
+
+        recyclerView.setAdapter(mAdapter);
+
+        ((PostAdapter) mAdapter).setOnItemClickListener(new PostAdapter.MyClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
+               // Log.i(LOG_TAG, " Clicked on Item " + position);
+                Toast.makeText(context, "You clicked on post " + position, Toast.LENGTH_SHORT).show();
+                Fragment fragment = new BookingScreenFragment();
+                loadFragment(fragment);
+
+            }
+        });
+
+        FloatingActionButton fab = (FloatingActionButton)v.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent1 = new Intent(getActivity(), CreateNewPostScreen.class);
+                startActivity(intent1);
+
+            }
+        });
+    }
+
+    private void loadFragment(Fragment fragment) {
+        // load fragment
+
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    //    // TODO: Rename method, update argument and hook method into UI event
 //    public void onButtonPressed(Uri uri) {
 //        if (mListener != null) {
 //            mListener.onFragmentInteraction(uri);
@@ -133,6 +184,10 @@ public class ExploreScreenFragment extends Fragment {
                         p.addPicture(picSnapshot.getValue().toString());
                     }
                     posts.add(p);
+                    Bundle args = new Bundle();
+                   // Fragment fragment = new BookingScreenFragment();
+                   // loadFragment(fragment);
+
                 }
 
                 recyclerView = (RecyclerView)v.findViewById(R.id.post_block_id_rec_view);
@@ -143,7 +198,6 @@ public class ExploreScreenFragment extends Fragment {
 
                 mAdapter = new PostAdapter(context, posts);
                 recyclerView.setAdapter(mAdapter);
-
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -152,9 +206,6 @@ public class ExploreScreenFragment extends Fragment {
         });
 
     }
-
-
-//    public interface OnFragmentInteractionListener {
 //        void onFragmentInteraction(Uri uri);
 //    }
 }

@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.models.Post;
 
@@ -23,8 +24,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     private Context context;
     private ViewPagerAdapter viewPagerAdapter;
     private CircleIndicator indicator;
+    private static MyClickListener myClickListener;
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public ViewPager viewPager; // for slider
         public TextView postTitle;
@@ -41,7 +43,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             postTour = v.findViewById(R.id.explore_tour);
             postPrice = v.findViewById(R.id.explore_price_person);
             postLocation = v.findViewById(R.id.explore_location);
+            v.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            myClickListener.onItemClick(getAdapterPosition(), view);
+        }
+    }
+
+    public void setOnItemClickListener(MyClickListener myClickListener) {
+        this.myClickListener = myClickListener;
     }
 
     public PostAdapter(Context context, List postList)
@@ -65,7 +77,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         viewPagerAdapter = new ViewPagerAdapter(context, ((Post)postList.get(position)).getPictures());
         holder.viewPager.setAdapter(viewPagerAdapter);
         indicator.setViewPager(holder.viewPager);
@@ -89,4 +102,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     public int getItemCount() {
         return postList.size();
     }
+
+    public interface MyClickListener {
+        public void onItemClick(int position, View v);
+    }
+
 }
