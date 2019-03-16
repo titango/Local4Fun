@@ -1,40 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".screens.ScreenFragment.ExploreScreenFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:focusable="true"
         android:focusableInTouchMode="true"
-        android:focusable="true">
+        android:orientation="vertical">
+
         <requestFocus />
 
-        <!--<SearchView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:iconifiedByDefault="false"-->
-            <!--android:queryHint="Explore Tour"-->
-            <!--android:layout_marginBottom="10dp"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:gravity="center"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:defaultFocusHighlightEnabled="false"-->
-            <!--android:focusedByDefault="false"-->
-            <!--&gt;-->
-        <!--</SearchView>-->
+        <SearchView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:iconifiedByDefault="false"
+        android:queryHint="Explore Tour"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:defaultFocusHighlightEnabled="false"
+        android:focusedByDefault="false"
+        >
+        </SearchView>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/post_block_id_rec_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="vertical"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
             android:paddingBottom="30dp"
-            android:layout_marginBottom="20dp">
+            android:scrollbars="vertical">
 
         </android.support.v7.widget.RecyclerView>
 
@@ -42,13 +43,10 @@
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="end|bottom"
-            android:layout_marginStart="346dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginBottom="76dp"
+            android:elevation="1.0dp"
+            android:translationZ="1.0dp"
+            android:layout_marginTop="-150dp"
+            android:layout_gravity="end"
             android:backgroundTint="@color/blueLight"
             android:src="@mipmap/create_tour_round"
             app:fabSize="mini" />
