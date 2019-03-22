@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.tanthinh.local4fun.R;
@@ -13,6 +14,7 @@ public class EditProfileScreen extends AppCompatActivity {
 
     private Button updateButton;
     private TextView email, fullname, mobile, desciption;
+    private ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +25,7 @@ public class EditProfileScreen extends AppCompatActivity {
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), MainActivity.class);
-                startActivity(intent);
+                backToProfileScreen();
             }
         });
 
@@ -32,5 +33,19 @@ public class EditProfileScreen extends AppCompatActivity {
         fullname = (TextView) findViewById(R.id.user_email_text);
         mobile = (TextView) findViewById(R.id.user_phone_text);
         desciption = (TextView) findViewById(R.id.user_description_text);
+
+        back = (ImageView) findViewById(R.id.img_back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               backToProfileScreen();;
+            }
+        });
+    }
+
+    private void backToProfileScreen(){
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("isEditProfileScreen", true);
+        startActivity(intent);
     }
 }

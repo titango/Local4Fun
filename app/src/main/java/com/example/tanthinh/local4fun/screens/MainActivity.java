@@ -37,7 +37,13 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 //        toolbar.setTitle("ExploreScreen");
-        loadFragment(new ExploreScreenFragment());
+        boolean isEditProfileScreen =  getIntent().getBooleanExtra("isEditProfileScreen", false);
+        if(isEditProfileScreen){
+            loadFragment(new ProfileScreenFragment());
+        }else {
+            loadFragment(new ExploreScreenFragment());
+        }
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -63,19 +69,14 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(fragment);
                 return true;
                 case R.id.profile_screen_fragment:
-                    loadProfileScreenFragment();
+                    fragment = new ProfileScreenFragment();
+                    loadFragment(fragment);
                 return true;
             }
             return false;
         }
 
     };
-
-
-    private void loadProfileScreenFragment(){
-        Fragment fragment = new ProfileScreenFragment();
-        loadFragment(fragment);
-    }
 
     private void loadFragment(Fragment fragment) {
         // load fragment

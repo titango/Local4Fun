@@ -72,6 +72,22 @@
                     app:layout_constraintHorizontal_bias="0.498"
                     app:layout_constraintStart_toStartOf="parent" />
 
+                <ImageView
+                    android:id="@+id/img_back"
+                    android:layout_width="60dp"
+                    android:layout_height="62dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/profile_image"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:srcCompat="@drawable/ic_back" />
+
             </android.support.constraint.ConstraintLayout>
         </LinearLayout>
 
@@ -89,9 +105,8 @@
 
                     <TextView
                         android:id="@+id/username_label"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/label_width_130"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:padding="@dimen/padding20"
                         android:text="@string/email" />
 
@@ -101,7 +116,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:inputType="textPersonName" />
+                        android:inputType="textPersonName"
+                        android:padding="@dimen/padding20" />
 
                 </LinearLayout>
 
@@ -111,9 +127,8 @@
 
                     <TextView
                         android:id="@+id/user_email_label"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/label_width_130"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:padding="@dimen/padding20"
                         android:text="@string/fullname" />
 
@@ -123,7 +138,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:inputType="textPersonName" />
+                        android:inputType="textPersonName"
+                        android:padding="@dimen/padding20" />
 
                 </LinearLayout>
 
@@ -133,9 +149,8 @@
 
                     <TextView
                         android:id="@+id/user_phone_label"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/label_width_130"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:padding="@dimen/padding20"
                         android:text="@string/phone" />
 
@@ -145,7 +160,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:inputType="textPersonName" />
+                        android:inputType="textPersonName"
+                        android:padding="@dimen/padding20" />
 
                 </LinearLayout>
 
@@ -156,7 +172,7 @@
 
                     <TextView
                         android:id="@+id/user_description_label"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/label_width_130"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/padding20"
                         android:text="@string/about_us" />

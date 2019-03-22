@@ -31,9 +31,12 @@
 
         <activity android:name=".screens.MainActivity" />
         <activity android:name=".utilities.accountRegister" />
-        <activity android:name=".screens.ChangePasswordScreen" />
-        <activity android:name=".screens.BecomeHostScreen" />
-        <activity android:name=".screens.EditProfileScreen" />
+        <activity android:name=".screens.ChangePasswordScreen"
+            android:parentActivityName=".screens.MainActivity"/>
+        <activity android:name=".screens.BecomeHostScreen"
+            android:parentActivityName=".screens.MainActivity"/>
+        <activity android:name=".screens.EditProfileScreen"
+            android:parentActivityName=".screens.MainActivity"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

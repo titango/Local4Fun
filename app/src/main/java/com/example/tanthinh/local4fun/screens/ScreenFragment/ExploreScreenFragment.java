@@ -16,9 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-
 import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.adapters.PostAdapter;
 import com.example.tanthinh.local4fun.models.Post;
@@ -31,7 +28,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
@@ -66,7 +62,7 @@ public class ExploreScreenFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        v = inflater.inflate(R.layout.explore_fragment, container, false);
+        v = inflater.inflate(R.layout.fragment_explore, container, false);
 
         getPosts();
 

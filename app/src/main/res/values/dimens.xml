@@ -4,4 +4,5 @@
     <dimen name="label_length">30dp</dimen>
     <dimen name="padding30">30dp</dimen>
     <dimen name="logo_banner_height">250dp</dimen>
+    <dimen name="label_width_130">130dp</dimen>
 </resources>

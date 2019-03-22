@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -23,9 +22,9 @@ public class ProfileScreenFragment extends Fragment {
 
 
     String[] list = {"Edit Profile", "Become a host", "Contact us", "Change Password", "Sign out"};
-    int[] list_icon = {R.drawable.host_black_24dp, R.drawable.host_black_24dp,
-            R.drawable.contact_mail_black_24dp, R.drawable.change_password_black_24dp,
-            R.drawable.sign_out_black_24dp};
+    int[] list_icon = {R.drawable.ic_edit_user, R.drawable.ic_become_user,
+            R.drawable.ic_contact_us, R.drawable.ic_setting,
+            R.drawable.ic_sign_out};
 
     public ProfileScreenFragment() {
         // Required empty public constructor
@@ -46,7 +45,7 @@ public class ProfileScreenFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.profile_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         ListView listView = (ListView)view.findViewById(R.id.profile_setting);
         ProfileAdapter profileAdapter = new ProfileAdapter(view.getContext(),list,list_icon);
