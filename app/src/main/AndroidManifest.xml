@@ -19,8 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-
-        <activity android:name=".screens.CreateNewPostScreen"></activity>
+        <activity android:name=".screens.BookingDetailsScreen"></activity>
+        <activity android:name=".screens.CreateNewPostScreen" />
         <activity android:name=".screens.LoginScreen.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,15 +28,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".screens.MainActivity" />
         <activity android:name=".utilities.accountRegister" />
-        <activity android:name=".screens.ChangePasswordScreen"
-            android:parentActivityName=".screens.MainActivity"/>
-        <activity android:name=".screens.BecomeHostScreen"
-            android:parentActivityName=".screens.MainActivity"/>
-        <activity android:name=".screens.EditProfileScreen"
-            android:parentActivityName=".screens.MainActivity"/>
+        <activity
+            android:name=".screens.ChangePasswordScreen"
+            android:parentActivityName=".screens.MainActivity" />
+        <activity
+            android:name=".screens.BecomeHostScreen"
+            android:parentActivityName=".screens.MainActivity" />
+        <activity
+            android:name=".screens.EditProfileScreen"
+            android:parentActivityName=".screens.MainActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
