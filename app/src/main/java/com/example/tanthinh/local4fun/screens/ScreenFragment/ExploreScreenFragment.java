@@ -208,6 +208,7 @@ public class ExploreScreenFragment extends Fragment {
                      p = new Post(singleSnapshot.child("userId").getValue().toString(),
                             singleSnapshot.child("title").getValue().toString(),
                             singleSnapshot.child("tour").getValue().toString(),
+                            singleSnapshot.child("description").getValue().toString(),
                             Double.parseDouble(singleSnapshot.child("hours").getValue().toString()),
                             Double.parseDouble(singleSnapshot.child("pricePerPerson").getValue().toString()),
                             singleSnapshot.child("location").getValue().toString());

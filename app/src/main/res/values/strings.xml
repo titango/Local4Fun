@@ -28,8 +28,8 @@
     <string name="txtTour">Tour:</string>
     <string name="txtDuration">Duration:</string>
     <string name="txtPrice">Price:</string>
-    <string name="txtQuote">Quote:</string>
-    <string name="editTextQuote">Your quote</string>
+    <string name="txtDescription">Description:</string>
+    <string name="editTextDescription">Your description</string>
     <string name="txtMeetingPoint">Meeting Point:</string>
     <string name="editTextMeetingPoint">Address</string>
     <string name="btnCreatePost">Create a post</string>
@@ -43,26 +43,26 @@
     </string-array>
 
     <string-array name="duration">
-        <item>1 hour</item>
-        <item>1.5 hours</item>
-        <item>2 hours</item>
-        <item>2.5 hours</item>
-        <item>3 hours</item>
-        <item>3.5 hours</item>
-        <item>4 hours</item>
-        <item>4.5 hours</item>
-        <item>5 hours</item>
+        <item>1</item>
+        <item>1.5</item>
+        <item>2</item>
+        <item>2.5</item>
+        <item>3</item>
+        <item>3.5</item>
+        <item>4</item>
+        <item>4.5</item>
+        <item>5</item>
     </string-array>
 
     <string-array name="price">
-        <item>$5</item>
-        <item>$10</item>
-        <item>$15</item>
-        <item>$20</item>
-        <item>$25</item>
-        <item>$30</item>
-        <item>$35</item>
-        <item>$40</item>
-        <item>$50</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+        <item>35</item>
+        <item>40</item>
+        <item>50</item>
     </string-array>
 </resources>

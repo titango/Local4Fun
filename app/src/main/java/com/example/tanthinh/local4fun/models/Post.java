@@ -1,6 +1,10 @@
 package com.example.tanthinh.local4fun.models;
 
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Post {
 
@@ -9,18 +13,29 @@ public class Post {
     private Double hours;
     private Double pricePerPerson;
     private String tourType;
+    private String description;
     private String location;
+    public Map<String, Boolean> stars = new HashMap<>();
 
     private ArrayList<String> pictures = new ArrayList<String>();
 
-    public Post(String userId, String title, String tourType, Double hours, Double pricePerPerson, String location) {
+    public Post(){
+
+    }
+
+    public Post(String userId, String title, String tourType, String description, Double hours, Double pricePerPerson, String location ) {
         this.title = title;
         this.tourType = tourType;
+        this.description = description;
         this.userId = userId;
         this.hours = hours;
         this.pricePerPerson = pricePerPerson;
         this.location = location;
+
     }
+
+
+
     public ArrayList<String> getPictures() {
         return pictures;
     }
@@ -78,5 +93,27 @@ public class Post {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public  void setDescription(String description){
+        this.description = description;
+    }
+    public  String getDescription(){
+        return description;
+    }
+
+
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("title", title);
+        result.put("userId", userId);
+        result.put("hours", hours);
+        result.put("pricePerPerson", pricePerPerson);
+        result.put("tour", tourType);
+        result.put("description", description);
+        result.put("location", location);
+        result.put("stars", stars);
+
+        return result;
     }
 }
