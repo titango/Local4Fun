@@ -12,6 +12,7 @@ public class BecomeHostScreen extends AppCompatActivity {
 
     private ImageView back;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
