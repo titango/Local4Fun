@@ -10,9 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.adapters.ProfileAdapter;
+import com.example.tanthinh.local4fun.models.Singleton;
 import com.example.tanthinh.local4fun.screens.BecomeHostScreen;
 import com.example.tanthinh.local4fun.screens.ChangePasswordScreen;
 import com.example.tanthinh.local4fun.screens.EditProfileScreen;
@@ -25,6 +27,8 @@ public class ProfileScreenFragment extends Fragment {
     int[] list_icon = {R.drawable.ic_edit_user, R.drawable.ic_become_user,
             R.drawable.ic_contact_us, R.drawable.ic_setting,
             R.drawable.ic_sign_out};
+    private Singleton singleton;
+    private TextView user_name, user_email;
 
     public ProfileScreenFragment() {
         // Required empty public constructor
@@ -75,6 +79,7 @@ public class ProfileScreenFragment extends Fragment {
                         break;
                     case 4: //Logout
                         Intent logout = new Intent(view.getContext(), LoginActivity.class);
+                        singleton.signOutAndDestroyDatabase();
                         startActivity(logout);
                         break;
                     default:
@@ -83,7 +88,16 @@ public class ProfileScreenFragment extends Fragment {
                 }
             }
         });
+        user_name = (TextView) view.findViewById(R.id.user_name);
+        user_email = (TextView) view.findViewById(R.id.user_email);
+        singleton = Singleton.initInstance();
+        initSingleton();
         return view;
+    }
+
+    private void initSingleton() {
+        user_name.setText(singleton.loginUser.getFullname());
+        user_email.setText(singleton.loginUser.getEmail());
     }
 
     @Override
