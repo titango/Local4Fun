@@ -46,7 +46,7 @@ public class accountRegister extends AppCompatActivity {
         } else {
             pwdTV.setError(null);
         }
-        if (password.length() > 6) {
+        if (password.length() >= 6) {
             pwdTV.setError(null);
         } else {
             pwdTV.setError("At least 6 characters.");
@@ -75,6 +75,8 @@ public class accountRegister extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
+                            Toast.makeText(accountRegister.this, "Authentication success.",
+                                    Toast.LENGTH_SHORT).show();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());

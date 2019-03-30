@@ -118,7 +118,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="left"
         android:orientation="horizontal"
         android:paddingLeft="30sp"
@@ -141,6 +141,29 @@
             android:textColor="@color/colorPrimary"
             tools:layout_editor_absoluteX="190dp"
             tools:layout_editor_absoluteY="417dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/googleImg"
+            android:layout_width="150dp"
+            android:layout_height="41dp"
+            android:layout_gravity="center_vertical|center_horizontal|center"
+            android:layout_margin="10dp"
+            app:srcCompat="@drawable/googlelogin" />
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp" />
+
     </LinearLayout>
 
 </LinearLayout>
