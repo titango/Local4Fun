@@ -9,12 +9,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.tanthinh.local4fun.R;
+import com.example.tanthinh.local4fun.models.Singleton;
+import com.example.tanthinh.local4fun.models.User;
 
 public class EditProfileScreen extends AppCompatActivity {
 
     private Button updateButton;
-    private TextView email, fullname, mobile, desciption;
+    private TextView email, fullname, mobile, desciption, user_name, user_email;
     private ImageView back;
+    private Singleton singleton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +33,9 @@ public class EditProfileScreen extends AppCompatActivity {
         });
 
         email = (TextView) findViewById(R.id.user_email_text);
-        fullname = (TextView) findViewById(R.id.user_email_text);
+        fullname = (TextView) findViewById(R.id.user_name_text);
+        user_name = (TextView) findViewById(R.id.user_name);
+        user_email = (TextView) findViewById(R.id.user_email);
         mobile = (TextView) findViewById(R.id.user_phone_text);
         desciption = (TextView) findViewById(R.id.user_description_text);
 
@@ -38,9 +43,20 @@ public class EditProfileScreen extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               backToProfileScreen();;
+               backToProfileScreen();
             }
         });
+        singleton = Singleton.initInstance();
+        initSingleton();
+    }
+
+    private void initSingleton() {
+        user_name.setText(singleton.loginUser.getFullname());
+        user_email.setText(singleton.loginUser.getEmail());
+        fullname.setText(singleton.loginUser.getFullname());
+        email.setText(singleton.loginUser.getEmail());
+        desciption.setText(singleton.loginUser.getDescription());
+        mobile.setText(singleton.loginUser.getPhone());
     }
 
     private void backToProfileScreen(){

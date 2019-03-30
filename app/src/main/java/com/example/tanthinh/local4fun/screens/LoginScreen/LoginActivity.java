@@ -18,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tanthinh.local4fun.R;
+import com.example.tanthinh.local4fun.models.Singleton;
+import com.example.tanthinh.local4fun.models.User;
 import com.example.tanthinh.local4fun.utilities.Config;
 import com.example.tanthinh.local4fun.utilities.accountRegister;
 import com.example.tanthinh.local4fun.screens.MainActivity;
@@ -30,6 +32,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private FirebaseAuth mAuth;
     public String TAG = "MainActivity";
     EditText loginEmail, loginPwd;
+    private Singleton singleton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +55,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         bgDrawable.setAlpha(20);
 
 //        Config.changeStatusBarColor(this, R.color.colorPrimary);
-
+        singleton = Singleton.initInstance();
     }
 
     private void moveToMainActivity(){
@@ -79,6 +83,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Log.d(TAG, "signInWithEmail:success");
                             Toast.makeText(LoginActivity.this, "login success.",
                                     Toast.LENGTH_SHORT).show();
+
+
+                            initSingleton();
+
                             moveToMainActivity();
                         } else {
                             // If sign in fails, display a message to the user.
@@ -87,6 +95,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
+
                 });
     }
 
@@ -139,5 +148,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             default:
                 break;
         }
+    }
+
+
+    private void initSingleton() {
+        singleton.loginUser = new User("Phi Hung Cao","caophihung8392@gmail.com",
+                "2368887070", "This is a description");
+        singleton.loginUser.setPassword("test");
     }
 }

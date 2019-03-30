@@ -99,66 +99,59 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-                <LinearLayout
+
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding20"
+                    android:text="@string/host_des" />
 
-                    <TextView
-                        android:id="@+id/pass_label"
-                        android:layout_width="@dimen/label_width_130"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/padding20"
-                        android:text="@string/current_password" />
-
-                    <EditText
-                        android:id="@+id/current_password_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPassword"
-                        android:padding="@dimen/padding20" />
-
-                </LinearLayout>
-
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding20"
+                    android:text="@string/host_des_label" />
 
-                    <TextView
-                        android:id="@+id/user_email_label"
-                        android:layout_width="@dimen/label_width_130"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/padding20"
-                        android:text="@string/new_password" />
-
-                    <EditText
-                        android:id="@+id/new_password_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPassword" />
-
-                </LinearLayout>
-
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding20"
+                    android:text="@string/question1" />
 
-                    <TextView
-                        android:id="@+id/user_phone_label"
-                        android:layout_width="@dimen/label_width_130"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/padding20"
-                        android:text="@string/confirm_password" />
+                <EditText
+                    android:id="@+id/question1_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="top"
+                    android:inputType="text|textMultiLine"
+                    android:padding="@dimen/padding20" />
 
-                    <EditText
-                        android:id="@+id/confirm_password_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPassword" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding20"
+                    android:text="@string/question2" />
 
-                </LinearLayout>
+                <EditText
+                    android:id="@+id/question2_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="top"
+                    android:inputType="text|textMultiLine" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding20"
+                    android:text="@string/question3" />
+
+                <com.androidbuts.multispinnerfilter.MultiSpinner
+                    android:id="@+id/simpleMultiSpinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:visibility="gone"
+                    app:hintText="Multi Selection" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

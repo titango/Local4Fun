@@ -9,11 +9,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.tanthinh.local4fun.R;
+import com.example.tanthinh.local4fun.models.Singleton;
+
 public class ChangePasswordScreen extends AppCompatActivity {
 
     private Button changePasswordButton;
-    private TextView currentPassword, newPassword, confirmPassword;
+    private TextView currentPassword, newPassword, confirmPassword, user_name, user_email;
     private ImageView back;
+    private Singleton singleton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,7 @@ public class ChangePasswordScreen extends AppCompatActivity {
         changePasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                updatePassword();
                backToProfileScreen();
             }
         });
@@ -31,6 +35,8 @@ public class ChangePasswordScreen extends AppCompatActivity {
         currentPassword = (TextView) findViewById(R.id.current_password_text);
         newPassword = (TextView) findViewById(R.id.new_password_text);
         confirmPassword = (TextView) findViewById(R.id.confirm_password_text);
+        user_name = (TextView) findViewById(R.id.user_name);
+        user_email = (TextView) findViewById(R.id.user_email);
 
         back = (ImageView) findViewById(R.id.img_back);
         back.setOnClickListener(new View.OnClickListener() {
@@ -39,6 +45,24 @@ public class ChangePasswordScreen extends AppCompatActivity {
                 backToProfileScreen();
             }
         });
+        singleton = Singleton.initInstance();
+        initSingleton();
+    }
+
+    private void updatePassword() {
+        boolean checkCurrentPassword = singleton.loginUser.comparePassword(currentPassword.getText().toString());
+        if(checkCurrentPassword){
+            String newPass = newPassword.getText().toString();
+            String comfirmNewPass = confirmPassword.getText().toString();
+            if(newPass.equals(comfirmNewPass)) {
+                singleton.loginUser.setPassword(newPass);
+            }
+        }
+    }
+
+    private void initSingleton() {
+        user_name.setText(singleton.loginUser.getFullname());
+        user_email.setText(singleton.loginUser.getEmail());
     }
 
     private void backToProfileScreen(){
