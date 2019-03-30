@@ -12,11 +12,25 @@ import android.widget.TextView;
 import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.adapters.ViewPagerAdapter;
 import com.example.tanthinh.local4fun.models.Post;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 
 import me.relex.circleindicator.CircleIndicator;
 
-public class PostDetailsScreen extends AppCompatActivity {
+public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCallback {
+
+    //GOOGLE MAP
+    GoogleMap mMap;
+    Marker marker;
+    String location;
+    LatLng ll;
 
     private ViewPagerAdapter viewPagerAdapter;
     public ViewPager viewPager; // for slider
@@ -44,7 +58,15 @@ public class PostDetailsScreen extends AppCompatActivity {
         String postString = (String)initIntent.getExtras().get("postObject");
         Gson gson = new Gson();
         Post curPost = gson.fromJson(postString, Post.class);
-        Log.w("CurPost", curPost.getUserId());
+//        Log.w("CurPost", curPost.getUserId());
+
+        ll = initIntent.getParcelableExtra("latLon");
+        location = (String) initIntent.getSerializableExtra("desc");
+
+        SupportMapFragment mapFrag = (SupportMapFragment)
+                getSupportFragmentManager().
+                        findFragmentById(R.id.map);
+        mapFrag.getMapAsync(this);
 
         viewPager = findViewById(R.id.viewPager);
         postTitle = findViewById(R.id.explore_post_title);
@@ -73,5 +95,26 @@ public class PostDetailsScreen extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        this.mMap = googleMap;
+        if (ll != null) {
+
+
+            CameraUpdate update = CameraUpdateFactory.newLatLngZoom(ll, 15);
+            mMap.moveCamera(update);
+            // Add a marker for location/description sent from MainActivity
+            if(marker != null){
+                marker.remove();
+            }
+            MarkerOptions markerOptions = new MarkerOptions()
+                    .title(location)
+                    .position(ll);
+            marker = mMap.addMarker(markerOptions);
+            //  mMap.addMarker(new MarkerOptions().position(ll));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(ll));
+        }
     }
 }

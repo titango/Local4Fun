@@ -8,13 +8,17 @@
     <string name="Login_page_password">Password:</string>
     <string name="login_page_forgotPwd"><u>Forgot password?</u></string>
     <string name="login_page_register_label">Don\'t have an account?</string>
-    <string name="login_page_register_text"><u>Register here</u></string>
+    <string name="login_page_register_text">  <u>Register here</u></string>
     <string name="login_page_signInBtn">Sign in</string>
     <string name="title_activity_acount_register">acountRegister</string>
     <string name="register_email_label">Email:</string>
     <string name="register_pwd_label">Password:</string>
     <string name="register_repeatPwd_label">Confirm Password:</string>
-    <string name="register_btn_name">Register</string>
+    <string name="register_have_password_label">Already a member?</string>
+    <string name="register_login_label">   <u>Login</u></string>
+    <string name="register_btn_name">CTEATE ACCOUNT</string>
+    <string name="facebook_app_id">386979122101007</string>
+    <string name="fb_login_protocol_scheme">fb386979122101007</string>
     <string name="email">Email</string>
     <string name="fullname">Fullname</string>
     <string name="phone">Phone</string>
@@ -28,11 +32,20 @@
     <string name="txtTour">Tour:</string>
     <string name="txtDuration">Duration:</string>
     <string name="txtPrice">Price:</string>
-    <string name="txtQuote">Quote:</string>
-    <string name="editTextQuote">Your quote</string>
+    <string name="txtDescription">Description:</string>
+    <string name="editTextDescription">Your description</string>
     <string name="txtMeetingPoint">Meeting Point:</string>
     <string name="editTextMeetingPoint">Address</string>
     <string name="btnCreatePost">Create a post</string>
+
+    <string name="txtImages">Images:</string>
+    <string name="host_des">Dear Tan</string>
+    <string name="host_des_label">Wellcome to Local4fun family. Please answer below question and we will get back to you as soon as possible
+    </string>
+    <string name="question1">1. Why do you want to become a host? </string>
+    <string name="question2">2. Do you have any experience for this position? </string>
+    <string name="question3">3. Please choose your language: </string>
+
     <string-array name="tourTypes">
         <item>City tour</item>
         <item>Food tour</item>
@@ -43,27 +56,34 @@
     </string-array>
 
     <string-array name="duration">
-        <item>1 hour</item>
-        <item>1.5 hours</item>
-        <item>2 hours</item>
-        <item>2.5 hours</item>
-        <item>3 hours</item>
-        <item>3.5 hours</item>
-        <item>4 hours</item>
-        <item>4.5 hours</item>
-        <item>5 hours</item>
+        <item>1</item>
+        <item>1.5</item>
+        <item>2</item>
+        <item>2.5</item>
+        <item>3</item>
+        <item>3.5</item>
+        <item>4</item>
+        <item>4.5</item>
+        <item>5</item>
     </string-array>
 
     <string-array name="price">
-        <item>$5</item>
-        <item>$10</item>
-        <item>$15</item>
-        <item>$20</item>
-        <item>$25</item>
-        <item>$30</item>
-        <item>$35</item>
-        <item>$40</item>
-        <item>$50</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+        <item>35</item>
+        <item>40</item>
+        <item>50</item>
+    </string-array>
+
+    <string-array name="lang">
+        <item>English - (EN)</item>
+        <item>Francais - (FR)</item>
+        <item>VietNam - (VN)</item>
+        <item>Spanish - (SP)</item>
     </string-array>
 
     <!--POST DETAILS-->

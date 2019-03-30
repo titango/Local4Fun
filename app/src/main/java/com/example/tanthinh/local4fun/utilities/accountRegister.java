@@ -1,5 +1,6 @@
 package com.example.tanthinh.local4fun.utilities;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.tanthinh.local4fun.R;
+import com.example.tanthinh.local4fun.screens.LoginScreen.LoginActivity;
+import com.example.tanthinh.local4fun.screens.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -46,7 +49,7 @@ public class accountRegister extends AppCompatActivity {
         } else {
             pwdTV.setError(null);
         }
-        if (password.length() > 6) {
+        if (password.length() >= 6) {
             pwdTV.setError(null);
         } else {
             pwdTV.setError("At least 6 characters.");
@@ -75,6 +78,8 @@ public class accountRegister extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
+                            Toast.makeText(accountRegister.this, "Authentication success.",
+                                    Toast.LENGTH_SHORT).show();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -88,5 +93,9 @@ public class accountRegister extends AppCompatActivity {
     public void register(View view){
         createAccount(emailTV.getText().toString(), pwdTV.getText().toString());
 
+    }
+    public void login(View view){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 }

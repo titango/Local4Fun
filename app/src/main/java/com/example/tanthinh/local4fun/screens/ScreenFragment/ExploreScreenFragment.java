@@ -2,6 +2,8 @@ package com.example.tanthinh.local4fun.screens.ScreenFragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,22 +16,31 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.adapters.PostAdapter;
 import com.example.tanthinh.local4fun.models.Post;
+import com.example.tanthinh.local4fun.screens.BookingDetailsScreen;
 import com.example.tanthinh.local4fun.screens.CreateNewPostScreen;
+
 import com.example.tanthinh.local4fun.screens.PostDetailsScreen;
+
+import com.google.android.gms.maps.model.LatLng;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
@@ -50,6 +61,7 @@ public class ExploreScreenFragment extends Fragment {
     private Context context;
     private ArrayList<Post> posts = new ArrayList<Post>();
     View v;
+    Post p;
 
     private static String LOG_TAG = "Explore Screen";
 
@@ -111,15 +123,41 @@ public class ExploreScreenFragment extends Fragment {
                 Gson gson = new Gson();
                 String postString = gson.toJson(posts.get(position), Post.class);
 
-                Intent pdsIntent = new Intent(getActivity(), PostDetailsScreen.class);
-                pdsIntent.putExtra("postObject", postString);
-                startActivity(pdsIntent);
+                String location = posts.get(position).getLocation();
+
+                if (location == null || location.equals("")) {
+                    //Toast.makeText(this, "Please enter a meeting point", Toast.LENGTH_SHORT).show();
+
+                } else {
+
+                    Geocoder geocoder = new Geocoder(getContext());
+                    List<Address> list = null;
+                    try {
+                        list = geocoder.getFromLocationName(location, 1);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    //List<Address> list = geocoder.getFromLocationName(loc, 1);
+                    Address add = list.get(0);
+                    //String locality = add.getLocality();
+                    LatLng ll = new LatLng(add.getLatitude(), add.getLongitude());
+
+                    Bundle args = new Bundle();
+                    args.putParcelable("latLon", ll);
+                    args.putSerializable("desc", location);
+
+                    Intent pdsIntent = new Intent(getActivity(), PostDetailsScreen.class);
+                    pdsIntent.putExtra("postObject", postString);
+                    pdsIntent.putExtras(args);
+                    startActivity(pdsIntent);
+                }
+
 
                 //NOT SHOWING BOOKING SCREEN FRAGMENT
 //                Fragment fragment = new BookingScreenFragment();
 //                loadFragment(fragment);
-
             }
+
         });
 
         FloatingActionButton fab = (FloatingActionButton)v.findViewById(R.id.fab);
@@ -177,22 +215,23 @@ public class ExploreScreenFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+
                 for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
 
-                    Post p = new Post(singleSnapshot.child("userId").getValue().toString(),
+
+                     p = new Post(singleSnapshot.child("userId").getValue().toString(),
                             singleSnapshot.child("title").getValue().toString(),
                             singleSnapshot.child("tour").getValue().toString(),
+                            singleSnapshot.child("description").getValue().toString(),
                             Double.parseDouble(singleSnapshot.child("hours").getValue().toString()),
                             Double.parseDouble(singleSnapshot.child("pricePerPerson").getValue().toString()),
                             singleSnapshot.child("location").getValue().toString());
+
 
                     for(DataSnapshot picSnapshot : singleSnapshot.child("pictures/addresses").getChildren()){
                         p.addPicture(picSnapshot.getValue().toString());
                     }
                     posts.add(p);
-                    Bundle args = new Bundle();
-                   // Fragment fragment = new BookingScreenFragment();
-                   // loadFragment(fragment);
 
                 }
 
@@ -214,4 +253,5 @@ public class ExploreScreenFragment extends Fragment {
     }
 //        void onFragmentInteraction(Uri uri);
 //    }
+
 }
