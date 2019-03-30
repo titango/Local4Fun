@@ -23,21 +23,27 @@ import java.lang.reflect.Field;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ActionBar toolbar;
+//    private ActionBar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolbar = getSupportActionBar();
+//        toolbar = getSupportActionBar();
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         disableShiftMode(navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        toolbar.setTitle("ExploreScreen");
-        loadFragment(new ExploreScreenFragment());
+//        toolbar.setTitle("ExploreScreen");
+        boolean isEditProfileScreen =  getIntent().getBooleanExtra("isEditProfileScreen", false);
+        if(isEditProfileScreen){
+            loadFragment(new ProfileScreenFragment());
+        }else {
+            loadFragment(new ExploreScreenFragment());
+        }
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -48,22 +54,21 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.explore_screen_fragment:
-                    toolbar.setTitle("ExploreScreen");
+//                    toolbar.setTitle("ExploreScreen");
                     fragment = new ExploreScreenFragment();
                     loadFragment(fragment);
                 return true;
                 case R.id.booking_screen_fragment:
-                    toolbar.setTitle("BookingScreen");
+//                    toolbar.setTitle("BookingScreen");
                     fragment = new BookingScreenFragment();
                     loadFragment(fragment);
                 return true;
                 case R.id.message_screen_fragment:
-                    toolbar.setTitle("MessageScreen");
+//                    toolbar.setTitle("MessageScreen");
                     fragment = new MessageScreenFragment();
                     loadFragment(fragment);
                 return true;
                 case R.id.profile_screen_fragment:
-                    toolbar.setTitle("Profile");
                     fragment = new ProfileScreenFragment();
                     loadFragment(fragment);
                 return true;

@@ -4,25 +4,26 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.tanthinh.local4fun.R;
-import com.example.tanthinh.local4fun.models.Post;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import static android.content.ContentValues.TAG;
+import com.example.tanthinh.local4fun.models.Booking;
+import com.example.tanthinh.local4fun.models.Post;
+
+import com.example.tanthinh.local4fun.adapters.PostAdapter;
+import com.example.tanthinh.local4fun.services.FireBaseAPI;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,11 +33,28 @@ import static android.content.ContentValues.TAG;
  * Use the {@link BookingScreenFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BookingScreenFragment extends Fragment {
+public class BookingScreenFragment extends Fragment implements OnMapReadyCallback{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private static RecyclerView recyclerView;
+    //private RecyclerView.Adapter mAdapter;
+    private static RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private static Context context;
+    private ArrayList<Post> posts = new ArrayList<Post>();
+    View v;
+    public static ArrayList<Booking> bookings = new ArrayList<Booking>();
+
+
+
+    GoogleMap mMap;
+    Marker marker;
+    String location;
+    LatLng ll;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -84,10 +102,61 @@ public class BookingScreenFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.booking_fragment, container, false);
+        v = inflater.inflate(R.layout.fragment_booking, container, false);
+//        SupportMapFragment mapFrag = (SupportMapFragment)
+//                getFragmentManager().
+//                        findFragmentById(R.id.map);
+//        mapFrag.getMapAsync(BookingScreenFragment.this);
+
+
+        // Post p = (Post) getArguments().getParcelableArrayList("post");
+        //   posts.add(p);
+
+        //    Bundle args = getArguments();
+        ///    if (args  != null && args.containsKey("myPost")){
+        //        posts = getArguments().getParcelableArrayList("myPost");
+
+        //  }
+
+
+
+        getBookings();
+
+        recyclerView = (RecyclerView) v.findViewById(R.id.post_block);
+        recyclerView.setHasFixedSize(true);
+
+        layoutManager = new LinearLayoutManager(context);
+        recyclerView.setLayoutManager(layoutManager);
+
+        mAdapter = new PostAdapter(context, posts);
+
+        recyclerView.setAdapter(mAdapter);
+
+        this.context = getActivity();
+
+
+
+        return v;
     }
 
-//    // TODO: Rename method, update argument and hook method into UI event
+    public static void getBookings(){
+        bookings = new ArrayList<>();
+        FireBaseAPI.getBookings("user");
+    }
+
+    public static void refreshUI(){
+        mAdapter = new PostAdapter(context, bookings);
+        recyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+    }
+
+    //    // TODO: Rename method, update argument and hook method into UI event
 //    public void onButtonPressed(Uri uri) {
 //        if (mListener != null) {
 //            mListener.onFragmentInteraction(uri);
@@ -105,11 +174,19 @@ public class BookingScreenFragment extends Fragment {
 //        }
     }
 
+
     @Override
     public void onDetach() {
         super.onDetach();
 //        mListener = null;
     }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this
