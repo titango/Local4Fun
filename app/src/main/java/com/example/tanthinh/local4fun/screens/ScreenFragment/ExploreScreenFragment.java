@@ -2,6 +2,8 @@ package com.example.tanthinh.local4fun.screens.ScreenFragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,12 +16,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.adapters.PostAdapter;
 import com.example.tanthinh.local4fun.models.Post;
+import com.example.tanthinh.local4fun.screens.BookingDetailsScreen;
 import com.example.tanthinh.local4fun.screens.CreateNewPostScreen;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +32,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
@@ -48,6 +55,7 @@ public class ExploreScreenFragment extends Fragment {
     private Context context;
     private ArrayList<Post> posts = new ArrayList<Post>();
     View v;
+    Post p;
 
     private static String LOG_TAG = "Explore Screen";
 
@@ -105,10 +113,38 @@ public class ExploreScreenFragment extends Fragment {
             public void onItemClick(int position, View v) {
                // Log.i(LOG_TAG, " Clicked on Item " + position);
                 Toast.makeText(context, "You clicked on post " + position, Toast.LENGTH_SHORT).show();
-                Fragment fragment = new BookingScreenFragment();
-                loadFragment(fragment);
 
+                String location = posts.get(position).getLocation();
+
+                if (location == null || location.equals("")) {
+                    //Toast.makeText(this, "Please enter a meeting point", Toast.LENGTH_SHORT).show();
+
+                } else {
+
+
+                    Geocoder geocoder = new Geocoder(getContext());
+                    List<Address> list = null;
+                    try {
+                        list = geocoder.getFromLocationName(location, 1);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    //List<Address> list = geocoder.getFromLocationName(loc, 1);
+                    Address add = list.get(0);
+                    //String locality = add.getLocality();
+                    LatLng ll = new LatLng(add.getLatitude(), add.getLongitude());
+
+                    Bundle args = new Bundle();
+                    args.putParcelable("latLon", ll);
+                    args.putSerializable("desc", location);
+
+                    Intent i = new Intent(getActivity(), BookingDetailsScreen.class);
+                    i.putExtras(args);
+                    startActivity(i);
+
+                }
             }
+
         });
 
         FloatingActionButton fab = (FloatingActionButton)v.findViewById(R.id.fab);
@@ -169,7 +205,7 @@ public class ExploreScreenFragment extends Fragment {
 
                 for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
 
-                    Post p = new Post(singleSnapshot.child("userId").getValue().toString(),
+                     p = new Post(singleSnapshot.child("userId").getValue().toString(),
                             singleSnapshot.child("title").getValue().toString(),
                             singleSnapshot.child("tour").getValue().toString(),
                             Double.parseDouble(singleSnapshot.child("hours").getValue().toString()),
@@ -180,9 +216,6 @@ public class ExploreScreenFragment extends Fragment {
                         p.addPicture(picSnapshot.getValue().toString());
                     }
                     posts.add(p);
-                    Bundle args = new Bundle();
-                   // Fragment fragment = new BookingScreenFragment();
-                   // loadFragment(fragment);
 
                 }
 
@@ -204,4 +237,5 @@ public class ExploreScreenFragment extends Fragment {
     }
 //        void onFragmentInteraction(Uri uri);
 //    }
+
 }
