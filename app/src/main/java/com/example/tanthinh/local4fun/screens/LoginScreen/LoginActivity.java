@@ -153,7 +153,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void initSingleton() {
         singleton.loginUser = new User("Phi Hung Cao","caophihung8392@gmail.com",
-                "2368887070", "This is a description");
+                "2368887070", "This is a description","This is a description" );
         singleton.loginUser.setPassword("test");
     }
 }

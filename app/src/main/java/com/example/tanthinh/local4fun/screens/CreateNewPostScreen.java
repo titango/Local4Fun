@@ -287,11 +287,11 @@ public class CreateNewPostScreen extends AppCompatActivity {
 //
 //    }
 
-    private void writeNewUser(String userId, String name, String email) {
-        User user = new User(name, email);
-
-        mFirebaseDatabase.child("users").child(userId).setValue(user);
-    }
+//    private void writeNewUser(String userId, String name, String email) {
+//        User user = new User(name, email);
+//
+//        mFirebaseDatabase.child("users").child(userId).setValue(user);
+//    }
 
 
     private void alertDialog() {
