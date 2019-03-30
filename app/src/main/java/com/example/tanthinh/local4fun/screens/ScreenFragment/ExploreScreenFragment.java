@@ -20,12 +20,14 @@ import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.adapters.PostAdapter;
 import com.example.tanthinh.local4fun.models.Post;
 import com.example.tanthinh.local4fun.screens.CreateNewPostScreen;
+import com.example.tanthinh.local4fun.screens.PostDetailsScreen;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -105,8 +107,17 @@ public class ExploreScreenFragment extends Fragment {
             public void onItemClick(int position, View v) {
                // Log.i(LOG_TAG, " Clicked on Item " + position);
                 Toast.makeText(context, "You clicked on post " + position, Toast.LENGTH_SHORT).show();
-                Fragment fragment = new BookingScreenFragment();
-                loadFragment(fragment);
+
+                Gson gson = new Gson();
+                String postString = gson.toJson(posts.get(position), Post.class);
+
+                Intent pdsIntent = new Intent(getActivity(), PostDetailsScreen.class);
+                pdsIntent.putExtra("postObject", postString);
+                startActivity(pdsIntent);
+
+                //NOT SHOWING BOOKING SCREEN FRAGMENT
+//                Fragment fragment = new BookingScreenFragment();
+//                loadFragment(fragment);
 
             }
         });
@@ -160,7 +171,6 @@ public class ExploreScreenFragment extends Fragment {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();
-
 
         Query phoneQuery = myRef.child("posts");
         phoneQuery.addListenerForSingleValueEvent(new ValueEventListener() {

@@ -65,4 +65,12 @@
         <item>$40</item>
         <item>$50</item>
     </string-array>
+
+    <!--POST DETAILS-->
+    <string name="summary_heading">SUMMARY</string>
+    <string name="plan_heading">PLAN</string>
+    <string name="information_heading">INFORMATION</string>
+    <string name="reviews_heading">REVIEWS</string>
+    <string name="back">BACK</string>
+    <string name="book_now">BOOK NOW</string>
 </resources>

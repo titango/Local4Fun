@@ -23,14 +23,6 @@ import com.google.android.gms.maps.model.Marker;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link BookingScreenFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link BookingScreenFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class BookingScreenFragment extends Fragment implements OnMapReadyCallback{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -116,17 +108,17 @@ public class BookingScreenFragment extends Fragment implements OnMapReadyCallbac
         //  }
 
 
-        recyclerView = (RecyclerView) v.findViewById(R.id.post_block);
-        recyclerView.setHasFixedSize(true);
+//        recyclerView = (RecyclerView) v.findViewById(R.id.post_block);
+//        recyclerView.setHasFixedSize(true);
 
-        layoutManager = new LinearLayoutManager(context);
-        recyclerView.setLayoutManager(layoutManager);
-
-        mAdapter = new PostAdapter(context, posts);
-
-        recyclerView.setAdapter(mAdapter);
-
-        this.context = getActivity();
+//        layoutManager = new LinearLayoutManager(context);
+//        recyclerView.setLayoutManager(layoutManager);
+//
+//        mAdapter = new PostAdapter(context, posts);
+//
+//        recyclerView.setAdapter(mAdapter);
+//
+//        this.context = getActivity();
 
 
 
