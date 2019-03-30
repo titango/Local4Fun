@@ -145,13 +145,10 @@
                     android:padding="@dimen/padding20"
                     android:text="@string/question3" />
 
-                <com.androidbuts.multispinnerfilter.MultiSpinner
-                    android:id="@+id/simpleMultiSpinner"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:visibility="gone"
-                    app:hintText="Multi Selection" />
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

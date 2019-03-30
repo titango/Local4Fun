@@ -1,9 +1,11 @@
 package com.example.tanthinh.local4fun.screens;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -18,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class BecomeHostScreen extends AppCompatActivity {
+public class BecomeHostScreen extends Activity {
 
     private ImageView back;
     private Singleton singleton;
@@ -39,18 +41,17 @@ public class BecomeHostScreen extends AppCompatActivity {
         user_name = (TextView) findViewById(R.id.user_name);
         user_email = (TextView) findViewById(R.id.user_email);
 
-//        final List<String> list = Arrays.asList(getResources().getStringArray(R.array.lang));
-//
-//        MultiSpinner simpleSpinner = (MultiSpinner) findViewById(R.id.simpleMultiSpinner);
-//
-//        simpleSpinner.setItems(list, new MultiSpinnerListener() {
-//            @Override
-//            public void onItemsSelected(boolean[] selected) {
-//            }
-//        });
-//
-//        singleton = Singleton.initInstance();
-//        initSingleton();
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.lang, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+
+        singleton = Singleton.initInstance();
+        initSingleton();
     }
 
     private void backToProfileScreen(){
@@ -63,4 +64,5 @@ public class BecomeHostScreen extends AppCompatActivity {
         user_name.setText(singleton.loginUser.getFullname());
         user_email.setText(singleton.loginUser.getEmail());
     }
+
 }
