@@ -19,11 +19,10 @@ public class Post {
 
     private ArrayList<String> pictures = new ArrayList<String>();
 
-    public Post(){
 
-    }
 
-    public Post(String userId, String title, String tourType, String description, Double hours, Double pricePerPerson, String location ) {
+    public Post(String userId, String title, String tourType, String description, Double hours, Double pricePerPerson,
+                String location ) {
         this.title = title;
         this.tourType = tourType;
         this.description = description;
@@ -40,8 +39,8 @@ public class Post {
         return pictures;
     }
     public void addPicture(String path){
-        pictures.add(path);
-    }
+       pictures.add(path);
+   }
 
     public String getTitle() {
         return title;

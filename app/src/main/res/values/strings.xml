@@ -33,6 +33,7 @@
     <string name="txtMeetingPoint">Meeting Point:</string>
     <string name="editTextMeetingPoint">Address</string>
     <string name="btnCreatePost">Create a post</string>
+    <string name="txtImages">Images:</string>
     <string-array name="tourTypes">
         <item>City tour</item>
         <item>Food tour</item>

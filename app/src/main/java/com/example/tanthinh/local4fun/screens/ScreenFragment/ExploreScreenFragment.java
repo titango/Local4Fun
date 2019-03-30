@@ -29,6 +29,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
@@ -203,7 +204,9 @@ public class ExploreScreenFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+
                 for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
+
 
                      p = new Post(singleSnapshot.child("userId").getValue().toString(),
                             singleSnapshot.child("title").getValue().toString(),
@@ -212,6 +215,7 @@ public class ExploreScreenFragment extends Fragment {
                             Double.parseDouble(singleSnapshot.child("hours").getValue().toString()),
                             Double.parseDouble(singleSnapshot.child("pricePerPerson").getValue().toString()),
                             singleSnapshot.child("location").getValue().toString());
+
 
                     for(DataSnapshot picSnapshot : singleSnapshot.child("pictures/addresses").getChildren()){
                         p.addPicture(picSnapshot.getValue().toString());
