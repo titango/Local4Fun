@@ -109,16 +109,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if (task.isSuccessful() || true) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
-                            Toast.makeText(LoginActivity.this, "login success.",
-                                    Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(LoginActivity.this, "login success.",Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
                             User loginUser = new User(user.getDisplayName(),user.getEmail(), user.getPhoneNumber(), "","");
                             moveToMainActivity(loginUser);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(LoginActivity.this, "Authentication failed.",Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -188,7 +186,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
             }
+        }else {
+            mCallbackManager.onActivityResult(requestCode, resultCode, data);
         }
+
+                // Pass the activity result back to the Facebook SDK
+        //mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
@@ -227,6 +230,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
+                FirebaseUser user = mAuth.getCurrentUser();
+                User loginUser = new User(user.getDisplayName(),user.getEmail(), user.getPhoneNumber(), "","");
+                moveToMainActivity(loginUser);
             }
 
             @Override
@@ -261,9 +267,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            User loginUser = new User(user.getDisplayName(),user.getEmail(), user.getPhoneNumber(), "","");
-                            moveToMainActivity(loginUser);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
