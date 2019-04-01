@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tanthinh.local4fun.BuildConfig;
 import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.models.Singleton;
 import com.example.tanthinh.local4fun.models.User;
@@ -30,6 +31,7 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.LoggingBehavior;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -195,6 +197,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Log.w(TAG, "Google sign in failed" + e.getMessage().toString());
             }
         }
+        if(FacebookSdk.isFacebookRequestCode(requestCode)){
+            mCallbackManager.onActivityResult(requestCode, resultCode, data);
+        }
     }
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
@@ -224,6 +229,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     //facebook login begin
     private void facebookLogin(){
         FacebookSdk.sdkInitialize(getApplicationContext());
+        if (BuildConfig.DEBUG) {
+            FacebookSdk.setIsDebugEnabled(true);
+            FacebookSdk.addLoggingBehavior(LoggingBehavior.INCLUDE_ACCESS_TOKENS);
+        }
         AppEventsLogger.activateApp(this);
         mCallbackManager = CallbackManager.Factory.create();
         LoginButton facebookImg = findViewById(R.id.login_button);

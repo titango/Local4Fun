@@ -169,10 +169,12 @@ public class FireBaseAPI {
                 String id = "";
                 for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
                     User u = singleSnapshot.getValue(User.class);
-                    if(email.equals(u.getEmail()))
-                    {
-                        LoginActivity.loginUser.setId(u.getId());
-                        id = u.getId();
+                    if (email!= null){
+                        if(email.equals(u.getEmail()))
+                        {
+                            LoginActivity.loginUser.setId(u.getId());
+                            id = u.getId();
+                        }
                     }
 
                 }
