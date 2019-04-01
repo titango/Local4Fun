@@ -1,15 +1,11 @@
 package com.example.tanthinh.local4fun.models;
 
-import com.google.firebase.auth.FirebaseUser;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class    Post {
 
 
-    private String postId;
+    private String id;
     private String title;
     private String userId;
     private Double hours;
@@ -36,7 +32,7 @@ public class    Post {
     }
 
     public Post(String postId, String userId, String title,  String tourType,String description, Double hours, Double pricePerPerson,  String location, ArrayList<String> pictures) {
-        this.postId = postId;
+        this.id = postId;
         this.title = title;
         this.userId = userId;
         this.hours = hours;
@@ -58,12 +54,12 @@ public class    Post {
     public ArrayList<String> getPictures() {
         return pictures;
     }
-    public String getPostId() {
-        return postId;
+    public String getId() {
+        return id;
     }
 
-    public void setPostId(String postId) {
-        this.postId = postId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getDescription() {

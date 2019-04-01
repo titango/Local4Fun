@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.models.Singleton;
 import com.example.tanthinh.local4fun.models.User;
+import com.example.tanthinh.local4fun.services.FireBaseAPI;
 import com.example.tanthinh.local4fun.utilities.Config;
 import com.example.tanthinh.local4fun.utilities.accountRegister;
 import com.example.tanthinh.local4fun.screens.MainActivity;
@@ -54,6 +55,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final int RC_SIGN_IN = 9001;
     private CallbackManager mCallbackManager;
     private Singleton singleton;
+    public static  User loginUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +114,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Toast.makeText(LoginActivity.this, "login success.",
                                     Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
-                            User loginUser = new User(user.getDisplayName(),user.getEmail(), user.getPhoneNumber(), "","");
+
+                            loginUser = new User(user.getDisplayName(),user.getEmail(), user.getPhoneNumber(), "","");
+
+                            FireBaseAPI.getUserAddIfDoesNotExist(user.getEmail());
+
                             moveToMainActivity(loginUser);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -202,7 +208,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            User loginUser = new User(user.getDisplayName(),user.getEmail(), user.getPhoneNumber(), "","");
+                            loginUser = new User(user.getDisplayName(),user.getEmail(), user.getPhoneNumber(), "","");
+                            FireBaseAPI.getUserAddIfDoesNotExist(user.getEmail());
                             moveToMainActivity(loginUser);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -262,7 +269,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            User loginUser = new User(user.getDisplayName(),user.getEmail(), user.getPhoneNumber(), "","");
+                            loginUser = new User(user.getDisplayName(),user.getEmail(), user.getPhoneNumber(), "","");
+                            FireBaseAPI.getUserAddIfDoesNotExist(user.getEmail());
                             moveToMainActivity(loginUser);
                         } else {
                             // If sign in fails, display a message to the user.

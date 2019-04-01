@@ -13,6 +13,8 @@ import com.android.volley.toolbox.Volley;
 import com.example.tanthinh.local4fun.intefaces.FireBaseResponse;
 import com.example.tanthinh.local4fun.models.Booking;
 import com.example.tanthinh.local4fun.models.Post;
+import com.example.tanthinh.local4fun.models.User;
+import com.example.tanthinh.local4fun.screens.LoginScreen.LoginActivity;
 import com.example.tanthinh.local4fun.screens.ScreenFragment.BookingScreenFragment;
 import com.example.tanthinh.local4fun.screens.ScreenFragment.ExploreScreenFragment;
 import com.google.firebase.database.DataSnapshot;
@@ -102,7 +104,7 @@ public class FireBaseAPI {
 
     public static String insertPost(Post p){
         String id = myRef.child("Post").push().getKey();
-        p.setPostId(id);
+        p.setId(id);
 
         /*
         ? Send pictures to file storage
@@ -138,6 +140,49 @@ public class FireBaseAPI {
                 }
 
                 BookingScreenFragment.refreshUI();
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e(TAG, "onCancelled", databaseError.toException());
+            }
+
+        });
+
+    }
+
+    public static String insertUser(User u){
+        String id = myRef.child("User").push().getKey();
+        myRef.child("User").child(id).setValue(u);
+        return id;
+    }
+
+
+    public static void getUserAddIfDoesNotExist(final String email){
+
+        final ArrayList<Post> posts = new ArrayList<Post>();
+
+        Query phoneQuery = myRef.child("User");
+        phoneQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String id = "";
+                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
+                    User u = singleSnapshot.getValue(User.class);
+                    if(email.equals(u.getEmail()))
+                    {
+                        LoginActivity.loginUser.setId(u.getId());
+                    }
+
+                }
+
+                if(id.length() == 0){
+                    id = myRef.child("User").push().getKey();
+                    LoginActivity.loginUser.setId(id);
+                    myRef.child("User").child(id).setValue(LoginActivity.loginUser);
+                }
+
+
 
             }
             @Override
