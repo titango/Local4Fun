@@ -172,6 +172,7 @@ public class FireBaseAPI {
                     if(email.equals(u.getEmail()))
                     {
                         LoginActivity.loginUser.setId(u.getId());
+                        id = u.getId();
                     }
 
                 }
