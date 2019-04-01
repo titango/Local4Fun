@@ -13,8 +13,9 @@ public class Review {
     public Review() {
     }
 
-    public Review(String userId, Date reviewDate, int rating, String comment) {
+    public Review(String userId, String postId, Date reviewDate, int rating, String comment) {
         this.userId = userId;
+        this.postId = postId;
         this.reviewDate = reviewDate;
         this.rating = rating;
         this.comment = comment;
