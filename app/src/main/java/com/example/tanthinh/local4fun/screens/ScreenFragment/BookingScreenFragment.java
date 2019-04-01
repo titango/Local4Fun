@@ -13,9 +13,11 @@ import android.view.ViewGroup;
 
 import com.example.tanthinh.local4fun.R;
 
+import com.example.tanthinh.local4fun.models.Booking;
 import com.example.tanthinh.local4fun.models.Post;
 
 import com.example.tanthinh.local4fun.adapters.PostAdapter;
+import com.example.tanthinh.local4fun.services.FireBaseAPI;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
@@ -29,12 +31,12 @@ public class BookingScreenFragment extends Fragment implements OnMapReadyCallbac
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private RecyclerView recyclerView;
+    private static RecyclerView recyclerView;
     //private RecyclerView.Adapter mAdapter;
-    private RecyclerView.Adapter mAdapter;
+    private static RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private Context context;
-    private ArrayList<Post> posts = new ArrayList<Post>();
+    private static Context context;
+    public static ArrayList<Booking> bookings = new ArrayList<Booking>();
     View v;
 
 
@@ -98,27 +100,19 @@ public class BookingScreenFragment extends Fragment implements OnMapReadyCallbac
 //        mapFrag.getMapAsync(BookingScreenFragment.this);
 
 
-        // Post p = (Post) getArguments().getParcelableArrayList("post");
-        //   posts.add(p);
+        getBookings();
+        /*
+        recyclerView = (RecyclerView) v.findViewById(R.id.post_block_id_rec_view);
+        recyclerView.setHasFixedSize(true);
 
-        //    Bundle args = getArguments();
-        ///    if (args  != null && args.containsKey("myPost")){
-        //        posts = getArguments().getParcelableArrayList("myPost");
+        layoutManager = new LinearLayoutManager(context);
+        recyclerView.setLayoutManager(layoutManager);
 
-        //  }
+        mAdapter = new PostAdapter(context, bookings);
 
-
-//        recyclerView = (RecyclerView) v.findViewById(R.id.post_block);
-//        recyclerView.setHasFixedSize(true);
-
-//        layoutManager = new LinearLayoutManager(context);
-//        recyclerView.setLayoutManager(layoutManager);
-//
-//        mAdapter = new PostAdapter(context, posts);
-//
-//        recyclerView.setAdapter(mAdapter);
-//
-//        this.context = getActivity();
+        recyclerView.setAdapter(mAdapter);
+*/
+        this.context = getActivity();
 
 
 
@@ -161,7 +155,17 @@ public class BookingScreenFragment extends Fragment implements OnMapReadyCallbac
 
 
     }
+    public static void getBookings(){
+        bookings = new ArrayList<>();
+        FireBaseAPI.getBookings("user");
+    }
 
+    public static void refreshUI(){
+        /*
+        mAdapter = new PostAdapter(context, bookings);
+        recyclerView.setAdapter(mAdapter);
+        */
+    }
 
     /**
      * This interface must be implemented by activities that contain this

@@ -27,6 +27,7 @@ import com.example.tanthinh.local4fun.screens.CreateNewPostScreen;
 
 import com.example.tanthinh.local4fun.screens.PostDetailsScreen;
 
+import com.example.tanthinh.local4fun.services.FireBaseAPI;
 import com.google.android.gms.maps.model.LatLng;
 
 import com.google.firebase.database.DataSnapshot;
@@ -55,11 +56,11 @@ public class ExploreScreenFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private static RecyclerView recyclerView;
+    private static RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private Context context;
-    private ArrayList<Post> posts = new ArrayList<Post>();
+    private static Context context;
+    public static ArrayList<Post> posts = new ArrayList<Post>();
     View v;
     Post p;
 
@@ -79,6 +80,15 @@ public class ExploreScreenFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_explore, container, false);
 
         getPosts();
+
+        recyclerView = (RecyclerView)v.findViewById(R.id.post_block_id_rec_view);
+        recyclerView.setHasFixedSize(true);
+
+        layoutManager = new LinearLayoutManager(context);
+        recyclerView.setLayoutManager(layoutManager);
+
+        mAdapter = new PostAdapter(context, posts);
+        recyclerView.setAdapter(mAdapter);
 
         this.context = getActivity();
 
@@ -207,51 +217,13 @@ public class ExploreScreenFragment extends Fragment {
 
     public void getPosts(){
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
-
-        Query phoneQuery = myRef.child("posts");
-        phoneQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
-
-
-                     p = new Post(singleSnapshot.child("userId").getValue().toString(),
-                            singleSnapshot.child("title").getValue().toString(),
-                            singleSnapshot.child("tour").getValue().toString(),
-                            singleSnapshot.child("description").getValue().toString(),
-                            Double.parseDouble(singleSnapshot.child("hours").getValue().toString()),
-                            Double.parseDouble(singleSnapshot.child("pricePerPerson").getValue().toString()),
-                            singleSnapshot.child("location").getValue().toString());
-
-
-                    for(DataSnapshot picSnapshot : singleSnapshot.child("pictures/addresses").getChildren()){
-                        p.addPicture(picSnapshot.getValue().toString());
-                    }
-                    posts.add(p);
-
-                }
-
-                recyclerView = (RecyclerView)v.findViewById(R.id.post_block_id_rec_view);
-                recyclerView.setHasFixedSize(true);
-
-                layoutManager = new LinearLayoutManager(context);
-                recyclerView.setLayoutManager(layoutManager);
-
-                mAdapter = new PostAdapter(context, posts);
-                recyclerView.setAdapter(mAdapter);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e(TAG, "onCancelled", databaseError.toException());
-            }
-        });
+        posts = new ArrayList<>();
+        FireBaseAPI.getPosts();
 
     }
-//        void onFragmentInteraction(Uri uri);
-//    }
+    public static void refreshUI(){
+        mAdapter = new PostAdapter(context, posts);
+        recyclerView.setAdapter(mAdapter);
+    }
 
 }
