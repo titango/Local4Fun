@@ -16,10 +16,9 @@ public class Post {
     private String description;
     private String location;
     public Map<String, Boolean> stars = new HashMap<>();
+    public ArrayList<String> plan = new ArrayList<>();
 
     private ArrayList<String> pictures = new ArrayList<String>();
-
-
 
     public Post(String userId, String title, String tourType, String description, Double hours, Double pricePerPerson,
                 String location ) {
@@ -30,7 +29,6 @@ public class Post {
         this.hours = hours;
         this.pricePerPerson = pricePerPerson;
         this.location = location;
-
     }
 
 
