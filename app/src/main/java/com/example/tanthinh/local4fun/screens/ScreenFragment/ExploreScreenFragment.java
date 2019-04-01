@@ -72,15 +72,20 @@ public class ExploreScreenFragment extends Fragment {
         recyclerView.setAdapter(mAdapter);
 
         this.context = getActivity();
-        /*FireBaseAPI.insertPost(new Post("user",
+        /*
+        Post a = new Post("user",
                 "Come discover Vancouver","tourType",
                 "Let me take you on a tour around Vancouver!",
                 5.0,
                 30.0,
-                "Vancouver, BC, Canada"));
+                "Vancouver, BC, Canada");
+        a.plan.add("New West Station || We will meet at the new west station first");
+        a.plan.add("Metrotown Mall || We will meet at the Metrotown Mall");
 
-        FireBaseAPI.insertBooking(new Booking("user","-LbFixVGSmp5BOXq-9v5", new Date(), 4));
-*/
+        FireBaseAPI.insertPost(a);
+        */
+        //FireBaseAPI.insertBooking(new Booking("user","-LbFixVGSmp5BOXq-9v5", new Date(), 4));
+
 
         return v;
     }

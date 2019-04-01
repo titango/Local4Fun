@@ -16,6 +16,11 @@ public class Post {
     private String description;
 
     private ArrayList<String> pictures = new ArrayList<String>();
+    public ArrayList<String> plan = new ArrayList<String>();
+
+    public Post(){
+
+    }
 
     public Post(String userId, String title, String tourType, String description, Double hours, Double pricePerPerson, String location) {
         this.title = title;
@@ -37,6 +42,14 @@ public class Post {
         this.location = location;
         this.pictures = pictures;
         this.description = description;
+    }
+
+    public ArrayList<String> getPlan() {
+        return plan;
+    }
+
+    public void setPlan(ArrayList<String> plan) {
+        this.plan = plan;
     }
 
     public ArrayList<String> getPictures() {

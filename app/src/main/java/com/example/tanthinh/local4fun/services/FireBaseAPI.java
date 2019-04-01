@@ -75,8 +75,8 @@ public class FireBaseAPI {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
-
-                    Post p = new Post(singleSnapshot.child("userId").getValue().toString(),
+                    Post p = singleSnapshot.getValue(Post.class);
+                    /*Post p = new Post(singleSnapshot.child("userId").getValue().toString(),
                             singleSnapshot.child("title").getValue().toString(),"tourType?",
                             singleSnapshot.child("description").getValue().toString(),
                             Double.parseDouble(singleSnapshot.child("hours").getValue().toString()),
@@ -84,7 +84,7 @@ public class FireBaseAPI {
 
                     for(DataSnapshot picSnapshot : singleSnapshot.child("pictures/addresses").getChildren()){
                         p.addPicture(picSnapshot.getValue().toString());
-                    }
+                    }*/
                     ExploreScreenFragment.posts.add(p);
                 }
 
@@ -105,7 +105,7 @@ public class FireBaseAPI {
         p.setPostId(id);
 
         /*
-        ? Add the pictures to the object
+        ? Send pictures to file storage
          */
         myRef.child("Post").child(id).setValue(p);
         return id;
