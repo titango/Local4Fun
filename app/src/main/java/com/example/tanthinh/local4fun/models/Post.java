@@ -16,6 +16,7 @@ public class    Post {
 
     private ArrayList<String> pictures = new ArrayList<String>();
     public ArrayList<String> plan = new ArrayList<String>();
+    public ArrayList<String> planDesc = new ArrayList<>();
 
     public Post(){
 
@@ -41,6 +42,22 @@ public class    Post {
         this.location = location;
         this.pictures = pictures;
         this.description = description;
+    }
+
+    public Post(String userId, String postName, String tourType, String description, Double duration,
+                Double price, String location, ArrayList<String> plan, ArrayList<String> planDesc,
+                ArrayList<String> pictures) {
+        this.id = userId;
+        this.title = postName;
+        this.userId = userId;
+        this.hours = duration;
+        this.pricePerPerson = price;
+        this.tourType = tourType;
+        this.location = location;
+        this.plan = plan;
+        this.planDesc = planDesc;
+        this.description = description;
+        this.pictures = pictures;
     }
 
     public ArrayList<String> getPlan() {

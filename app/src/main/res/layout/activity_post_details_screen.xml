@@ -320,14 +320,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/summary_heading" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="\@Summary String Summary StringSummary StringSummary StringSummary StringSummary StringSummary StringSummary StringSummary StringSummary StringSummary StringSummary String"
                     android:padding="10dp"
+                    android:text="\@Summary String Summary StringSummary StringSummary StringSummary StringSummary StringSummary StringSummary StringSummary StringSummary StringSummary StringSummary String"
                     android:textSize="18dp"
-                    android:textStyle="italic"
-                    />
+                    android:textStyle="italic" />
             </LinearLayout>
 
             <!-- PLAN -->

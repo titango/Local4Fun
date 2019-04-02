@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -37,6 +38,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -48,21 +50,29 @@ import java.util.UUID;
 
 public class CreateNewPostScreen extends AppCompatActivity {
     private static final String TAG = CreateNewPostScreen.class.getSimpleName();
-    private EditText editTextPostName, editTextMeetingPoint, editTextDescription;
+    private EditText editTextPostName, editTextMeetingPoint,
+            editTextDescription, editTextPlanLocation1, editTextPlanLocation1Desc;
     private Spinner spinnerTour, spinnerDuration, spinnerPrice;
     private Button btnCreatePost;
-    private ImageView btnAddImages, imgViewImage;
+    private ImageView btnAddImages, imgViewImage, btnAddPlan;
     private DatabaseReference mFirebaseDatabase;
     private FirebaseDatabase mFirebaseInstance;
 
     private String userId;
 
     private Uri filePath;
+    Uri downloadUrl;
 
     private final int PICK_IMAGE_REQUEST = 4;
 
     FirebaseStorage storage;
     StorageReference storageReference;
+    StorageReference pathReference;
+    StorageReference ref;
+
+    final ArrayList<String> plan = new ArrayList<>();
+    final ArrayList<String> planDesc = new ArrayList<>();
+    final ArrayList<String> pictures = new ArrayList<>();
 
 
 
@@ -74,11 +84,16 @@ public class CreateNewPostScreen extends AppCompatActivity {
         editTextPostName = (EditText)findViewById(R.id.editTextPostName);
         editTextMeetingPoint = (EditText)findViewById(R.id.editTextMeetingPoint);
         editTextDescription = (EditText)findViewById(R.id.editTextDescription);
+        editTextPlanLocation1 = (EditText)findViewById(R.id.editTextPlanLocation1);
+        editTextPlanLocation1Desc = (EditText)findViewById(R.id.editTextPlanLocation1Desc);
         spinnerTour = (Spinner)findViewById(R.id.spinnerTour);
         spinnerDuration = (Spinner)findViewById(R.id.spinnerDuration);
         spinnerPrice = (Spinner)findViewById(R.id.spinnerPrice);
         btnAddImages = (ImageView)findViewById(R.id.btnAddImages);
+        btnAddPlan = (ImageView) findViewById(R.id.btnAddPlan);
         imgViewImage = (ImageView)findViewById(R.id.imgViewImage);
+
+
 
         mFirebaseInstance = FirebaseDatabase.getInstance();
 
@@ -125,17 +140,29 @@ public class CreateNewPostScreen extends AppCompatActivity {
                 Double duration = Double.parseDouble(spinnerDuration.getSelectedItem().toString());
                 Double price = Double.parseDouble(spinnerPrice.getSelectedItem().toString());
                 String location = editTextMeetingPoint.getText().toString();
+               plan.add( editTextPlanLocation1.getText().toString()) ;
+               planDesc.add(editTextPlanLocation1Desc.getText().toString());
+               //pictures.add(downloadUrl.toString());
+
+               //pictures.add(storageReference.child("images/").getDownloadUrl().toString());
+                //storageReference = storage.getReferenceFromUrl("gs://local4fun.appspot.com");
+           //     pathReference = storageReference.child("images/");
+            //    pictures.add(pathReference.getDownloadUrl().toString());
+
+
 
 
 //                if (TextUtils.isEmpty(userId)) {
-                    createPost(userId, postName, tourType, description, duration, price, location);
+                    createPost(userId, postName, tourType, description, duration, price, location,
+                            plan, planDesc, pictures);
 
 //                }
 //                else {
 //                    updatePost(userId, postName, tourType, duration, price, location);
 //                }
 
-                uploadImage();
+
+//                uploadImage();
                 alertDialog();
             }
         });
@@ -160,6 +187,10 @@ public class CreateNewPostScreen extends AppCompatActivity {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 imgViewImage.setImageBitmap(bitmap);
+
+                uploadImage();
+
+
             }
             catch (IOException e)
             {
@@ -171,25 +202,41 @@ public class CreateNewPostScreen extends AppCompatActivity {
 
     private void uploadImage() {
 
+
         if(filePath != null)
         {
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("Uploading...");
-            progressDialog.show();
+            // final ProgressDialog progressDialog = new ProgressDialog(this);
+            // progressDialog.setTitle("Creating Post...");
+            // progressDialog.show();
 
-            StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
+            // Create the file metadata
+            StorageMetadata metadata = new StorageMetadata.Builder()
+                    .setContentType("image/jpeg")
+                    .build();
+
+            ref = storageReference.child("images/"+ UUID.randomUUID().toString());
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss();
-                            Toast.makeText(CreateNewPostScreen.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                            //  progressDialog.dismiss();
+                            //  Toast.makeText(CreateNewPostScreen.this, "Uploaded", Toast.LENGTH_SHORT).show();
+
+                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    downloadUrl = uri;
+                                    pictures.add(downloadUrl.toString());
+                                    //  Log.e("Image Url", pictures.get(0));
+
+                                }
+                            });
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
+                            //  progressDialog.dismiss();
                             Toast.makeText(CreateNewPostScreen.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     })
@@ -198,14 +245,16 @@ public class CreateNewPostScreen extends AppCompatActivity {
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                             double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
                                     .getTotalByteCount());
-                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                            // progressDialog.setMessage("Post Created "+(int)progress+"%");
                         }
                     });
         }
+
     }
 
     private void createPost(String userId, String postName, String tourType, String description,
-                            Double duration, Double price, String location) {
+                            Double duration, Double price, String location, ArrayList<String> plan,
+                            ArrayList<String> planDesc, ArrayList<String> pictures) {
         // TODO
         // In real apps this userId should be fetched
         // by implementing firebase auth
@@ -215,7 +264,8 @@ public class CreateNewPostScreen extends AppCompatActivity {
 //
 
 
-        Post post = new Post(userId, postName, tourType, description, duration, price, location);
+        Post post = new Post(userId, postName, tourType, description, duration, price, location,
+                plan, planDesc, pictures);
         FireBaseAPI.insertPost(post);
     }
 
