@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,11 +55,15 @@ import java.util.UUID;
 public class CreateNewPostScreen extends AppCompatActivity {
     private static final String TAG = CreateNewPostScreen.class.getSimpleName();
     private EditText editTextPostName, editTextMeetingPoint,
-            editTextDescription, editTextPlanLocation1, editTextPlanLocation1Desc;
+            editTextDescription, editTextPlanLocation1, editTextPlanLocation1Desc,
+            editTextPlanLocation2, editTextPlanLocation2Desc,
+            editTextPlanLocation3, editTextPlanLocation3Desc,
+            editTextPlanLocation4, editTextPlanLocation4Desc,
+            editTextPlanLocation5, editTextPlanLocation5Desc;
     private Spinner spinnerTour, spinnerDuration, spinnerPrice;
     private Button btnCreatePost;
     private TextView txtSelectedImage;
-    private ImageView btnAddImages, imgViewImage, btnAddPlan;
+    private ImageView btnAddImages, imgViewImage;
     private DatabaseReference mFirebaseDatabase;
     private FirebaseDatabase mFirebaseInstance;
 
@@ -91,11 +96,18 @@ public class CreateNewPostScreen extends AppCompatActivity {
         editTextDescription = (EditText)findViewById(R.id.editTextDescription);
         editTextPlanLocation1 = (EditText)findViewById(R.id.editTextPlanLocation1);
         editTextPlanLocation1Desc = (EditText)findViewById(R.id.editTextPlanLocation1Desc);
+        editTextPlanLocation2 = (EditText)findViewById(R.id.editTextPlanLocation2);
+        editTextPlanLocation2Desc = (EditText)findViewById(R.id.editTextPlanLocation2Desc);
+        editTextPlanLocation3 = (EditText)findViewById(R.id.editTextPlanLocation3);
+        editTextPlanLocation3Desc = (EditText)findViewById(R.id.editTextPlanLocation3Desc);
+        editTextPlanLocation4 = (EditText)findViewById(R.id.editTextPlanLocation4);
+        editTextPlanLocation4Desc = (EditText)findViewById(R.id.editTextPlanLocation4Desc);
+        editTextPlanLocation5 = (EditText)findViewById(R.id.editTextPlanLocation5);
+        editTextPlanLocation5Desc = (EditText)findViewById(R.id.editTextPlanLocation5Desc);
         spinnerTour = (Spinner)findViewById(R.id.spinnerTour);
         spinnerDuration = (Spinner)findViewById(R.id.spinnerDuration);
         spinnerPrice = (Spinner)findViewById(R.id.spinnerPrice);
         btnAddImages = (ImageView)findViewById(R.id.btnAddImages);
-        btnAddPlan = (ImageView) findViewById(R.id.btnAddPlan);
         imgViewImage = (ImageView)findViewById(R.id.imgViewImage);
         txtSelectedImage = (TextView)findViewById(R.id.txtSelectedImage);
 
@@ -146,8 +158,17 @@ public class CreateNewPostScreen extends AppCompatActivity {
                 Double duration = Double.parseDouble(spinnerDuration.getSelectedItem().toString());
                 Double price = Double.parseDouble(spinnerPrice.getSelectedItem().toString());
                 String location = editTextMeetingPoint.getText().toString();
-                plan.add( editTextPlanLocation1.getText().toString()) ;
+                plan.add(editTextPlanLocation1.getText().toString());
+                plan.add(editTextPlanLocation2.getText().toString());
+                plan.add(editTextPlanLocation3.getText().toString());
+                plan.add(editTextPlanLocation4.getText().toString());
+                plan.add(editTextPlanLocation5.getText().toString());
                 planDesc.add(editTextPlanLocation1Desc.getText().toString());
+                planDesc.add(editTextPlanLocation2Desc.getText().toString());
+                planDesc.add(editTextPlanLocation3Desc.getText().toString());
+                planDesc.add(editTextPlanLocation4Desc.getText().toString());
+                planDesc.add(editTextPlanLocation5Desc.getText().toString());
+
                 //pictures.add(downloadUrl.toString());
 
                 //pictures.add(storageReference.child("images/").getDownloadUrl().toString());
@@ -157,10 +178,19 @@ public class CreateNewPostScreen extends AppCompatActivity {
 
 
 
+                if(TextUtils.isEmpty(postName) || TextUtils.isEmpty(description) ||
+                TextUtils.isEmpty(location) || plan.isEmpty() || planDesc.isEmpty()){
+                    Toast.makeText(CreateNewPostScreen.this, "Complete the form", Toast.LENGTH_SHORT).show();
+                }else{
+                    createPost(userId, postName, tourType, description, duration, price, location,
+                            plan, planDesc, pictures);
+
+                    alertDialog();
+                }
+
 
 //                if (TextUtils.isEmpty(userId)) {
-                createPost(userId, postName, tourType, description, duration, price, location,
-                        plan, planDesc, pictures);
+
 
 //                }
 //                else {
@@ -169,9 +199,10 @@ public class CreateNewPostScreen extends AppCompatActivity {
 
 
 //                uploadImage();
-                alertDialog();
+
             }
         });
+
 
 
     }
@@ -179,6 +210,7 @@ public class CreateNewPostScreen extends AppCompatActivity {
     private void chooseImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
+       // intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
@@ -193,7 +225,7 @@ public class CreateNewPostScreen extends AppCompatActivity {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 imgViewImage.setImageBitmap(bitmap);
-                txtSelectedImage.append(filePath + "\n");
+                txtSelectedImage.append(filePath.getLastPathSegment() + "\n");
 
                 uploadImage();
 
