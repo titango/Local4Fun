@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -44,6 +45,7 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
     public ViewPager viewPager; // for slider
     private CircleIndicator indicator;
     private ImageButton back_arrow_btn;
+    private Button book_now_btn;
 
     public TextView postTitle;
     public TextView postHour;
@@ -68,7 +70,7 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
     {
         //Get post object
         Intent initIntent = getIntent();
-        String postString = (String)initIntent.getExtras().get("postObject");
+        final String postString = (String)initIntent.getExtras().get("postObject");
         Gson gson = new Gson();
         currentPost = gson.fromJson(postString, Post.class);
 //        Log.w("CurPost", curPost.getUserId());
@@ -88,6 +90,7 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
         postPrice = findViewById(R.id.explore_price_person);
         postLocation = findViewById(R.id.explore_location);
         back_arrow_btn = findViewById(R.id.back_arrow_btn);
+        book_now_btn = findViewById(R.id.book_now_btn);
 
         viewPagerAdapter = new ViewPagerAdapter(getApplication(), currentPost.getPictures());
         viewPager.setAdapter(viewPagerAdapter);
@@ -106,6 +109,14 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+        book_now_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent payIntent = new Intent(getApplicationContext(), CheckBookingScreen.class);
+                payIntent.putExtra("postObject", postString);
+                startActivity(payIntent);
             }
         });
 
