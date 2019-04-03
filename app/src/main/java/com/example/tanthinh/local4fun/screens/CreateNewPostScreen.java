@@ -3,12 +3,14 @@ package com.example.tanthinh.local4fun.screens;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -45,6 +47,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -54,6 +57,7 @@ public class CreateNewPostScreen extends AppCompatActivity {
             editTextDescription, editTextPlanLocation1, editTextPlanLocation1Desc;
     private Spinner spinnerTour, spinnerDuration, spinnerPrice;
     private Button btnCreatePost;
+    private TextView txtSelectedImage;
     private ImageView btnAddImages, imgViewImage, btnAddPlan;
     private DatabaseReference mFirebaseDatabase;
     private FirebaseDatabase mFirebaseInstance;
@@ -74,6 +78,7 @@ public class CreateNewPostScreen extends AppCompatActivity {
     final ArrayList<String> planDesc = new ArrayList<>();
     final ArrayList<String> pictures = new ArrayList<>();
 
+    List fileNameList = new ArrayList<>();
 
 
     @Override
@@ -92,6 +97,7 @@ public class CreateNewPostScreen extends AppCompatActivity {
         btnAddImages = (ImageView)findViewById(R.id.btnAddImages);
         btnAddPlan = (ImageView) findViewById(R.id.btnAddPlan);
         imgViewImage = (ImageView)findViewById(R.id.imgViewImage);
+        txtSelectedImage = (TextView)findViewById(R.id.txtSelectedImage);
 
 
 
@@ -140,21 +146,21 @@ public class CreateNewPostScreen extends AppCompatActivity {
                 Double duration = Double.parseDouble(spinnerDuration.getSelectedItem().toString());
                 Double price = Double.parseDouble(spinnerPrice.getSelectedItem().toString());
                 String location = editTextMeetingPoint.getText().toString();
-               plan.add( editTextPlanLocation1.getText().toString()) ;
-               planDesc.add(editTextPlanLocation1Desc.getText().toString());
-               //pictures.add(downloadUrl.toString());
+                plan.add( editTextPlanLocation1.getText().toString()) ;
+                planDesc.add(editTextPlanLocation1Desc.getText().toString());
+                //pictures.add(downloadUrl.toString());
 
-               //pictures.add(storageReference.child("images/").getDownloadUrl().toString());
+                //pictures.add(storageReference.child("images/").getDownloadUrl().toString());
                 //storageReference = storage.getReferenceFromUrl("gs://local4fun.appspot.com");
-           //     pathReference = storageReference.child("images/");
-            //    pictures.add(pathReference.getDownloadUrl().toString());
+                //     pathReference = storageReference.child("images/");
+                //    pictures.add(pathReference.getDownloadUrl().toString());
 
 
 
 
 //                if (TextUtils.isEmpty(userId)) {
-                    createPost(userId, postName, tourType, description, duration, price, location,
-                            plan, planDesc, pictures);
+                createPost(userId, postName, tourType, description, duration, price, location,
+                        plan, planDesc, pictures);
 
 //                }
 //                else {
@@ -187,16 +193,54 @@ public class CreateNewPostScreen extends AppCompatActivity {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 imgViewImage.setImageBitmap(bitmap);
+                txtSelectedImage.append(filePath + "\n");
 
                 uploadImage();
 
+                if (filePath != null && data.getClipData() != null) {
 
-            }
+                    int totalImageSelected = data.getClipData().getItemCount();
+
+                    for (int i = 0; i < totalImageSelected; i++) {
+                        Uri fileUri = data.getClipData().getItemAt(i).getUri();
+
+                        String fileName = getFileName(fileUri);
+                        fileNameList.add(fileName);
+                    }
+                    }
+
+
+
+                    }
             catch (IOException e)
             {
                 e.printStackTrace();
             }
         }
+    }
+
+    public String getFileName(Uri uri){
+        String result = null;
+        if(uri.getScheme().equals("content")){
+            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+            try{
+                if(cursor != null && cursor.moveToFirst()){
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                }
+            }finally {
+                cursor.close();
+            }
+        }
+        if(result == null){
+            result = uri.getPath();
+            int cut = result.lastIndexOf('/');
+            if(cut != -1){
+                result = result.substring(cut + 1);
+            }
+        }
+
+        return result;
+
     }
 
 
@@ -356,6 +400,6 @@ public class CreateNewPostScreen extends AppCompatActivity {
         mButton.setTextColor(Color.WHITE);
         mButton.setBackgroundColor(Color.parseColor("#6895BB"));
 
-   }
+    }
 
 }
