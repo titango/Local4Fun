@@ -1,20 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".screens.CreateNewPostScreen"
-    android:fillViewport="true"
-    android:layout_weight="9.5">
+    android:orientation="vertical">
 
 
 
-    <LinearLayout
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="4dp"
+            style="@style/topToolbar">
+
+            <ImageButton
+                android:id="@+id/close_icon_btn"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/close"
+                android:layout_centerVertical="true"/>
+        </android.support.v7.widget.Toolbar>
+
+
+
+    <ScrollView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:fillViewport="true"
+        android:layout_weight="9.5">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -458,9 +483,10 @@
             android:layout_centerInParent="true"/>
         </RelativeLayout>
 
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
-</ScrollView>
+</LinearLayout>
 
 
 

@@ -14,6 +14,7 @@ import android.provider.OpenableColumns;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -64,8 +65,11 @@ public class CreateNewPostScreen extends AppCompatActivity {
     private Button btnCreatePost;
     private TextView txtSelectedImage;
     private ImageView btnAddImages, imgViewImage;
+    private ImageButton close_icon_btn;
     private DatabaseReference mFirebaseDatabase;
     private FirebaseDatabase mFirebaseInstance;
+
+    private Toolbar topToolBar;
 
     private String userId;
 
@@ -90,6 +94,11 @@ public class CreateNewPostScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_post_screen);
+
+        topToolBar = (Toolbar) findViewById(R.id.my_toolbar);
+
+
+        close_icon_btn = (ImageButton)findViewById(R.id.close_icon_btn);
 
         editTextPostName = (EditText)findViewById(R.id.editTextPostName);
         editTextMeetingPoint = (EditText)findViewById(R.id.editTextMeetingPoint);
@@ -138,6 +147,12 @@ public class CreateNewPostScreen extends AppCompatActivity {
 //            }
 //        });
 
+        close_icon_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         btnAddImages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -204,8 +219,10 @@ public class CreateNewPostScreen extends AppCompatActivity {
         });
 
 
-
     }
+
+
+
 
     private void chooseImage() {
         Intent intent = new Intent();
