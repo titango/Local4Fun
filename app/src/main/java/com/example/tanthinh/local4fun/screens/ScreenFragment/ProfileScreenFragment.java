@@ -19,6 +19,8 @@ import com.example.tanthinh.local4fun.screens.BecomeHostScreen;
 import com.example.tanthinh.local4fun.screens.ChangePasswordScreen;
 import com.example.tanthinh.local4fun.screens.EditProfileScreen;
 import com.example.tanthinh.local4fun.screens.LoginScreen.LoginActivity;
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileScreenFragment extends Fragment {
 
@@ -78,6 +80,9 @@ public class ProfileScreenFragment extends Fragment {
                         startActivity(change_pass);
                         break;
                     case 4: //Logout
+                        // facebook and firebase log out
+                        FirebaseAuth.getInstance().signOut();
+                        LoginManager.getInstance().logOut();
                         Intent logout = new Intent(view.getContext(), LoginActivity.class);
                         singleton.signOutAndDestroyDatabase();
                         startActivity(logout);

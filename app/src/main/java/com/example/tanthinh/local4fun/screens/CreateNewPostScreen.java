@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.models.Post;
 import com.example.tanthinh.local4fun.models.User;
+import com.example.tanthinh.local4fun.services.FireBaseAPI;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -212,21 +213,10 @@ public class CreateNewPostScreen extends AppCompatActivity {
 //            userId = mFirebaseDatabase.push().getKey();
 //        }
 //
-//        Post post = new Post(userId, postName, tourType, duration, price, location);
-//
-//        mFirebaseDatabase.child(userId).setValue(post);
-//
-//        addPostChangeListener();
 
-        String key = mFirebaseDatabase.child("posts").push().getKey();
+
         Post post = new Post(userId, postName, tourType, description, duration, price, location);
-        Map<String, Object> postValues = post.toMap();
-
-        Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/posts/" ,postValues);
-        //childUpdates.put("/users/" + userId + "/" + key, postValues);
-
-        mFirebaseDatabase.updateChildren(childUpdates);
+        FireBaseAPI.insertPost(post);
     }
 
     private void addPostChangeListener() {

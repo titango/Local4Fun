@@ -68,6 +68,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                 .inflate(R.layout.post_block, parent, false);
 
         MyViewHolder vh = new MyViewHolder(v);
+
         View userPro = v.findViewById(R.id.explore_user_area);
         userPro.bringToFront();
         userPro.requestLayout();

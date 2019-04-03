@@ -36,7 +36,6 @@ public class BookingDetailsScreen extends AppCompatActivity implements OnMapRead
         mapFrag.getMapAsync(BookingDetailsScreen.this);
 
 
-
     }
 
     @Override
