@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -12,6 +13,7 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.models.User;
 import com.example.tanthinh.local4fun.screens.MessageDetail;
 import com.google.firebase.database.ChildEventListener;
@@ -32,10 +34,13 @@ public class messageListAdapter extends BaseAdapter {
     private List<User> list  = new ArrayList<User>();
     private ArrayList<DataSnapshot> mSnapshotList;
 
+
     private ChildEventListener mListener = new ChildEventListener() {
         @Override
         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
+            User user = new User();
+            user = dataSnapshot.getValue(User.class);
             mSnapshotList.add(dataSnapshot);
             notifyDataSetChanged();
 
@@ -69,6 +74,7 @@ public class messageListAdapter extends BaseAdapter {
         mFirebaseDatabase.addChildEventListener(mListener);
         mSnapshotList = new ArrayList<>();
     }
+
     @Override
     public int getCount() {
         return mSnapshotList.size();
@@ -89,13 +95,14 @@ public class messageListAdapter extends BaseAdapter {
         DataSnapshot snapshot = mSnapshotList.get(position);
         User user = new User();
         user = snapshot.getValue(User.class);
+
         TextView tv ;
         LinearLayout.LayoutParams lp;
         if (convertView == null) {
             tv = new TextView(mContext);
             lp = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.MATCH_PARENT);
+                    100);
             tv.setLayoutParams(lp);
         }
         else
@@ -103,6 +110,9 @@ public class messageListAdapter extends BaseAdapter {
             tv = (TextView) convertView;
         }
         tv.setText(user.getFullname());
+        tv.setTextSize(22);
+        tv.setGravity(Gravity.CENTER | Gravity.LEFT);
+        tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_account_circle_black_24dp, 0, 0, 0);
         final String name = user.getFullname();
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +122,6 @@ public class messageListAdapter extends BaseAdapter {
                 mContext.startActivity(intent);
             }
         });
-        Log.v("name", user.getFullname()+"");
         return tv;
     }
 }

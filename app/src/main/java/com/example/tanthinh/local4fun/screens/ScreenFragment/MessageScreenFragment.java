@@ -4,10 +4,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.adapters.PostAdapter;
@@ -34,6 +37,7 @@ public class MessageScreenFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private String name = "";
 
 //    private OnFragmentInteractionListener mListener;
 
@@ -72,9 +76,22 @@ public class MessageScreenFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         View v = inflater.inflate(R.layout.fragment_message, container, false);
+
+        EditText edt = (EditText) v.findViewById(R.id.search_edit);
         mListView = (ListView) v.findViewById(R.id.message_user_list);
+
+
+//        edt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//                name = v.getText().toString();
+//                messageListAdapter myAdapter = new messageListAdapter(v.getContext(), name);
+//                mListView.setAdapter(myAdapter);
+//                myAdapter.notifyDataSetChanged();
+//                return false;
+//            }
+//        });
         messageListAdapter myAdapter = new messageListAdapter(this.getActivity());
         mListView.setAdapter(myAdapter);
         return v;
