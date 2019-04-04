@@ -18,9 +18,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tanthinh.local4fun.BuildConfig;
 import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.models.Singleton;
 import com.example.tanthinh.local4fun.models.User;
+import com.example.tanthinh.local4fun.services.FireBaseAPI;
 import com.example.tanthinh.local4fun.utilities.Config;
 import com.example.tanthinh.local4fun.utilities.accountRegister;
 import com.example.tanthinh.local4fun.screens.MainActivity;
@@ -29,6 +31,7 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.LoggingBehavior;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -54,6 +57,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final int RC_SIGN_IN = 9001;
     private CallbackManager mCallbackManager;
     private Singleton singleton;
+    public static  User loginUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,16 +113,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if (task.isSuccessful() || true) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
-                            Toast.makeText(LoginActivity.this, "login success.",
-                                    Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(LoginActivity.this, "login success.",Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
-                            User loginUser = new User(user.getDisplayName(),user.getEmail(), user.getPhoneNumber(), "","");
+
+                            loginUser = new User(user.getDisplayName(),user.getEmail(), user.getPhoneNumber(), "","");
+
+                            FireBaseAPI.getUserAddIfDoesNotExist(user.getEmail());
+
                             moveToMainActivity(loginUser);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(LoginActivity.this, "Authentication failed.",Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -188,6 +194,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed" + e.getMessage().toString());
             }
+        }else {
+            mCallbackManager.onActivityResult(requestCode, resultCode, data);
+        }
+
+        if(FacebookSdk.isFacebookRequestCode(requestCode)){
+            mCallbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
@@ -202,7 +214,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            User loginUser = new User(user.getDisplayName(),user.getEmail(), user.getPhoneNumber(), "","");
+                            loginUser = new User(user.getDisplayName(),user.getEmail(), user.getPhoneNumber(), "","");
+                            FireBaseAPI.getUserAddIfDoesNotExist(user.getEmail());
                             moveToMainActivity(loginUser);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -217,6 +230,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     //facebook login begin
     private void facebookLogin(){
         FacebookSdk.sdkInitialize(getApplicationContext());
+        if (BuildConfig.DEBUG) {
+            FacebookSdk.setIsDebugEnabled(true);
+            FacebookSdk.addLoggingBehavior(LoggingBehavior.INCLUDE_ACCESS_TOKENS);
+        }
         AppEventsLogger.activateApp(this);
         mCallbackManager = CallbackManager.Factory.create();
         LoginButton facebookImg = findViewById(R.id.login_button);
@@ -227,6 +244,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
+                FirebaseUser user = mAuth.getCurrentUser();
+                User loginUser = new User(user.getDisplayName(),user.getEmail(), user.getPhoneNumber(), "","");
+                moveToMainActivity(loginUser);
             }
 
             @Override
@@ -261,8 +281,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
+
                             FirebaseUser user = mAuth.getCurrentUser();
-                            User loginUser = new User(user.getDisplayName(),user.getEmail(), user.getPhoneNumber(), "","");
+                            loginUser = new User(user.getDisplayName(),user.getEmail(), user.getPhoneNumber(), "","");
+                            FireBaseAPI.getUserAddIfDoesNotExist(user.getEmail());
                             moveToMainActivity(loginUser);
                         } else {
                             // If sign in fails, display a message to the user.

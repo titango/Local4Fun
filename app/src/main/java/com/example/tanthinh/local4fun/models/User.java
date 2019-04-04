@@ -9,6 +9,7 @@ public class User {
     private String description;
     private String password;
     private String imgUrl;
+    private String id;
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -68,6 +69,22 @@ public class User {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public boolean comparePassword(String password){

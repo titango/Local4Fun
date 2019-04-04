@@ -8,6 +8,51 @@
     android:scrollbars="vertical"
     tools:context=".screens.ScreenFragment.BookingScreenFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
 
+        <requestFocus />
+
+        <SearchView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:iconifiedByDefault="false"
+            android:queryHint="Explore Tour"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:defaultFocusHighlightEnabled="false"
+            android:focusedByDefault="false"
+            >
+        </SearchView>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/post_block_id_rec_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:paddingBottom="30dp"
+            android:scrollbars="vertical">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="1.0dp"
+            android:translationZ="1.0dp"
+            android:layout_marginTop="-150dp"
+            android:layout_gravity="end"
+            android:backgroundTint="@color/blueLight"
+            android:src="@mipmap/create_tour_round"
+            app:fabSize="mini" />
+
+    </LinearLayout>
 
 </LinearLayout>
