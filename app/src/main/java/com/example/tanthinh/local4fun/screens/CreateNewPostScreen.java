@@ -26,6 +26,7 @@ import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.models.Post;
 import com.example.tanthinh.local4fun.models.User;
 import com.example.tanthinh.local4fun.services.FireBaseAPI;
+import com.example.tanthinh.local4fun.services.UploadImage;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -63,6 +64,7 @@ public class CreateNewPostScreen extends AppCompatActivity {
 
     FirebaseStorage storage;
     StorageReference storageReference;
+    private  String imgPath;
 
 
 
@@ -135,7 +137,9 @@ public class CreateNewPostScreen extends AppCompatActivity {
 //                    updatePost(userId, postName, tourType, duration, price, location);
 //                }
 
-                uploadImage();
+                UploadImage uploadImageService = new UploadImage();
+                imgPath = uploadImageService.uploadImage(CreateNewPostScreen.this, filePath);
+                Log.e("HungDebug: ", imgPath);
                 alertDialog();
             }
         });
@@ -159,6 +163,7 @@ public class CreateNewPostScreen extends AppCompatActivity {
             filePath = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                Log.e("D", filePath + "");
                 imgViewImage.setImageBitmap(bitmap);
             }
             catch (IOException e)
@@ -169,40 +174,41 @@ public class CreateNewPostScreen extends AppCompatActivity {
     }
 
 
-    private void uploadImage() {
-
-        if(filePath != null)
-        {
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("Uploading...");
-            progressDialog.show();
-
-            StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
-            ref.putFile(filePath)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss();
-                            Toast.makeText(CreateNewPostScreen.this, "Uploaded", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
-                            Toast.makeText(CreateNewPostScreen.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
-                                    .getTotalByteCount());
-                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
-                        }
-                    });
-        }
-    }
+//    private void uploadImage() {
+//
+//        if(filePath != null)
+//        {
+//            final ProgressDialog progressDialog = new ProgressDialog(this);
+//            progressDialog.setTitle("Uploading...");
+//            progressDialog.show();
+//
+//            StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
+//            Log.e("D", UUID.randomUUID().toString() + "");
+//            ref.putFile(filePath)
+//                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                        @Override
+//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                            progressDialog.dismiss();
+//                            Toast.makeText(CreateNewPostScreen.this, "Uploaded", Toast.LENGTH_SHORT).show();
+//                        }
+//                    })
+//                    .addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            progressDialog.dismiss();
+//                            Toast.makeText(CreateNewPostScreen.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    })
+//                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+//                        @Override
+//                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+//                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+//                                    .getTotalByteCount());
+//                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
+//                        }
+//                    });
+//        }
+//    }
 
     private void createPost(String userId, String postName, String tourType, String description,
                             Double duration, Double price, String location) {
