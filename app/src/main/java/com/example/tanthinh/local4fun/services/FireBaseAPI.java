@@ -11,6 +11,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.tanthinh.local4fun.intefaces.FireBaseResponse;
+import com.example.tanthinh.local4fun.intefaces.OnDataReceiveCallback;
 import com.example.tanthinh.local4fun.models.Booking;
 import com.example.tanthinh.local4fun.models.Post;
 import com.example.tanthinh.local4fun.models.Review;
@@ -164,34 +165,7 @@ public class FireBaseAPI {
         return id;
     }
 
-    public static void getReviews(final String postId){
 
-        final ArrayList<Review> reviews = new ArrayList<Review>();
-
-        Query phoneQuery = myRef.child("Review");
-        phoneQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
-                    Review p = singleSnapshot.getValue(Review.class);
-
-                    if(postId.equals(p.getPostId())){
-                        //PostDetailsScreen.posts.add(p);
-                    }
-
-                }
-                //PostDetailsScreen.refreshUI();
-
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e(TAG, "onCancelled", databaseError.toException());
-            }
-
-        });
-
-    }
 
 
     public static void getUserAddIfDoesNotExist(final String email){
@@ -231,5 +205,34 @@ public class FireBaseAPI {
 
         });
 
+    }
+
+    public static void getReviews(final OnDataReceiveCallback callback, final String postId){
+
+        final ArrayList<Review> reviews = new ArrayList<Review>();
+
+        Query phoneQuery = myRef.child("Review");
+        phoneQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
+                    Review p = singleSnapshot.getValue(Review.class);
+
+                    if(postId.equals(p.getPostId())){
+                        reviews.add(p);
+                    }
+
+                }
+
+                callback.onReviewReceived(reviews);
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e(TAG, "onCancelled", databaseError.toException());
+            }
+
+        });
     }
 }
