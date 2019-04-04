@@ -101,6 +101,13 @@
     <string name="summary">SUMMARY</string>
     <string name="hintDate">MM/DD/YYYY</string>
     <string name="total_pay">TOTAL</string>
+    <string name="check_your_bookings">CHECK YOUR BOOKINGS</string>
+    <string name="payment_information">PAYMENT INFORMATION</string>
+    <string name="name_on_card">Name on card</string>
+    <string name="card_number">Card number</string>
+    <string name="expiry_date">Expiry Date</string>
+    <string name="security_code">Security Code</string>
+
     <string-array name="time_array">
         <item>0:00</item>
         <item>0:30</item>
@@ -151,7 +158,7 @@
         <item>23:00</item>
         <item>23:30</item>
     </string-array>
-    
+
     <string-array name="num_person">
         <item>1</item>
         <item>2</item>

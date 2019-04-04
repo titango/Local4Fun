@@ -20,7 +20,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".screens.CheckBookingScreen"></activity>
+        <activity android:name=".screens.PayDetailsScreen"></activity>
+        <activity android:name=".screens.CheckBookingScreen" />
         <activity android:name=".screens.PostDetailsScreen" />
         <activity android:name=".screens.BookingDetailsScreen" />
         <activity android:name=".screens.CreateNewPostScreen" />

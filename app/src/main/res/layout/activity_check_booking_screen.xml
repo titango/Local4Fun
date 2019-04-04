@@ -7,6 +7,22 @@
     tools:context=".screens.CheckBookingScreen"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/check_your_bookings"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textColor="@color/colorPrimaryDark"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

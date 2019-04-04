@@ -31,9 +31,11 @@ public class CheckBookingScreen extends AppCompatActivity implements AdapterView
     private Spinner numPerson;
     private Spinner numTime;
     private TextView totalPriceTxtView;
+    private Button book_now_btn;
 
     private double totalPrice = 0;
     private String numberPerson = "";
+    private String bookingDate = "";
     private Post currentPost;
 
     @Override
@@ -74,6 +76,7 @@ public class CheckBookingScreen extends AppCompatActivity implements AdapterView
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                                 eText.setText((monthOfYear + 1) + "/" + dayOfMonth+ "/" + year);
+                                bookingDate = eText.getText().toString();
                             }
                         }, year, month, day);
                 picker.show();
@@ -97,6 +100,19 @@ public class CheckBookingScreen extends AppCompatActivity implements AdapterView
         numTime.setSelection(0);
 
         totalPriceTxtView = (TextView)findViewById(R.id.total_value);
+
+        book_now_btn = findViewById(R.id.book_now_btn);
+        book_now_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent payIntent = new Intent(getApplicationContext(), PayDetailsScreen.class);
+                payIntent.putExtra("postObject", postString);
+                payIntent.putExtra("totalPrice", totalPrice);
+                payIntent.putExtra("numberPerson", numberPerson);
+                payIntent.putExtra("bookingDate", bookingDate);
+                startActivity(payIntent);
+            }
+        });
 
     }
 
