@@ -2,6 +2,7 @@ package com.example.tanthinh.local4fun.services;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -28,6 +29,7 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
@@ -37,10 +39,14 @@ public class FireBaseAPI {
     private Context context;
     private static FirebaseDatabase database = FirebaseDatabase.getInstance();
     private static DatabaseReference myRef = database.getReference();
+    List<User> list = new ArrayList<>();
     public FireBaseAPI(Activity context)
     {
         this.context = context;
         apiResponse = (FireBaseResponse)context;
+    }
+    public FireBaseAPI()
+    {
     }
 
     // Implement different URL call
