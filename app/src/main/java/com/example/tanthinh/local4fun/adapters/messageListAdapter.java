@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.tanthinh.local4fun.R;
+import com.example.tanthinh.local4fun.models.Singleton;
 import com.example.tanthinh.local4fun.models.User;
 import com.example.tanthinh.local4fun.screens.MessageDetail;
 import com.google.firebase.database.ChildEventListener;
@@ -33,7 +34,8 @@ public class messageListAdapter extends BaseAdapter {
     private FirebaseDatabase mFirebaseInstance;
     private List<User> list  = new ArrayList<User>();
     private ArrayList<DataSnapshot> mSnapshotList;
-
+    private Singleton singleton;
+    private String currentName;
 
     private ChildEventListener mListener = new ChildEventListener() {
         @Override
@@ -73,6 +75,7 @@ public class messageListAdapter extends BaseAdapter {
         mFirebaseDatabase = FirebaseDatabase.getInstance().getReference().child("User");
         mFirebaseDatabase.addChildEventListener(mListener);
         mSnapshotList = new ArrayList<>();
+        singleton = Singleton.initInstance();
     }
 
     @Override
@@ -114,11 +117,14 @@ public class messageListAdapter extends BaseAdapter {
         tv.setGravity(Gravity.CENTER | Gravity.LEFT);
         tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_account_circle_black_24dp, 0, 0, 0);
         final String name = user.getFullname();
+
+        currentName = singleton.loginUser.getFullname();
+
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, MessageDetail.class);
-                intent.putExtra("userName", name);
+                intent.putExtra("userName", currentName);
                 mContext.startActivity(intent);
             }
         });

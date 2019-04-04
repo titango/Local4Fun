@@ -37,7 +37,7 @@
     <string name="txtMeetingPoint">Meeting Point:</string>
     <string name="editTextMeetingPoint">Address</string>
     <string name="btnCreatePost">Create a post</string>
-<<<<<<< HEAD
+
 
     <string name="search_hint">Search</string>
     <string name="prompt_msg">Type a message</string>
@@ -46,13 +46,12 @@
 
 
 
-=======
     <string name="your_options">YOUR OPTIONS</string>
     <string name="hintDate">MM/DD/YYYY</string>
     <string name="summary">SUMMARY</string>
     <string name="total_pay">TOTAL</string>
     <string name="go_to_payment">GO TO PAYMENT</string>
->>>>>>> dev
+
     <string name="txtImages">Images:</string>
     <string name="host_des">Dear Tan</string>
     <string name="host_des_label">Wellcome to Local4fun family. Please answer below question and we will get back to you as soon as possible
