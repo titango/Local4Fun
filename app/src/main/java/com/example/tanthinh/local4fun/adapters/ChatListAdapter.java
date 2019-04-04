@@ -24,14 +24,37 @@ public class ChatListAdapter extends BaseAdapter {
 
     private Activity mActivity;
     private DatabaseReference mDatabaseReference;
-    private String mDisplayName;
+    private String mSenderName ;
+    private String mReceiverName ;
     private ArrayList<DataSnapshot> mSnapshotList;
 
+
+
+    public ChatListAdapter(Activity activity, DatabaseReference ref, String sender, String receiver) {
+
+        mActivity = activity;
+        mSenderName = sender;
+        mReceiverName = receiver;
+        // common error: typo in the db location. Needs to match what's in MainChatActivity.
+        mDatabaseReference = ref.child("messages");
+        mDatabaseReference.addChildEventListener(mListener);
+
+        mSnapshotList = new ArrayList<>();
+    }
     private ChildEventListener mListener = new ChildEventListener() {
         @Override
         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-            mSnapshotList.add(dataSnapshot);
+            InstantMessage message = dataSnapshot.getValue(InstantMessage.class);
+            if(message.getreceiver()!= null && message.getSender()!= null){
+                if (message.getreceiver().equals(mReceiverName) && message.getSender().equals(mSenderName) ){
+                    mSnapshotList.add(dataSnapshot);
+                }
+                if (message.getreceiver().equals(mSenderName) && message.getSender().equals(mReceiverName) ){
+                    mSnapshotList.add(dataSnapshot);
+                }
+            }
+
             notifyDataSetChanged();
 
         }
@@ -56,18 +79,6 @@ public class ChatListAdapter extends BaseAdapter {
 
         }
     };
-
-    public ChatListAdapter(Activity activity, DatabaseReference ref, String name) {
-
-        mActivity = activity;
-        mDisplayName = name;
-        // common error: typo in the db location. Needs to match what's in MainChatActivity.
-        mDatabaseReference = ref.child("messages");
-        mDatabaseReference.addChildEventListener(mListener);
-
-        mSnapshotList = new ArrayList<>();
-    }
-
     private static class ViewHolder{
         TextView authorName;
         TextView body;
@@ -109,10 +120,10 @@ public class ChatListAdapter extends BaseAdapter {
         final InstantMessage message = getItem(position);
         final ViewHolder holder = (ViewHolder) convertView.getTag();
 
-        boolean isMe = message.getAuthor().equals(mDisplayName);
+        boolean isMe = message.getSender().equals(mSenderName);
         setChatRowAppearance(isMe, holder);
 
-        String author = message.getAuthor();
+        String author = message.getSender();
         holder.authorName.setText(author);
 
         String msg = message.getMessage();

@@ -2,11 +2,13 @@ package com.example.tanthinh.local4fun.models;
 
 public class InstantMessage {
     private String message;
-    private String author;
+    private String sender;
+    private String receiver;
 
-    public InstantMessage(String message, String author) {
+    public InstantMessage(String message, String sender, String receiver) {
         this.message = message;
-        this.author = author;
+        this.sender = sender;
+        this.receiver = receiver;
     }
 
     public InstantMessage() {
@@ -17,7 +19,11 @@ public class InstantMessage {
         return message;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getSender() {
+        return sender;
+    }
+
+    public String getreceiver() {
+        return receiver;
     }
 }

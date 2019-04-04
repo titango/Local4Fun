@@ -124,7 +124,8 @@ public class messageListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, MessageDetail.class);
-                intent.putExtra("userName", currentName);
+                intent.putExtra("SenderName", currentName);
+                intent.putExtra("ReceiverName", name);
                 mContext.startActivity(intent);
             }
         });

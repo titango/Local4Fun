@@ -21,7 +21,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class MessageDetail extends AppCompatActivity {
 
-    private String mDisplayName;
+    private String mSenderName;
+    private String mReceiverName;
     private ListView mChatListView;
     private EditText mInputText;
     private ImageButton mSendButton;
@@ -68,7 +69,8 @@ public class MessageDetail extends AppCompatActivity {
 
         // if (mDisplayName == null) mDisplayName = "Anonymous";
         Intent intent = getIntent() ;
-        mDisplayName = intent.getStringExtra("userName");
+        mSenderName = intent.getStringExtra("SenderName");
+        mReceiverName = intent.getStringExtra("ReceiverName");
     }
 
 
@@ -80,8 +82,8 @@ public class MessageDetail extends AppCompatActivity {
 
         if (!input.equals("")) {
             Log.d("Chat", "I sent something to firebase");
-            InstantMessage chat = new InstantMessage(input, mDisplayName);
-            Log.e("Chat" , "" + chat.getAuthor() + " " + chat.getMessage());
+            InstantMessage chat = new InstantMessage(input, mSenderName ,mReceiverName);
+            Log.e("Chat" , "" + chat.getSender() + " " + chat.getMessage());
             mDatabaseReference.child("messages").push().setValue(chat);
             mInputText.setText("");
         }
@@ -94,7 +96,7 @@ public class MessageDetail extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        mAdapter = new ChatListAdapter(this, mDatabaseReference, mDisplayName);
+        mAdapter = new ChatListAdapter(this, mDatabaseReference, mSenderName , mReceiverName);
         mChatListView.setAdapter(mAdapter);
     }
 
