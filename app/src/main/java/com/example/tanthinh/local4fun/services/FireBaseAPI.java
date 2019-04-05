@@ -265,4 +265,14 @@ public class FireBaseAPI {
                 }
         );
     }
+
+    public static void deletePost(Post p) {
+        myRef.child("Post").child(p.getId()).removeValue();
+    }
+
+    public static void updateUser(User u) {
+        
+        myRef.child("User").child(u.getId()).setValue(u);
+
+    }
 }
