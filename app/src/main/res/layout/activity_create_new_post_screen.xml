@@ -159,6 +159,36 @@
             android:layout_centerInParent="true"/>
         </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/txtDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/txtDescription"
+                    android:textColor="@color/blueDark"
+                    android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/editTextDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="0dp"
+                android:ems="10"
+                android:hint="@string/editTextDescription"
+                android:inputType="textPersonName"
+                android:layout_centerInParent="true"/>
+                android:layout_centerInParent="true"/>
+            </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -176,9 +206,9 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editTextDescription"
+            android:id="@+id/editTextSummary"
             android:layout_width="wrap_content"
-            android:layout_height="44dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
@@ -186,6 +216,10 @@
             android:ems="10"
             android:hint="@string/editTextSummary"
             android:inputType="textMultiLine"
+            android:maxLines="10"
+            android:minLines="6"
+            android:scrollbars="vertical"
+            android:gravity="top"
             android:layout_centerInParent="true"/>
         </RelativeLayout>
 
@@ -193,30 +227,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/txtMeetingPoint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/txtMeetingPoint"
-            android:textColor="@color/blueDark"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/txtMeetingPoint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/txtRegion"
+                android:textColor="@color/blueDark"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/editTextMeetingPoint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:ems="10"
-                android:hint="@string/editTextMeetingPoint"
-                android:inputType="textPersonName"
-                android:layout_centerInParent="true"/>
+                android:hint="@string/txtRegionHint"
+                android:inputType="textPersonName" />
         </RelativeLayout>
 
 
