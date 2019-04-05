@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 
 import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.models.Post;
+import com.example.tanthinh.local4fun.screens.ScreenFragment.myFragment;
 import com.google.gson.Gson;
 
 public class PayDetailsScreen extends AppCompatActivity {
@@ -45,11 +46,10 @@ public class PayDetailsScreen extends AppCompatActivity {
         book_now_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent payIntent = new Intent(getApplicationContext(), MainActivity.class);
-                payIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(payIntent);
+                myFragment fragment
+                        = new myFragment();
+                fragment.show(getFragmentManager(), "my fragment");
 
-                finish();
             }
         });
 
