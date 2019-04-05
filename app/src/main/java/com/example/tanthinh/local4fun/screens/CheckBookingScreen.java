@@ -31,11 +31,13 @@ public class CheckBookingScreen extends AppCompatActivity implements AdapterView
     private Spinner numPerson;
     private Spinner numTime;
     private TextView totalPriceTxtView;
+
     private Button book_now_btn;
 
     private double totalPrice = 0;
     private String numberPerson = "";
     private String bookingDate = "";
+
     private Post currentPost;
 
     @Override
@@ -137,4 +139,5 @@ public class CheckBookingScreen extends AppCompatActivity implements AdapterView
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+
 }

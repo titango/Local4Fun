@@ -18,7 +18,10 @@ import android.widget.TextView;
 
 import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.adapters.ViewPagerAdapter;
+import com.example.tanthinh.local4fun.intefaces.OnDataReceiveCallback;
 import com.example.tanthinh.local4fun.models.Post;
+import com.example.tanthinh.local4fun.models.Review;
+import com.example.tanthinh.local4fun.services.FireBaseAPI;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -30,6 +33,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+
+import java.util.Date;
+
 
 import me.relex.circleindicator.CircleIndicator;
 
@@ -122,6 +128,10 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
 
         displayPlanSection();
         displayReviewSection();
+
+        //Review r = new Review("-LbaIAoqazHPSY-cUms9", currentPost.getId(), new Date(), 3, "Thank you for your service!");
+        //FireBaseAPI.insertReview(r);
+
     }
 
     private void displayPlanSection()
@@ -130,10 +140,12 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
         localtionLabelWrapper = (LinearLayout)findViewById(R.id.location_label_wrapper);
 
         // FAKE DATA NOW
-        currentPost.plan = new ArrayList<>();
-        currentPost.plan.add("New West Station && We will meet at new west station first");
-        currentPost.plan.add("Metrotown && Check out shopping at Metrotown");
-        currentPost.plan.add("Downtown && Center of Vancouver!!");
+
+        //currentPost.plan = new ArrayList<>();
+        //currentPost.plan.add("New West Station && We will meet at new west station first");
+        //currentPost.plan.add("Metrotown && Check out shopping at Metrotown");
+        //currentPost.plan.add("Downtown && Center of Vancouver!!");
+
 
 
         for(int i = 0; i < currentPost.plan.size(); i++)
@@ -251,44 +263,64 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
     {
         reviewsWrapper = (LinearLayout)findViewById(R.id.reviewsWrapper);
 
-        for(int i = 0; i < 5; i++)
-        {
-            String username = "Fake name";
-            String date = "02/20/2019";
-            float rating = 3.0f;
-            String comment = "user comment";
+        FireBaseAPI.getReviews(new OnDataReceiveCallback(){
+            @Override
+            public void onReviewReceived(ArrayList<Review> list) {
+                if(list.size() > 0) {
 
-            LinearLayout bigWrapper = new LinearLayout(getApplicationContext());
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-            );
-            bigWrapper.setPadding(10,10,10,10);
-            bigWrapper.setOrientation(LinearLayout.VERTICAL);
+                    String username = list.get(0).getUserId();
+                    String date = list.get(0).getReviewDate().toString();
+                    float rating = list.get(0).getRating();
+                    String comment = list.get(0).getComment();
 
-            LinearLayout userAndRating = createUserAndRating(username, rating);
-            TextView dateView = new TextView(getApplicationContext());
-            dateView.setLayoutParams(new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-            ));
-            dateView.setText(date);
+                    LinearLayout bigWrapper = new LinearLayout(getApplicationContext());
+                    bigWrapper.setPadding(10, 10, 10, 10);
+                    bigWrapper.setOrientation(LinearLayout.VERTICAL);
 
-            TextView commentView = new TextView(getApplicationContext());
-            LinearLayout.LayoutParams commentParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-            );
-            commentParams.setMargins(0,20,0,0);
-            commentView.setLayoutParams(commentParams);
-            commentView.setText(comment);
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    );
 
-            bigWrapper.addView(userAndRating);
-            bigWrapper.addView(dateView);
-            bigWrapper.addView(commentView);
 
-            reviewsWrapper.addView(bigWrapper);
-        }
+                    LinearLayout userAndRating = createUserAndRating(username, rating);
+                    TextView dateView = new TextView(getApplicationContext());
+                    dateView.setLayoutParams(new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    ));
+                    dateView.setText(date);
+
+                    TextView commentView = new TextView(getApplicationContext());
+                    LinearLayout.LayoutParams commentParams = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    commentParams.setMargins(0, 20, 0, 0);
+                    commentView.setLayoutParams(commentParams);
+                    commentView.setText(comment);
+
+                    bigWrapper.addView(userAndRating);
+                    bigWrapper.addView(dateView);
+                    bigWrapper.addView(commentView);
+
+                    reviewsWrapper.addView(bigWrapper);
+                }
+            }
+
+            @Override
+            public void onPostReceived(ArrayList<Post> list) {
+
+            }
+
+        },currentPost.getId());
+
+
+
+
+    }
+
+    public static void refreshReviewsList(){
 
     }
 
@@ -352,4 +384,5 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
             mMap.moveCamera(CameraUpdateFactory.newLatLng(ll));
         }
     }
+
 }

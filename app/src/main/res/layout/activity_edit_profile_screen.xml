@@ -120,7 +120,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/username_label"
+                        android:id="@+id/user_email_label"
                         android:layout_width="@dimen/label_width_130"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/padding20"
@@ -142,7 +142,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/user_email_label"
+                        android:id="@+id/username_label"
                         android:layout_width="@dimen/label_width_130"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/padding20"
