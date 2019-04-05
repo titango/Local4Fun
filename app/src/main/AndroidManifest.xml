@@ -25,7 +25,7 @@
         <activity android:name=".screens.PostDetailsScreen" />
         <activity android:name=".screens.BookingDetailsScreen" />
         <activity android:name=".screens.CreateNewPostScreen" />
-        <activity android:name=".screens.LoginScreen.LoginActivity">
+        <activity android:name=".screens.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

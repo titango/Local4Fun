@@ -18,7 +18,7 @@ import com.example.tanthinh.local4fun.models.Singleton;
 import com.example.tanthinh.local4fun.screens.BecomeHostScreen;
 import com.example.tanthinh.local4fun.screens.ChangePasswordScreen;
 import com.example.tanthinh.local4fun.screens.EditProfileScreen;
-import com.example.tanthinh.local4fun.screens.LoginScreen.LoginActivity;
+import com.example.tanthinh.local4fun.screens.LoginActivity;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 

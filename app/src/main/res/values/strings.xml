@@ -9,7 +9,7 @@
     <string name="login_page_forgotPwd"><u>Forgot password?</u></string>
     <string name="login_page_register_label">Don\'t have an account?</string>
     <string name="login_page_register_text">  <u>Register here</u></string>
-    <string name="login_page_signInBtn">Sign in</string>
+    <string name="login_page_signInBtn">SIGN IN</string>
     <string name="title_activity_acount_register">acountRegister</string>
     <string name="register_email_label">Email:</string>
     <string name="register_pwd_label">Password:</string>

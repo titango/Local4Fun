@@ -2,7 +2,6 @@ package com.example.tanthinh.local4fun.services;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -17,7 +16,7 @@ import com.example.tanthinh.local4fun.models.Booking;
 import com.example.tanthinh.local4fun.models.Post;
 import com.example.tanthinh.local4fun.models.Review;
 import com.example.tanthinh.local4fun.models.User;
-import com.example.tanthinh.local4fun.screens.LoginScreen.LoginActivity;
+import com.example.tanthinh.local4fun.screens.LoginActivity;
 import com.example.tanthinh.local4fun.screens.ScreenFragment.BookingScreenFragment;
 import com.example.tanthinh.local4fun.screens.ScreenFragment.ExploreScreenFragment;
 import com.google.firebase.database.DataSnapshot;

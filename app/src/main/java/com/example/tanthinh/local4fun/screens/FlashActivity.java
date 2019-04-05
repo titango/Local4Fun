@@ -1,4 +1,4 @@
-package com.example.tanthinh.local4fun.screens.FlashScreen;
+package com.example.tanthinh.local4fun.screens;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
