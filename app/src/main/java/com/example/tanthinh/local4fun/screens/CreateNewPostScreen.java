@@ -55,7 +55,7 @@ import java.util.UUID;
 
 public class CreateNewPostScreen extends AppCompatActivity {
     private static final String TAG = CreateNewPostScreen.class.getSimpleName();
-    private EditText editTextPostName, editTextMeetingPoint,
+    private EditText editTextPostName, editTextMeetingPoint, editTextSummary,
             editTextDescription, editTextPlanLocation1, editTextPlanLocation1Desc,
             editTextPlanLocation2, editTextPlanLocation2Desc,
             editTextPlanLocation3, editTextPlanLocation3Desc,
@@ -102,6 +102,7 @@ public class CreateNewPostScreen extends AppCompatActivity {
 
         editTextPostName = (EditText)findViewById(R.id.editTextPostName);
         editTextMeetingPoint = (EditText)findViewById(R.id.editTextMeetingPoint);
+        editTextSummary = (EditText)findViewById(R.id.editTextSummary);
         editTextDescription = (EditText)findViewById(R.id.editTextDescription);
         editTextPlanLocation1 = (EditText)findViewById(R.id.editTextPlanLocation1);
         editTextPlanLocation1Desc = (EditText)findViewById(R.id.editTextPlanLocation1Desc);
@@ -166,10 +167,15 @@ public class CreateNewPostScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                plan.clear();
+                planDesc.clear();
+                pictures.clear();
+
                 userId =  FirebaseAuth.getInstance().getCurrentUser().getUid();
                 String postName = editTextPostName.getText().toString();
                 String tourType = spinnerTour.getSelectedItem().toString();
                 String description = editTextDescription.getText().toString();
+                String summary = editTextSummary.getText().toString();
                 Double duration = Double.parseDouble(spinnerDuration.getSelectedItem().toString());
                 Double price = Double.parseDouble(spinnerPrice.getSelectedItem().toString());
                 String location = editTextMeetingPoint.getText().toString();
@@ -194,10 +200,12 @@ public class CreateNewPostScreen extends AppCompatActivity {
 
 
                 if(TextUtils.isEmpty(postName) || TextUtils.isEmpty(description) ||
-                TextUtils.isEmpty(location) || plan.isEmpty() || planDesc.isEmpty()){
+                        TextUtils.isEmpty(summary) || TextUtils.isEmpty(location) ||
+                        editTextPlanLocation1.getText().toString().trim().length() == 0 ||
+                        editTextPlanLocation1Desc.toString().trim().length() == 0) {
                     Toast.makeText(CreateNewPostScreen.this, "Complete the form", Toast.LENGTH_SHORT).show();
                 }else{
-                    createPost(userId, postName, tourType, description, duration, price, location,
+                    createPost(userId, postName, tourType, description, summary, duration, price, location,
                             plan, planDesc, pictures);
 
                     alertDialog();
@@ -346,7 +354,7 @@ public class CreateNewPostScreen extends AppCompatActivity {
     }
 
     private void createPost(String userId, String postName, String tourType, String description,
-                            Double duration, Double price, String location, ArrayList<String> plan,
+                            String summary, Double duration, Double price, String location, ArrayList<String> plan,
                             ArrayList<String> planDesc, ArrayList<String> pictures) {
         // TODO
         // In real apps this userId should be fetched
@@ -357,7 +365,7 @@ public class CreateNewPostScreen extends AppCompatActivity {
 //
 
 
-        Post post = new Post(userId, postName, tourType, description, duration, price, location,
+        Post post = new Post(userId, postName, tourType, description, summary, duration, price, location,
                 plan, planDesc, pictures);
         FireBaseAPI.insertPost(post);
     }
