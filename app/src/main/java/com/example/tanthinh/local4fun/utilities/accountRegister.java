@@ -11,8 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.tanthinh.local4fun.R;
-import com.example.tanthinh.local4fun.screens.LoginScreen.LoginActivity;
-import com.example.tanthinh.local4fun.screens.MainActivity;
+import com.example.tanthinh.local4fun.screens.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
