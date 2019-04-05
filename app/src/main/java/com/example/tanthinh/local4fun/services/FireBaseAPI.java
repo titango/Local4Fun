@@ -240,4 +240,29 @@ public class FireBaseAPI {
 
         });
     }
+
+    public static void getPostsOrderBy(final OnDataReceiveCallback callback, String attribute) {
+
+        final ArrayList<Post> posts = new ArrayList<Post>();
+        Query query = myRef.child("Post").orderByChild(attribute);
+        query.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
+                            Post p = singleSnapshot.getValue(Post.class);
+
+                            posts.add(p);
+
+                        }
+
+                        callback.onPostReceived(posts);
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                }
+        );
+    }
 }
