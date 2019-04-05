@@ -114,7 +114,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                             loginUser = new User(user.getDisplayName(),user.getEmail(), user.getPhoneNumber(), "","");
 
-                            FireBaseAPI.getUserAddIfDoesNotExist(user.getEmail());
+//                            FireBaseAPI.getUserAddIfDoesNotExist(user.getEmail());
 
                             moveToMainActivity(loginUser);
                         } else {

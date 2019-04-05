@@ -1,8 +1,12 @@
 package com.example.tanthinh.local4fun.screens;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,12 +16,19 @@ import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.models.Singleton;
 import com.example.tanthinh.local4fun.models.User;
 
+import java.io.IOException;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class EditProfileScreen extends AppCompatActivity {
 
     private Button updateButton;
     private TextView email, fullname, mobile, desciption, user_name, user_email;
     private ImageView back;
     private Singleton singleton;
+    private CircleImageView imgPath,imgViewImage;
+    private final int PICK_IMAGE_REQUEST = 4;
+    private Uri filePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +57,43 @@ public class EditProfileScreen extends AppCompatActivity {
                backToProfileScreen();
             }
         });
+        imgViewImage = (CircleImageView) findViewById(R.id.profile_image);
+        imgPath = (CircleImageView) findViewById(R.id.profile_choose_image);
+        imgPath.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chooseImage();
+            }
+        });
+
         singleton = Singleton.initInstance();
         initSingleton();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null )
+        {
+            filePath = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                Log.e("D", filePath + "");
+                imgViewImage.setImageBitmap(bitmap);
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void chooseImage() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
 
     private void initSingleton() {
