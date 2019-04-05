@@ -40,10 +40,15 @@ public class messageListAdapter extends BaseAdapter {
     private ChildEventListener mListener = new ChildEventListener() {
         @Override
         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
             User user = new User();
             user = dataSnapshot.getValue(User.class);
-            mSnapshotList.add(dataSnapshot);
+            if (user.getEmail()!= null){
+                if (user.getEmail().equals(singleton.loginUser.getEmail())){
+                    currentName = user.getFullname();
+                }else {
+                    mSnapshotList.add(dataSnapshot);
+                }
+            }
             notifyDataSetChanged();
 
         }
@@ -118,7 +123,10 @@ public class messageListAdapter extends BaseAdapter {
         tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_account_circle_black_24dp, 0, 0, 0);
         final String name = user.getFullname();
 
-        currentName = singleton.loginUser.getFullname();
+
+
+
+        //currentName = singleton.loginUser.getFullname();
 
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
