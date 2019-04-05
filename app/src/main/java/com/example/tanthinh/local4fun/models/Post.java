@@ -17,8 +17,11 @@ public class Post {
     public Map<String, Boolean> stars = new HashMap<>();
     public ArrayList<String> plan = new ArrayList<>();
     private String description;
+    private String summary;
 
     private ArrayList<String> pictures = new ArrayList<String>();
+    public ArrayList<String> planDesc = new ArrayList<>();
+
 
     public Post(){
     }
@@ -60,6 +63,24 @@ public class Post {
         this.description = description;
     }
 
+    public Post(String userId, String postName, String tourType, String description, String summary,
+                Double duration, Double price, String location, ArrayList<String> plan,
+                ArrayList<String> planDesc,
+                ArrayList<String> pictures) {
+        this.id = userId;
+        this.title = postName;
+        this.userId = userId;
+        this.hours = duration;
+        this.pricePerPerson = price;
+        this.tourType = tourType;
+        this.location = location;
+        this.plan = plan;
+        this.planDesc = planDesc;
+        this.description = description;
+        this.pictures = pictures;
+        this.summary = summary;
+    }
+
     public ArrayList<String> getPlan() {
         return plan;
     }
@@ -93,6 +114,14 @@ public class Post {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getSummary(){
+        return summary;
+    }
+
+    public void setSummary(String summary){
+        this.summary = summary;
     }
 
     public void setTitle(String title) {

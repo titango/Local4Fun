@@ -29,11 +29,11 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="txtPostName">Post Name:</string>
     <string name="editTextPostName">Post Name</string>
-    <string name="txtTour">Tour:</string>
+    <string name="txtTour">Tour Type:</string>
     <string name="txtDuration">Duration:</string>
     <string name="txtPrice">Price:</string>
-    <string name="txtDescription">Description:</string>
-    <string name="editTextDescription">Your description</string>
+    <string name="txtSummary">Summary:</string>
+    <string name="editTextSummary">Your summary</string>
     <string name="txtMeetingPoint">Meeting Point:</string>
     <string name="editTextMeetingPoint">Address</string>
     <string name="btnCreatePost">Create a post</string>
@@ -58,12 +58,11 @@
     <string name="question3">3. Please choose your language: </string>
 
     <string-array name="tourTypes">
-        <item>City tour</item>
-        <item>Food tour</item>
-        <item>Historic tour</item>
-        <item>Photo tour</item>
-        <item>Sport &amp; Leisure</item>
-        <item>Workshops</item>
+        <item>City</item>
+        <item>Food</item>
+        <item>Historic</item>
+        <item>Photo</item>
+        <item>Sport</item>
     </string-array>
 
     <string-array name="duration">
@@ -182,5 +181,21 @@
         <item>9</item>
         <item>10</item>
     </string-array>
+    <string name="txtPlan">Plan:</string>
+    <string name="editTextPlanLocation1">Location 1</string>
+    <string name="editTextPlanLocation1Desc">Location 1 - description</string>
+    <string name="editTextPlanLocation2">Location 2</string>
+    <string name="editTextPlanLocation2Desc">Location 2 - description</string>
+    <string name="editTextPlanLocation3">Location 3</string>
+    <string name="editTextPlanLocation3Desc">Location 3 - description</string>
+    <string name="editTextPlanLocation4">Location 4</string>
+    <string name="editTextPlanLocation4Desc">Location 4 - description</string>
+    <string name="editTextPlanLocation5">Location 5</string>
+    <string name="editTextPlanLocation5Desc">Location 5 - description</string>
+
+    <string name="txtRegion">Region</string>
+    <string name="txtRegionHint">City, Province</string>
+    <string name="editTextDescription">Enter short description</string>
+    <string name="txtDescription">Description:</string>
 
 </resources>
