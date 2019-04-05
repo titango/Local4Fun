@@ -87,9 +87,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
         Post p = postList.get(position);
         holder.postTitle.setText(p.getTitle());
-        holder.postHour.setText(p.getHours() + "");
+        holder.postHour.setText(p.getHours() + " hrs");
         holder.postTour.setText(p.getTourType() + "");
-        holder.postPrice.setText(p.getPricePerPerson() + "");
+        holder.postPrice.setText("$"+p.getPricePerPerson() + "");
         holder.postLocation.setText(p.getLocation() + "");
 
     }

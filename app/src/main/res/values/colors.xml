@@ -20,13 +20,14 @@
     <!-- RED -->
     <color name="redLight">#FD676A</color>
     <color name="redPink">#FC1268</color>
-    <color name="redDark">#650205</color>
+    <color name="redDark">#990000</color>
 
     <!-- GRAY -->
     <color name="grayLight">#808080</color>
 
     <!-- GREEN -->
     <color name="greenLight">#679868</color>
+    <color name="greenDark">#486a49</color>
 
     <!-- ORANGE -->
     <color name="orangeLight">#FD996B</color>
@@ -37,6 +38,9 @@
 
     <!-- YELLOW -->
     <color name="yellowLight">#FDCA2E</color>
+
+    <!-- BROWN-->
+    <color name="brown_medium">#666633</color>
 
 
 </resources>
