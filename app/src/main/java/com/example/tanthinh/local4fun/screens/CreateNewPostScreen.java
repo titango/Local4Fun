@@ -3,21 +3,26 @@ package com.example.tanthinh.local4fun.screens;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,33 +42,52 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 public class CreateNewPostScreen extends AppCompatActivity {
     private static final String TAG = CreateNewPostScreen.class.getSimpleName();
-    private EditText editTextPostName, editTextMeetingPoint, editTextDescription;
+    private EditText editTextPostName, editTextMeetingPoint, editTextSummary,
+            editTextDescription, editTextPlanLocation1, editTextPlanLocation1Desc,
+            editTextPlanLocation2, editTextPlanLocation2Desc,
+            editTextPlanLocation3, editTextPlanLocation3Desc,
+            editTextPlanLocation4, editTextPlanLocation4Desc,
+            editTextPlanLocation5, editTextPlanLocation5Desc;
     private Spinner spinnerTour, spinnerDuration, spinnerPrice;
     private Button btnCreatePost;
+    private TextView txtSelectedImage;
     private ImageView btnAddImages, imgViewImage;
+    private ImageButton close_icon_btn;
     private DatabaseReference mFirebaseDatabase;
     private FirebaseDatabase mFirebaseInstance;
+
+    private Toolbar topToolBar;
 
     private String userId;
 
     private Uri filePath;
+    Uri downloadUrl;
 
     private final int PICK_IMAGE_REQUEST = 4;
 
     FirebaseStorage storage;
     StorageReference storageReference;
+    StorageReference pathReference;
+    StorageReference ref;
 
+    final ArrayList<String> plan = new ArrayList<>();
+    final ArrayList<String> planDesc = new ArrayList<>();
+    final ArrayList<String> pictures = new ArrayList<>();
+
+    List fileNameList = new ArrayList<>();
 
 
     @Override
@@ -71,14 +95,33 @@ public class CreateNewPostScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_post_screen);
 
+        topToolBar = (Toolbar) findViewById(R.id.my_toolbar);
+
+
+        close_icon_btn = (ImageButton)findViewById(R.id.close_icon_btn);
+
         editTextPostName = (EditText)findViewById(R.id.editTextPostName);
         editTextMeetingPoint = (EditText)findViewById(R.id.editTextMeetingPoint);
+        editTextSummary = (EditText)findViewById(R.id.editTextSummary);
         editTextDescription = (EditText)findViewById(R.id.editTextDescription);
+        editTextPlanLocation1 = (EditText)findViewById(R.id.editTextPlanLocation1);
+        editTextPlanLocation1Desc = (EditText)findViewById(R.id.editTextPlanLocation1Desc);
+        editTextPlanLocation2 = (EditText)findViewById(R.id.editTextPlanLocation2);
+        editTextPlanLocation2Desc = (EditText)findViewById(R.id.editTextPlanLocation2Desc);
+        editTextPlanLocation3 = (EditText)findViewById(R.id.editTextPlanLocation3);
+        editTextPlanLocation3Desc = (EditText)findViewById(R.id.editTextPlanLocation3Desc);
+        editTextPlanLocation4 = (EditText)findViewById(R.id.editTextPlanLocation4);
+        editTextPlanLocation4Desc = (EditText)findViewById(R.id.editTextPlanLocation4Desc);
+        editTextPlanLocation5 = (EditText)findViewById(R.id.editTextPlanLocation5);
+        editTextPlanLocation5Desc = (EditText)findViewById(R.id.editTextPlanLocation5Desc);
         spinnerTour = (Spinner)findViewById(R.id.spinnerTour);
         spinnerDuration = (Spinner)findViewById(R.id.spinnerDuration);
         spinnerPrice = (Spinner)findViewById(R.id.spinnerPrice);
         btnAddImages = (ImageView)findViewById(R.id.btnAddImages);
         imgViewImage = (ImageView)findViewById(R.id.imgViewImage);
+        txtSelectedImage = (TextView)findViewById(R.id.txtSelectedImage);
+
+
 
         mFirebaseInstance = FirebaseDatabase.getInstance();
 
@@ -105,6 +148,12 @@ public class CreateNewPostScreen extends AppCompatActivity {
 //            }
 //        });
 
+        close_icon_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         btnAddImages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,34 +167,75 @@ public class CreateNewPostScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                plan.clear();
+                planDesc.clear();
+                pictures.clear();
+
                 userId =  FirebaseAuth.getInstance().getCurrentUser().getUid();
                 String postName = editTextPostName.getText().toString();
                 String tourType = spinnerTour.getSelectedItem().toString();
                 String description = editTextDescription.getText().toString();
+                String summary = editTextSummary.getText().toString();
                 Double duration = Double.parseDouble(spinnerDuration.getSelectedItem().toString());
                 Double price = Double.parseDouble(spinnerPrice.getSelectedItem().toString());
                 String location = editTextMeetingPoint.getText().toString();
+                plan.add(editTextPlanLocation1.getText().toString());
+                plan.add(editTextPlanLocation2.getText().toString());
+                plan.add(editTextPlanLocation3.getText().toString());
+                plan.add(editTextPlanLocation4.getText().toString());
+                plan.add(editTextPlanLocation5.getText().toString());
+                planDesc.add(editTextPlanLocation1Desc.getText().toString());
+                planDesc.add(editTextPlanLocation2Desc.getText().toString());
+                planDesc.add(editTextPlanLocation3Desc.getText().toString());
+                planDesc.add(editTextPlanLocation4Desc.getText().toString());
+                planDesc.add(editTextPlanLocation5Desc.getText().toString());
+
+                //pictures.add(downloadUrl.toString());
+
+                //pictures.add(storageReference.child("images/").getDownloadUrl().toString());
+                //storageReference = storage.getReferenceFromUrl("gs://local4fun.appspot.com");
+                //     pathReference = storageReference.child("images/");
+                //    pictures.add(pathReference.getDownloadUrl().toString());
+
+
+
+                if(TextUtils.isEmpty(postName) || TextUtils.isEmpty(description) ||
+                        TextUtils.isEmpty(summary) || TextUtils.isEmpty(location) ||
+                        editTextPlanLocation1.getText().toString().trim().length() == 0 ||
+                        editTextPlanLocation1Desc.toString().trim().length() == 0) {
+                    Toast.makeText(CreateNewPostScreen.this, "Complete the form", Toast.LENGTH_SHORT).show();
+                }else{
+                    createPost(userId, postName, tourType, description, summary, duration, price, location,
+                            plan, planDesc, pictures);
+
+                    alertDialog();
+                }
 
 
 //                if (TextUtils.isEmpty(userId)) {
-                    createPost(userId, postName, tourType, description, duration, price, location);
+
 
 //                }
 //                else {
 //                    updatePost(userId, postName, tourType, duration, price, location);
 //                }
 
-                uploadImage();
-                alertDialog();
+
+//                uploadImage();
+
             }
         });
 
 
     }
 
+
+
+
     private void chooseImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
+       // intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
@@ -160,7 +250,25 @@ public class CreateNewPostScreen extends AppCompatActivity {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 imgViewImage.setImageBitmap(bitmap);
-            }
+                txtSelectedImage.append(filePath.getLastPathSegment() + "\n");
+
+                uploadImage();
+
+                if (filePath != null && data.getClipData() != null) {
+
+                    int totalImageSelected = data.getClipData().getItemCount();
+
+                    for (int i = 0; i < totalImageSelected; i++) {
+                        Uri fileUri = data.getClipData().getItemAt(i).getUri();
+
+                        String fileName = getFileName(fileUri);
+                        fileNameList.add(fileName);
+                    }
+                    }
+
+
+
+                    }
             catch (IOException e)
             {
                 e.printStackTrace();
@@ -168,28 +276,68 @@ public class CreateNewPostScreen extends AppCompatActivity {
         }
     }
 
+    public String getFileName(Uri uri){
+        String result = null;
+        if(uri.getScheme().equals("content")){
+            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+            try{
+                if(cursor != null && cursor.moveToFirst()){
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                }
+            }finally {
+                cursor.close();
+            }
+        }
+        if(result == null){
+            result = uri.getPath();
+            int cut = result.lastIndexOf('/');
+            if(cut != -1){
+                result = result.substring(cut + 1);
+            }
+        }
+
+        return result;
+
+    }
+
 
     private void uploadImage() {
 
+
         if(filePath != null)
         {
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("Uploading...");
-            progressDialog.show();
+            // final ProgressDialog progressDialog = new ProgressDialog(this);
+            // progressDialog.setTitle("Creating Post...");
+            // progressDialog.show();
 
-            StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
+            // Create the file metadata
+            StorageMetadata metadata = new StorageMetadata.Builder()
+                    .setContentType("image/jpeg")
+                    .build();
+
+            ref = storageReference.child("images/"+ UUID.randomUUID().toString());
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss();
-                            Toast.makeText(CreateNewPostScreen.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                            //  progressDialog.dismiss();
+                            //  Toast.makeText(CreateNewPostScreen.this, "Uploaded", Toast.LENGTH_SHORT).show();
+
+                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    downloadUrl = uri;
+                                    pictures.add(downloadUrl.toString());
+                                    //  Log.e("Image Url", pictures.get(0));
+
+                                }
+                            });
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
+                            //  progressDialog.dismiss();
                             Toast.makeText(CreateNewPostScreen.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     })
@@ -198,14 +346,16 @@ public class CreateNewPostScreen extends AppCompatActivity {
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                             double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
                                     .getTotalByteCount());
-                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                            // progressDialog.setMessage("Post Created "+(int)progress+"%");
                         }
                     });
         }
+
     }
 
     private void createPost(String userId, String postName, String tourType, String description,
-                            Double duration, Double price, String location) {
+                            String summary, Double duration, Double price, String location, ArrayList<String> plan,
+                            ArrayList<String> planDesc, ArrayList<String> pictures) {
         // TODO
         // In real apps this userId should be fetched
         // by implementing firebase auth
@@ -214,7 +364,10 @@ public class CreateNewPostScreen extends AppCompatActivity {
 //        }
 //
 
-        Post post = new Post(userId, postName, tourType, description, duration, price, location);
+
+        Post post = new Post(userId, postName, tourType, description, summary, duration, price, location,
+                plan, planDesc, pictures);
+
         FireBaseAPI.insertPost(post);
     }
 
@@ -305,6 +458,6 @@ public class CreateNewPostScreen extends AppCompatActivity {
         mButton.setTextColor(Color.WHITE);
         mButton.setBackgroundColor(Color.parseColor("#6895BB"));
 
-   }
+    }
 
 }

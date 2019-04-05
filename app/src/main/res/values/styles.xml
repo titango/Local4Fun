@@ -26,4 +26,8 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="topToolbar">
+        <item name="android:background">#f6f6f6</item>
+    </style>
+
 </resources>
