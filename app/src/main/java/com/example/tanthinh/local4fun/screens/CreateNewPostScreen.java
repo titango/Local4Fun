@@ -169,7 +169,6 @@ public class CreateNewPostScreen extends AppCompatActivity {
 
                 plan.clear();
                 planDesc.clear();
-                pictures.clear();
 
                 userId =  FirebaseAuth.getInstance().getCurrentUser().getUid();
                 String postName = editTextPostName.getText().toString();
