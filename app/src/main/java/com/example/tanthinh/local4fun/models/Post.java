@@ -1,9 +1,10 @@
 package com.example.tanthinh.local4fun.models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class    Post {
-
+public class Post {
 
     private String id;
     private String title;
@@ -12,13 +13,14 @@ public class    Post {
     private Double pricePerPerson;
     private String tourType;
     private String location;
+
+    public Map<String, Boolean> stars = new HashMap<>();
+    public ArrayList<String> plan = new ArrayList<>();
     private String description;
 
     private ArrayList<String> pictures = new ArrayList<String>();
-    public ArrayList<String> plan = new ArrayList<String>();
 
     public Post(){
-
     }
 
     public Post(String userId, String title, String tourType, String description, Double hours, Double pricePerPerson, String location) {
@@ -31,7 +33,22 @@ public class    Post {
         this.description = description;
     }
 
-    public Post(String postId, String userId, String title,  String tourType,String description, Double hours, Double pricePerPerson,  String location, ArrayList<String> pictures) {
+    public Post(String postId, String userId, String title,
+                String tourType,String description, Double hours, Double pricePerPerson,
+                String location) {
+        this.id = postId;
+        this.title = title;
+        this.userId = userId;
+        this.hours = hours;
+        this.pricePerPerson = pricePerPerson;
+        this.tourType = tourType;
+        this.location = location;
+        this.description = description;
+    }
+
+    public Post(String postId, String userId, String title,
+                String tourType,String description, Double hours, Double pricePerPerson,
+                String location, ArrayList<String> pictures) {
         this.id = postId;
         this.title = title;
         this.userId = userId;
@@ -125,7 +142,5 @@ public class    Post {
     public void setLocation(String location) {
         this.location = location;
     }
-
-
 
 }

@@ -220,7 +220,6 @@ public class CreateNewPostScreen extends AppCompatActivity {
 //        }
 //
 
-
         Post post = new Post(userId, postName, tourType, description, duration, price, location);
         FireBaseAPI.insertPost(post);
     }

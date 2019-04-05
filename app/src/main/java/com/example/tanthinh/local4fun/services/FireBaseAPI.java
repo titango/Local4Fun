@@ -11,10 +11,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.tanthinh.local4fun.intefaces.FireBaseResponse;
+import com.example.tanthinh.local4fun.intefaces.OnDataReceiveCallback;
 import com.example.tanthinh.local4fun.models.Booking;
 import com.example.tanthinh.local4fun.models.Post;
+import com.example.tanthinh.local4fun.models.Review;
 import com.example.tanthinh.local4fun.models.User;
-import com.example.tanthinh.local4fun.screens.LoginScreen.LoginActivity;
+import com.example.tanthinh.local4fun.screens.LoginActivity;
 import com.example.tanthinh.local4fun.screens.ScreenFragment.BookingScreenFragment;
 import com.example.tanthinh.local4fun.screens.ScreenFragment.ExploreScreenFragment;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +30,7 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
@@ -37,10 +40,14 @@ public class FireBaseAPI {
     private Context context;
     private static FirebaseDatabase database = FirebaseDatabase.getInstance();
     private static DatabaseReference myRef = database.getReference();
+    List<User> list = new ArrayList<>();
     public FireBaseAPI(Activity context)
     {
         this.context = context;
         apiResponse = (FireBaseResponse)context;
+    }
+    public FireBaseAPI()
+    {
     }
 
     // Implement different URL call
@@ -157,6 +164,14 @@ public class FireBaseAPI {
         return id;
     }
 
+    public static String insertReview(Review u){
+        String id = myRef.child("Review").push().getKey();
+        myRef.child("Review").child(id).setValue(u);
+        return id;
+    }
+
+
+
 
     public static void getUserAddIfDoesNotExist(final String email){
 
@@ -195,5 +210,34 @@ public class FireBaseAPI {
 
         });
 
+    }
+
+    public static void getReviews(final OnDataReceiveCallback callback, final String postId){
+
+        final ArrayList<Review> reviews = new ArrayList<Review>();
+
+        Query phoneQuery = myRef.child("Review");
+        phoneQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
+                    Review p = singleSnapshot.getValue(Review.class);
+
+                    if(postId.equals(p.getPostId())){
+                        reviews.add(p);
+                    }
+
+                }
+
+                callback.onReviewReceived(reviews);
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e(TAG, "onCancelled", databaseError.toException());
+            }
+
+        });
     }
 }

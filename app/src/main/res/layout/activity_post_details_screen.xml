@@ -10,24 +10,24 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_alignParentStart="true"
         android:layout_weight="9.5">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <!-- FULL POST BLOCK-->
-            <LinearLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
                 android:orientation="vertical"
-                android:scrollbars="vertical"
-                xmlns:app="http://schemas.android.com/apk/res-auto">
+                android:scrollbars="vertical">
 
-                <android.support.v7.widget.CardView
-                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     card_view:cardCornerRadius="10dp">
@@ -42,7 +42,7 @@
                             android:id="@+id/profile_explore_image"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
-                            android:layout_marginTop="128dp"
+                            android:layout_marginTop="148dp"
                             android:elevation="1.0dp"
                             android:src="@drawable/ic_user_icon"
                             android:translationZ="1.0dp"
@@ -57,8 +57,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:elevation="0dp">
+                        android:elevation="0dp"
+                        android:orientation="vertical">
 
                         <!-- FIRST HALF - IMAGE SLIDER-->
                         <LinearLayout
@@ -71,21 +71,19 @@
                             <android.support.v4.view.ViewPager
                                 android:id="@+id/viewPager"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-                            </android.support.v4.view.ViewPager>
+                                android:layout_height="wrap_content"></android.support.v4.view.ViewPager>
                         </LinearLayout>
 
                         <!-- WITH CIRCLE INDICATOR SUPPORT-->
                         <me.relex.circleindicator.CircleIndicator
                             android:id="@+id/viewPagerIndicator"
-                            app:ci_width="7dp"
-                            app:ci_height="7dp"
-                            app:ci_drawable="@drawable/circleindicator_round"
-                            app:ci_drawable_unselected="@drawable/circileindicator_round_unselected"
                             android:layout_width="match_parent"
                             android:layout_height="20dp"
                             android:layout_marginTop="-20dp"
-                            />
+                            app:ci_drawable="@drawable/circleindicator_round"
+                            app:ci_drawable_unselected="@drawable/circileindicator_round_unselected"
+                            app:ci_height="7dp"
+                            app:ci_width="7dp" />
 
                         <!-- SECOND HALF -->
                         <LinearLayout
@@ -107,17 +105,17 @@
                                     android:id="@+id/explore_post_title"
                                     android:layout_width="match_parent"
                                     android:layout_height="0dp"
-                                    android:textSize="17dp"
-                                    android:text="\@explore_post_title"
-                                    android:textColor="@color/blueDark"
-                                    android:textStyle="bold"
-                                    android:fontFamily="sans-serif"
-                                    android:padding="3dp"
-                                    android:maxLines="2"
+                                    android:layout_weight="1.7"
                                     android:ellipsize="end"
+                                    android:fontFamily="sans-serif"
+                                    android:maxLines="2"
+                                    android:padding="3dp"
                                     android:scrollHorizontally="true"
+                                    android:text="\@explore_post_title"
                                     android:textAllCaps="true"
-                                    android:layout_weight="1.7"/>
+                                    android:textColor="@color/blueDark"
+                                    android:textSize="17dp"
+                                    android:textStyle="bold" />
 
                                 <!-- TIME - PRICE -->
                                 <LinearLayout
@@ -130,21 +128,22 @@
                                     <LinearLayout
                                         android:layout_width="0dp"
                                         android:layout_height="match_parent"
-                                        android:gravity="center"
-                                        android:layout_weight="3">
+                                        android:layout_weight="3"
+                                        android:gravity="center">
+
                                         <android.support.v7.widget.AppCompatImageView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            app:srcCompat="@drawable/ic_person_price_icon"
-                                            />
+                                            app:srcCompat="@drawable/ic_person_price_icon" />
+
                                         <TextView
                                             android:id="@+id/explore_price_person"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="\@explore_price_person"
-                                            android:textStyle="bold"
+                                            android:textColor="@color/redLight"
                                             android:textSize="18dp"
-                                            android:textColor="@color/redLight"/>
+                                            android:textStyle="bold" />
 
                                     </LinearLayout>
 
@@ -152,46 +151,48 @@
                                     <LinearLayout
                                         android:layout_width="0dp"
                                         android:layout_height="match_parent"
-                                        android:gravity="center"
-                                        android:layout_weight="3.5">
+                                        android:layout_weight="3.5"
+                                        android:gravity="center">
+
                                         <android.support.v7.widget.AppCompatImageView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            app:srcCompat="@drawable/ic_city_icon"
-                                            />
+                                            app:srcCompat="@drawable/ic_city_icon" />
+
                                         <TextView
                                             android:id="@+id/explore_tour"
                                             android:layout_width="wrap_content"
                                             android:layout_height="match_parent"
-                                            android:text="\@explore_tour"
-                                            android:textStyle="bold"
-                                            android:textSize="12dp"
                                             android:layout_gravity="center_vertical"
                                             android:gravity="center_vertical"
-                                            android:textColor="@color/blueDarkest"/>
+                                            android:text="\@explore_tour"
+                                            android:textColor="@color/blueDarkest"
+                                            android:textSize="12dp"
+                                            android:textStyle="bold" />
                                     </LinearLayout>
 
                                     <!-- TIME -->
                                     <LinearLayout
                                         android:layout_width="0dp"
                                         android:layout_height="match_parent"
-                                        android:gravity="center"
-                                        android:layout_weight="3.5">
+                                        android:layout_weight="3.5"
+                                        android:gravity="center">
+
                                         <android.support.v7.widget.AppCompatImageView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            app:srcCompat="@drawable/ic_time_icon"
-                                            />
+                                            app:srcCompat="@drawable/ic_time_icon" />
+
                                         <TextView
                                             android:id="@+id/explore_post_hour"
                                             android:layout_width="wrap_content"
                                             android:layout_height="match_parent"
-                                            android:text="\@explore_post_hour"
-                                            android:textStyle="bold"
-                                            android:textSize="12dp"
                                             android:layout_gravity="center_vertical"
                                             android:gravity="center_vertical"
-                                            android:textColor="@color/blueDarkest"/>
+                                            android:text="\@explore_post_hour"
+                                            android:textColor="@color/blueDarkest"
+                                            android:textSize="12dp"
+                                            android:textStyle="bold" />
                                     </LinearLayout>
                                 </LinearLayout>
 
@@ -199,23 +200,24 @@
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="0dp"
-                                    android:gravity="center_vertical"
-                                    android:layout_weight="1">
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical">
+
                                     <android.support.v7.widget.AppCompatImageView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        app:srcCompat="@drawable/ic_location_marker_icon"
-                                        />
+                                        app:srcCompat="@drawable/ic_location_marker_icon" />
+
                                     <TextView
                                         android:id="@+id/explore_location"
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
-                                        android:text="\@explore_location"
-                                        android:textStyle="bold"
-                                        android:textSize="14dp"
                                         android:layout_gravity="center_vertical"
                                         android:gravity="center_vertical"
-                                        android:textColor="@color/blueDarkest"/>
+                                        android:text="\@explore_location"
+                                        android:textColor="@color/blueDarkest"
+                                        android:textSize="14dp"
+                                        android:textStyle="bold" />
                                 </LinearLayout>
 
                             </LinearLayout>
@@ -224,6 +226,7 @@
                             <LinearLayout
                                 android:layout_width="1dp"
                                 android:layout_height="match_parent">
+
                                 <View
                                     android:layout_width="2dp"
                                     android:layout_height="fill_parent"
@@ -242,42 +245,42 @@
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="0dp"
-                                    android:layout_weight="4"
-                                    ></LinearLayout>
+                                    android:layout_weight="4"></LinearLayout>
 
                                 <!-- USER NAME-->
                                 <TextView
                                     android:id="@+id/explore_user_name"
                                     android:layout_width="match_parent"
                                     android:layout_height="0dp"
-                                    android:layout_weight="3"
-                                    android:text="\@user_name"
-                                    android:textStyle="bold"
-                                    android:textSize="14dp"
                                     android:layout_gravity="center_vertical"
+                                    android:layout_weight="3"
                                     android:gravity="center"
+                                    android:text="\@user_name"
                                     android:textColor="@color/blueDarkest"
-                                    ></TextView>
+                                    android:textSize="14dp"
+                                    android:textStyle="bold"></TextView>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="0dp"
-                                    android:layout_weight="3"
                                     android:layout_gravity="center"
+                                    android:layout_weight="3"
                                     android:gravity="center">
+
                                     <RatingBar
                                         style="@style/Widget.AppCompat.RatingBar.Small"
-                                        android:numStars="5"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
                                         android:layout_marginTop="0dp"
+                                        android:foregroundGravity="center"
+                                        android:numStars="5"
                                         android:rating="3"
                                         android:stepSize="1"
-                                        android:layout_gravity="center"
                                         android:transformPivotX="0dp"
-                                        android:transformPivotY="0dp"
-                                        android:foregroundGravity="center"/>
+                                        android:transformPivotY="0dp" />
                                 </LinearLayout>
+
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="0dp"
@@ -300,14 +303,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/dashed_border">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="\@Description String"
                     android:padding="20dp"
+                    android:text="\@Description String"
                     android:textSize="18dp"
-                    android:textStyle="italic"
-                    />
+                    android:textStyle="italic" />
             </LinearLayout>
             <!-- SUMMARY -->
             <LinearLayout
@@ -320,25 +323,53 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/summary_heading" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="\@Summary String Summary StringSummary StringSummary StringSummary StringSummary StringSummary StringSummary StringSummary StringSummary StringSummary StringSummary String"
                     android:padding="10dp"
+                    android:text="\@Summary String Summary StringSummary StringSummary StringSummary StringSummary StringSummary StringSummary StringSummary StringSummary StringSummary StringSummary String"
                     android:textSize="18dp"
-                    android:textStyle="italic"
-                    />
+                    android:textStyle="italic" />
             </LinearLayout>
 
             <!-- PLAN -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
                 <TextView
+                    style="@style/headingStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/plan_heading"
-                    style="@style/headingStyle"/>
+                    android:text="@string/plan_heading" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/location_marker_wrapper"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/right_border_dash"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/location_label_wrapper"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
+
+                </LinearLayout>
             </LinearLayout>
 
             <!-- INFORMATION-->
@@ -346,15 +377,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
+                <TextView
+                    style="@style/headingStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/information_heading" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/information_heading"
-                    style="@style/headingStyle"/>
+                    android:padding="10dp"
+                    android:text="\@String information"
+                    android:textSize="18dp"
+                    android:textStyle="italic" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:padding="10dp">
+
                     <fragment
                         android:id="@+id/map"
                         android:name="com.google.android.gms.maps.SupportMapFragment"
@@ -371,12 +413,61 @@
             <!-- REVIEWS -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
                 <TextView
+                    style="@style/headingStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/reviews_heading"
-                    style="@style/headingStyle"/>
+                    android:text="@string/reviews_heading" />
+
+                <LinearLayout
+                    android:id="@+id/reviewsWrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:orientation="vertical"-->
+                        <!--android:padding="10dp">-->
+
+                        <!--<LinearLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:orientation="horizontal">-->
+                            <!--<TextView-->
+                                <!--android:layout_width="0dp"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_weight="1"-->
+                                <!--android:text="User name"/>-->
+                            <!--<RatingBar-->
+                                <!--android:layout_gravity="right"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:numStars="5"-->
+                                <!--android:stepSize="1"-->
+                                <!--android:rating="1"-->
+                                <!--style="?android:attr/ratingBarStyleSmall"-->
+                                <!--/>-->
+                        <!--</LinearLayout>-->
+
+                        <!--<TextView-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="03/25/2019"/>-->
+
+                        <!--<TextView-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="THIS IS COMMENT SECTION"-->
+                            <!--android:layout_marginTop="20dp"/>-->
+
+                    <!--</LinearLayout>-->
+
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
@@ -384,7 +475,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="10dp">
         <ImageButton
             android:id="@+id/back_arrow_btn"
             android:layout_width="40dp"

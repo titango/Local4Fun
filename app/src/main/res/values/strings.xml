@@ -9,7 +9,7 @@
     <string name="login_page_forgotPwd"><u>Forgot password?</u></string>
     <string name="login_page_register_label">Don\'t have an account?</string>
     <string name="login_page_register_text">  <u>Register here</u></string>
-    <string name="login_page_signInBtn">Sign in</string>
+    <string name="login_page_signInBtn">SIGN IN</string>
     <string name="title_activity_acount_register">acountRegister</string>
     <string name="register_email_label">Email:</string>
     <string name="register_pwd_label">Password:</string>
@@ -37,6 +37,17 @@
     <string name="txtMeetingPoint">Meeting Point:</string>
     <string name="editTextMeetingPoint">Address</string>
     <string name="btnCreatePost">Create a post</string>
+
+
+    <string name="search_hint">Search</string>
+    <string name="prompt_msg">Type a message</string>
+    <string name="action_send">Send</string>
+    <string name="sample_message">Hello!</string>
+    <string name="purchase_success">Payment success!</string>
+    <string name="purchase_button">Pay</string>
+    <string name="image_description">Shopping items</string>
+    <string name="passcode">Passcode</string>
+    <string name="purchase_title">Payment</string>
 
     <string name="txtImages">Images:</string>
     <string name="host_des">Dear Tan</string>
@@ -93,4 +104,83 @@
     <string name="reviews_heading">REVIEWS</string>
     <string name="back">BACK</string>
     <string name="book_now">BOOK NOW</string>
+
+    <!-- PAY DETAILS -->
+    <string name="go_to_payment">GO TO PAYMENT</string>
+    <string name="pay_now">PAY NOW</string>
+    <string name="your_options">YOUR OPTIONS</string>
+    <string name="summary">SUMMARY</string>
+    <string name="hintDate">MM/DD/YYYY</string>
+    <string name="total_pay">TOTAL</string>
+    <string name="check_your_bookings">CHECK YOUR BOOKINGS</string>
+    <string name="payment_information">PAYMENT INFORMATION</string>
+    <string name="name_on_card">Name on card</string>
+    <string name="card_number">Card number</string>
+    <string name="expiry_date">Expiry Date</string>
+    <string name="security_code">Security Code</string>
+
+    <string-array name="time_array">
+        <item>0:00</item>
+        <item>0:30</item>
+        <item>1:00</item>
+        <item>1:30</item>
+        <item>2:00</item>
+        <item>2:30</item>
+        <item>3:00</item>
+        <item>3:30</item>
+        <item>4:00</item>
+        <item>4:30</item>
+        <item>5:00</item>
+        <item>5:30</item>
+        <item>6:00</item>
+        <item>6:30</item>
+        <item>7:00</item>
+        <item>7:30</item>
+        <item>8:00</item>
+        <item>8:30</item>
+        <item>9:00</item>
+        <item>9:30</item>
+        <item>10:00</item>
+        <item>10:30</item>
+        <item>11:00</item>
+        <item>11:30</item>
+        <item>12:00</item>
+        <item>12:30</item>
+        <item>13:00</item>
+        <item>13:30</item>
+        <item>14:00</item>
+        <item>14:30</item>
+        <item>15:00</item>
+        <item>15:30</item>
+        <item>16:00</item>
+        <item>16:30</item>
+        <item>17:00</item>
+        <item>17:30</item>
+        <item>18:00</item>
+        <item>18:30</item>
+        <item>19:00</item>
+        <item>19:30</item>
+        <item>20:00</item>
+        <item>20:30</item>
+        <item>21:00</item>
+        <item>21:30</item>
+        <item>22:00</item>
+        <item>22:30</item>
+        <item>23:00</item>
+        <item>23:30</item>
+    </string-array>
+
+    <string-array name="num_person">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+
 </resources>
