@@ -62,7 +62,9 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
     public TextView summaryTextView;
     public TextView descriptionTextView;
     public TextView mapInfoTextView;
+
     public Post currentPost;
+    public User postUser;
 
     private LinearLayout locationMarkerWrapper;
     private LinearLayout localtionLabelWrapper;
@@ -81,9 +83,14 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
         //Get post object
         Intent initIntent = getIntent();
         final String postString = (String)initIntent.getExtras().get("postObject");
+        final String userString = (String)initIntent.getExtras().get("userObject");
+
         Gson gson = new Gson();
         currentPost = gson.fromJson(postString, Post.class);
-//        Log.w("CurPost", curPost.getUserId());
+        postUser = gson.fromJson(userString, User.class);
+
+//        Log.w("CurPost", currentPost.getUserId());
+        Log.w("CurPost", postUser.getId() + " - " + postUser.getFullname());
 
         ll = initIntent.getParcelableExtra("latLon");
         location = (String) initIntent.getSerializableExtra("desc");

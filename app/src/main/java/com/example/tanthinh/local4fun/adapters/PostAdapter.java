@@ -13,9 +13,13 @@ import android.widget.TextView;
 
 import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.models.Post;
+import com.example.tanthinh.local4fun.models.User;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import me.relex.circleindicator.CircleIndicator;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> {
@@ -26,6 +30,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     private CircleIndicator indicator;
     private static MyClickListener myClickListener;
 
+    private Map<String,User> userPost;
+
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public ViewPager viewPager; // for slider
@@ -35,6 +41,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         public TextView postPrice;
         public TextView postLocation;
 
+        public TextView userName;
+        public CircleImageView userPics;
+
         public MyViewHolder(View v) {
             super(v);
             viewPager = v.findViewById(R.id.viewPager);
@@ -43,6 +52,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             postTour = v.findViewById(R.id.explore_tour);
             postPrice = v.findViewById(R.id.explore_price_person);
             postLocation = v.findViewById(R.id.explore_location);
+            userPics = v.findViewById(R.id.profile_explore_image);
+
+            userName = v.findViewById(R.id.explore_user_name);
             v.setOnClickListener(this);
         }
 
@@ -56,8 +68,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         this.myClickListener = myClickListener;
     }
 
-    public PostAdapter(Context context, List postList)
+    public PostAdapter(Context context, List postList, Map userPost)
     {
+        this.userPost = userPost;
         this.postList = postList;
         this.context = context;
     }
@@ -91,6 +104,21 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         holder.postTour.setText(p.getTourType() + "");
         holder.postPrice.setText("$"+p.getPricePerPerson() + "");
         holder.postLocation.setText(p.getLocation() + "");
+
+        User userOfPost = (User)userPost.get(p.getId());
+
+        holder.userName.setText(userOfPost.getFullname());
+
+        if(userOfPost.getImgUrl().equals("") || userOfPost.getImgUrl() == null)
+        {
+            holder.userPics.setImageResource(R.drawable.ic_user_icon);
+        }else
+        {
+            Picasso.get().load(userOfPost.getImgUrl())
+                    .fit()
+                    .centerCrop()
+                    .into(holder.userPics);
+        }
 
     }
 
