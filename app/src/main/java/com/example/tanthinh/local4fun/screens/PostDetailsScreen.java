@@ -32,12 +32,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import java.util.Date;
 
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import me.relex.circleindicator.CircleIndicator;
 
 public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCallback, OnDataReceiveCallback {
@@ -62,6 +64,8 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
     public TextView summaryTextView;
     public TextView descriptionTextView;
     public TextView mapInfoTextView;
+    public TextView userName;
+    public CircleImageView userPics;
 
     public Post currentPost;
     public User postUser;
@@ -115,6 +119,23 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
         indicator = (CircleIndicator) findViewById(R.id.viewPagerIndicator);
         indicator.setViewPager(viewPager);
         viewPagerAdapter.registerDataSetObserver(indicator.getDataSetObserver());
+
+        //Users
+        userName = findViewById(R.id.explore_user_name);
+        userPics = findViewById(R.id.profile_explore_image);
+        userName.setText(postUser.getFullname());
+
+        if(postUser.getImgUrl().equals("") || postUser.getImgUrl() == null)
+        {
+            userPics.setImageResource(R.drawable.ic_user_icon);
+        }else
+        {
+            Picasso.get().load(postUser.getImgUrl())
+                    .fit()
+                    .centerCrop()
+                    .into(userPics);
+        }
+
 
         postTitle.setText(currentPost.getTitle());
         postHour.setText(currentPost.getHours() + " hrs");
