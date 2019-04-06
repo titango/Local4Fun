@@ -198,5 +198,7 @@
     <string name="txtRegionHint">City, Province</string>
     <string name="editTextDescription">Enter short description</string>
     <string name="txtDescription">Description:</string>
+    <string name="editTextReview">Write a review...</string>
+    <string name="btnPostReview">Post</string>
 
 </resources>

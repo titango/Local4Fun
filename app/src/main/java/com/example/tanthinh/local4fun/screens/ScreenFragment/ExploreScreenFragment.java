@@ -226,4 +226,8 @@ public class ExploreScreenFragment extends Fragment {
         recyclerView.setAdapter(mAdapter);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 }

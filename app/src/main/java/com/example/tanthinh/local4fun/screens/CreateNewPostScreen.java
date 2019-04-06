@@ -1,5 +1,6 @@
 package com.example.tanthinh.local4fun.screens;
 
+import android.support.v4.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,6 +13,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -31,6 +34,7 @@ import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.models.Post;
 import com.example.tanthinh.local4fun.models.Singleton;
 import com.example.tanthinh.local4fun.models.User;
+import com.example.tanthinh.local4fun.screens.ScreenFragment.ExploreScreenFragment;
 import com.example.tanthinh.local4fun.services.FireBaseAPI;
 import com.example.tanthinh.local4fun.services.UploadImage;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -53,6 +57,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 
 public class CreateNewPostScreen extends AppCompatActivity {
@@ -72,6 +78,8 @@ public class CreateNewPostScreen extends AppCompatActivity {
     private FirebaseDatabase mFirebaseInstance;
 
     private Toolbar topToolBar;
+
+    AlertDialog alertDialog;
 
     private String userId;
 
@@ -468,6 +476,14 @@ public class CreateNewPostScreen extends AppCompatActivity {
 //    }
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(alertDialog != null && alertDialog.isShowing()){
+            alertDialog.dismiss();
+        }
+    }
+
     private void alertDialog() {
         AlertDialog.Builder dialog=new AlertDialog.Builder(this);
         dialog.setMessage("New Post was successfully created");
@@ -475,12 +491,23 @@ public class CreateNewPostScreen extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,
                                         int which) {
+
+//                        TimerTask task = new TimerTask() {
+//                            @Override
+//                            public void run() {
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+//                            }
+//                        };
+//                        Timer timer = new Timer();
+//                        timer.schedule(task, 3000);
+
                     }
                 });
-        AlertDialog alertDialog=dialog.create();
-        alertDialog.show();
-        //alertDialog.getWindow().getAttributes();
 
+        alertDialog=dialog.create();
+        alertDialog.show();
         TextView textView = (TextView) alertDialog.findViewById(android.R.id.message);
         textView.setTextSize(18);
         textView.setTextColor(Color.parseColor("#3F5C73"));
@@ -489,6 +516,9 @@ public class CreateNewPostScreen extends AppCompatActivity {
         Button mButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
         mButton.setTextColor(Color.WHITE);
         mButton.setBackgroundColor(Color.parseColor("#6895BB"));
+        //alertDialog.getWindow().getAttributes();
+
+
 
     }
 
