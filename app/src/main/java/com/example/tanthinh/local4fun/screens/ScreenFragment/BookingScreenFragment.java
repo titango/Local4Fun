@@ -13,10 +13,12 @@ import android.view.ViewGroup;
 
 import com.example.tanthinh.local4fun.R;
 
+import com.example.tanthinh.local4fun.adapters.BookingAdapter;
 import com.example.tanthinh.local4fun.models.Booking;
 import com.example.tanthinh.local4fun.models.Post;
 
 import com.example.tanthinh.local4fun.adapters.PostAdapter;
+import com.example.tanthinh.local4fun.models.Singleton;
 import com.example.tanthinh.local4fun.services.FireBaseAPI;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -101,17 +103,17 @@ public class BookingScreenFragment extends Fragment implements OnMapReadyCallbac
 
 
         getBookings();
-        /*
+
         recyclerView = (RecyclerView) v.findViewById(R.id.post_block_id_rec_view);
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new PostAdapter(context, bookings);
+        mAdapter = new BookingAdapter(bookings);
 
         recyclerView.setAdapter(mAdapter);
-*/
+
         this.context = getActivity();
 
 
@@ -157,14 +159,14 @@ public class BookingScreenFragment extends Fragment implements OnMapReadyCallbac
     }
     public static void getBookings(){
         bookings = new ArrayList<>();
-        FireBaseAPI.getBookings("user");
+        FireBaseAPI.getBookings(Singleton.getInstance().loginUser.getId());
     }
 
     public static void refreshUI(){
-        /*
-        mAdapter = new PostAdapter(context, bookings);
+
+        mAdapter = new BookingAdapter(bookings);
         recyclerView.setAdapter(mAdapter);
-        */
+
     }
 
     /**

@@ -41,17 +41,17 @@
 
         </android.support.v7.widget.RecyclerView>
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:elevation="1.0dp"
-            android:translationZ="1.0dp"
-            android:layout_marginTop="-150dp"
-            android:layout_gravity="end"
-            android:backgroundTint="@color/blueLight"
-            android:src="@mipmap/create_tour_round"
-            app:fabSize="mini" />
+        <!--<android.support.design.widget.FloatingActionButton-->
+            <!--android:id="@+id/fab"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:elevation="1.0dp"-->
+            <!--android:translationZ="1.0dp"-->
+            <!--android:layout_marginTop="-150dp"-->
+            <!--android:layout_gravity="end"-->
+            <!--android:backgroundTint="@color/blueLight"-->
+            <!--android:src="@mipmap/create_tour_round"-->
+            <!--app:fabSize="mini" />-->
 
     </LinearLayout>
 

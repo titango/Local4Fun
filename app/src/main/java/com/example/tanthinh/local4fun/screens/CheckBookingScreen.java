@@ -18,9 +18,13 @@ import android.widget.TextView;
 
 import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.models.Post;
+import com.example.tanthinh.local4fun.models.User;
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CheckBookingScreen extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -31,6 +35,8 @@ public class CheckBookingScreen extends AppCompatActivity implements AdapterView
     private Spinner numPerson;
     private Spinner numTime;
     private TextView totalPriceTxtView;
+    public TextView userName;
+    public CircleImageView userPics;
 
     private Button book_now_btn;
 
@@ -39,7 +45,10 @@ public class CheckBookingScreen extends AppCompatActivity implements AdapterView
     private String numberTime = "";
     private String bookingDate = "";
 
+
     private Post currentPost;
+    private User userPost;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +62,12 @@ public class CheckBookingScreen extends AppCompatActivity implements AdapterView
     {
         Intent initIntent = getIntent();
         final String postString = (String)initIntent.getExtras().get("postObject");
+        final String userString = (String)initIntent.getExtras().get("userObject");
+
+
         Gson gson = new Gson();
         currentPost = gson.fromJson(postString, Post.class);
+        userPost = gson.fromJson(userString, User.class);
 
         back_arrow_btn = findViewById(R.id.back_arrow_btn);
         back_arrow_btn.setOnClickListener(new View.OnClickListener() {
@@ -119,6 +132,21 @@ public class CheckBookingScreen extends AppCompatActivity implements AdapterView
                 startActivity(payIntent);
             }
         });
+
+        userName = findViewById(R.id.user_name_label);
+        userPics = findViewById(R.id.profile_explore_image);
+        userName.setText(userPost.getFullname());
+
+        if(userPost.getImgUrl().equals("") || userPost.getImgUrl() == null)
+        {
+            userPics.setImageResource(R.drawable.ic_user_icon);
+        }else
+        {
+            Picasso.get().load(userPost.getImgUrl())
+                    .fit()
+                    .centerCrop()
+                    .into(userPics);
+        }
 
     }
 

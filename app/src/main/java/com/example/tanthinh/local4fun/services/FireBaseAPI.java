@@ -149,7 +149,7 @@ public class FireBaseAPI {
                                 singleSnapshot.child("date").getValue().toString(),
                                 ((Long)singleSnapshot.child("numberOfPeople").getValue()).intValue(),
                                 ((Long)singleSnapshot.child("totalPrice").getValue()).doubleValue(),
-                                (singleSnapshot.child("numberTime").getValue().toString())));
+                                "2:30"));
                     }
 
                     //ExploreScreenFragment.posts.add(p);

@@ -163,6 +163,7 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
             public void onClick(View view) {
                 Intent payIntent = new Intent(getApplicationContext(), CheckBookingScreen.class);
                 payIntent.putExtra("postObject", postString);
+                payIntent.putExtra("userObject", userString);
                 startActivity(payIntent);
             }
         });
