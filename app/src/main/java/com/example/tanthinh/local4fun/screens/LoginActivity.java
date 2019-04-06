@@ -164,16 +164,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        User newuser = new User(currentUser.getDisplayName(),
-                currentUser.getEmail(),"", "", currentUser.getDisplayName());
-        FireBaseAPI.insertUser(newuser);
 
     }
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
             startActivityForResult(signInIntent, RC_SIGN_IN);
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
     }
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -185,6 +184,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
+
+                User newuser = new User(account.getDisplayName(),
+                        account.getEmail(),"", "", account.getDisplayName());
+                FireBaseAPI.insertUser(newuser);
+
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);

@@ -284,7 +284,7 @@ public class FireBaseAPI {
         myRef.child("User").child(id).setValue(u);
 
         u.setId(id);
-        //updateUser(u);
+        updateUser(u);
         return id;
     }
 
