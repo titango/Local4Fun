@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,6 +22,7 @@ import com.example.tanthinh.local4fun.adapters.ViewPagerAdapter;
 import com.example.tanthinh.local4fun.intefaces.OnDataReceiveCallback;
 import com.example.tanthinh.local4fun.models.Post;
 import com.example.tanthinh.local4fun.models.Review;
+import com.example.tanthinh.local4fun.models.Singleton;
 import com.example.tanthinh.local4fun.models.User;
 import com.example.tanthinh.local4fun.services.FireBaseAPI;
 import com.google.android.gms.maps.CameraUpdate;
@@ -68,6 +70,10 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
     private LinearLayout localtionLabelWrapper;
     private LinearLayout reviewsWrapper;
 
+    private Button btnPostReview;
+    private EditText editTextReview;
+    private RatingBar ratingBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,6 +107,9 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
         postLocation = findViewById(R.id.explore_location);
         back_arrow_btn = findViewById(R.id.back_arrow_btn);
         book_now_btn = findViewById(R.id.book_now_btn);
+        editTextReview = findViewById(R.id.editTextReview);
+        btnPostReview = findViewById(R.id.btnPostReview);
+        ratingBar = findViewById(R.id.ratingBar);
 
         viewPagerAdapter = new ViewPagerAdapter(getApplication(), currentPost.getPictures());
         viewPager.setAdapter(viewPagerAdapter);
@@ -130,14 +139,83 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
             }
         });
 
+        btnPostReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String userId = Singleton.getInstance().loginUser.getId();
+                String fullname = Singleton.getInstance().loginUser.getFullname();
+                String postId = currentPost.getId();
+                Date date = new Date();
+                float mRating =  ratingBar.getRating();
+                String mReview = editTextReview.getText().toString();
+
+                createReview(userId, fullname, postId, date, mRating, mReview);
+                //Review r = new Review();
+                //FireBaseAPI.insertReview(r);
+
+//                Intent intent = new Intent(getApplicationContext(), PostDetailsScreen.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                startActivity(intent);
+            }
+        });
+
         displayDescriptionSummary();
 
         displayPlanSection();
         displayReviewSection();
 
         //Review r = new Review("-LbaIAoqazHPSY-cUms9", currentPost.getId(), new Date(), 3, "Thank you for your service!");
-        //FireBaseAPI.insertReview(r);
 
+       // FireBaseAPI.insertReview(r);
+
+    }
+
+    private void createReview(String userId, String fullname, String postId,
+                              Date reviewDate, float rating, String comment){
+        Review review = new Review(userId, fullname, postId, reviewDate, rating, comment);
+        FireBaseAPI.insertReview(review);
+//        displayReviewSection();
+        addNewReview(review);
+    }
+
+    private void addNewReview(Review review) {
+        String username = review.getFullname();
+        String date = review.getReviewDate().toString();
+        float rating = review.getRating();
+        String comment = review.getComment();
+
+        LinearLayout bigWrapper = new LinearLayout(getApplicationContext());
+        bigWrapper.setPadding(10, 10, 10, 10);
+        bigWrapper.setOrientation(LinearLayout.VERTICAL);
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+
+
+        LinearLayout userAndRating = createUserAndRating(username, rating);
+        TextView dateView = new TextView(getApplicationContext());
+        dateView.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        ));
+        dateView.setText(date);
+
+        TextView commentView = new TextView(getApplicationContext());
+        LinearLayout.LayoutParams commentParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        commentParams.setMargins(0, 20, 0, 0);
+        commentView.setLayoutParams(commentParams);
+        commentView.setText(comment);
+
+        bigWrapper.addView(userAndRating);
+        bigWrapper.addView(dateView);
+        bigWrapper.addView(commentView);
+
+        reviewsWrapper.addView(bigWrapper);
     }
 
     private void displayDescriptionSummary()
@@ -318,7 +396,7 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
         );
         rblp.gravity = Gravity.RIGHT;
 
-        rb.setNumStars(5);
+        rb.setNumStars(ratingBar.getNumStars());
         rb.setStepSize(1);
         rb.setRating(rating);
         rb.setForegroundGravity(Gravity.RIGHT);
@@ -356,44 +434,46 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
     @Override
     public void onReviewReceived(ArrayList<Review> list) {
         if(list.size() > 0) {
+            for (int i= 0; i < list.size(); i++) {
+                //String id = list.get(0).getUserId();
+                String username = list.get(i).getFullname();
+                String date = list.get(i).getReviewDate().toString();
+                float rating = list.get(i).getRating();
+                String comment = list.get(i).getComment();
 
-            String username = list.get(0).getUserId();
-            String date = list.get(0).getReviewDate().toString();
-            float rating = list.get(0).getRating();
-            String comment = list.get(0).getComment();
+                LinearLayout bigWrapper = new LinearLayout(getApplicationContext());
+                bigWrapper.setPadding(10, 10, 10, 10);
+                bigWrapper.setOrientation(LinearLayout.VERTICAL);
 
-            LinearLayout bigWrapper = new LinearLayout(getApplicationContext());
-            bigWrapper.setPadding(10, 10, 10, 10);
-            bigWrapper.setOrientation(LinearLayout.VERTICAL);
-
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-            );
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
 
 
-            LinearLayout userAndRating = createUserAndRating(username, rating);
-            TextView dateView = new TextView(getApplicationContext());
-            dateView.setLayoutParams(new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-            ));
-            dateView.setText(date);
+                LinearLayout userAndRating = createUserAndRating(username, rating);
+                TextView dateView = new TextView(getApplicationContext());
+                dateView.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                ));
+                dateView.setText(date);
 
-            TextView commentView = new TextView(getApplicationContext());
-            LinearLayout.LayoutParams commentParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-            );
-            commentParams.setMargins(0, 20, 0, 0);
-            commentView.setLayoutParams(commentParams);
-            commentView.setText(comment);
+                TextView commentView = new TextView(getApplicationContext());
+                LinearLayout.LayoutParams commentParams = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+                commentParams.setMargins(0, 20, 0, 0);
+                commentView.setLayoutParams(commentParams);
+                commentView.setText(comment);
 
-            bigWrapper.addView(userAndRating);
-            bigWrapper.addView(dateView);
-            bigWrapper.addView(commentView);
+                bigWrapper.addView(userAndRating);
+                bigWrapper.addView(dateView);
+                bigWrapper.addView(commentView);
 
-            reviewsWrapper.addView(bigWrapper);
+                reviewsWrapper.addView(bigWrapper);
+            }
         }
 
     }
