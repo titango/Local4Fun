@@ -202,58 +202,18 @@ public class FireBaseAPI {
                         if(email.equals(u.getEmail()))
                         {
 //                            String id , fullname, String email, String phone, String description, String username
-                            singleton.loginUser = new User(u.getFullname(), u.getEmail()
-                            , u.getPhone(), u.getDescription(), u.getUsername());
                             id = u.getId();
+                            singleton.loginUser = new User(id ,u.getFullname(), u.getEmail()
+                                    , u.getPhone(), u.getDescription(), u.getUsername(), u.getImgUrl());
+
                         }
                     }
 
                 }
                 if(id.length() == 0){
                     id = myRef.child("User").push().getKey();
-                    loginUser.setId(id);
-                    myRef.child("User").child(id).setValue(loginUser);
-                }
-
-
-
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e(TAG, "onCancelled", databaseError.toException());
-            }
-
-        });
-
-    }
-
-
-
-    public static void getUserAddIfDoesNotExist(final String email){
-
-        final ArrayList<Post> posts = new ArrayList<Post>();
-
-        Query phoneQuery = myRef.child("User");
-        phoneQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String id = "";
-                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
-                    User u = singleSnapshot.getValue(User.class);
-                    if (email!= null){
-                        if(email.equals(u.getEmail()))
-                        {
-                            LoginActivity.loginUser.setId(u.getId());
-                            id = u.getId();
-                        }
-                    }
-
-                }
-
-                if(id.length() == 0){
-                    id = myRef.child("User").push().getKey();
-                    LoginActivity.loginUser.setId(id);
-                    myRef.child("User").child(id).setValue(LoginActivity.loginUser);
+                    singleton.loginUser.setId(id);
+                    myRef.child("User").child(id).setValue(singleton.loginUser);
                 }
 
 
@@ -327,7 +287,7 @@ public class FireBaseAPI {
     }
 
     public static void updateUser(User u) {
-        
+
         myRef.child("User").child(u.getId()).setValue(u);
 
     }
