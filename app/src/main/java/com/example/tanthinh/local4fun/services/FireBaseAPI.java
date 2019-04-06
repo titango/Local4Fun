@@ -173,6 +173,9 @@ public class FireBaseAPI {
     public static String insertUser(User u){
         String id = myRef.child("User").push().getKey();
         myRef.child("User").child(id).setValue(u);
+
+        u.setId(id);
+        updateUser(u);
         return id;
     }
 
@@ -292,5 +295,40 @@ public class FireBaseAPI {
             }
 
         });
+    }
+
+    public static void getPostsOrderBy(final OnDataReceiveCallback callback, String attribute) {
+
+        final ArrayList<Post> posts = new ArrayList<Post>();
+        Query query = myRef.child("Post").orderByChild(attribute);
+        query.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
+                            Post p = singleSnapshot.getValue(Post.class);
+
+                            posts.add(p);
+
+                        }
+
+                        callback.onPostReceived(posts);
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                }
+        );
+    }
+
+    public static void deletePost(Post p) {
+        myRef.child("Post").child(p.getId()).removeValue();
+    }
+
+    public static void updateUser(User u) {
+        
+        myRef.child("User").child(u.getId()).setValue(u);
+
     }
 }

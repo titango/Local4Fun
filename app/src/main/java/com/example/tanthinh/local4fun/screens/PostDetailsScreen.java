@@ -106,9 +106,9 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
         viewPagerAdapter.registerDataSetObserver(indicator.getDataSetObserver());
 
         postTitle.setText(currentPost.getTitle());
-        postHour.setText(currentPost.getHours() + "");
+        postHour.setText(currentPost.getHours() + " hrs");
         postTour.setText(currentPost.getTourType() + "");
-        postPrice.setText(currentPost.getPricePerPerson() + "");
+        postPrice.setText("$"+currentPost.getPricePerPerson() + "");
         postLocation.setText(currentPost.getLocation() + "");
 
         back_arrow_btn.setOnClickListener(new View.OnClickListener() {
