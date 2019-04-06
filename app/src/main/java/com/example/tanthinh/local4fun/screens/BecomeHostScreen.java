@@ -12,17 +12,20 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.models.Singleton;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class BecomeHostScreen extends Activity {
 
     private ImageView back;
     private Singleton singleton;
     private TextView user_name, user_email;
-
+    private CircleImageView imgViewImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +51,13 @@ public class BecomeHostScreen extends Activity {
         spinner.setAdapter(adapter);
 
         singleton = Singleton.initInstance();
+        imgViewImage = (CircleImageView) findViewById(R.id.profile_image);
+        if(singleton.loginUser.getImgUrl() != "") {
+            Picasso.get().load(singleton.loginUser.getImgUrl())
+                    .fit()
+                    .centerCrop()
+                    .into(imgViewImage);
+        }
         initSingleton();
     }
 

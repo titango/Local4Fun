@@ -21,6 +21,9 @@ import com.example.tanthinh.local4fun.screens.EditProfileScreen;
 import com.example.tanthinh.local4fun.screens.LoginActivity;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileScreenFragment extends Fragment {
 
@@ -31,6 +34,7 @@ public class ProfileScreenFragment extends Fragment {
             R.drawable.ic_sign_out};
     private Singleton singleton;
     private TextView user_name, user_email;
+    private CircleImageView imgViewImage;
 
     public ProfileScreenFragment() {
         // Required empty public constructor
@@ -96,6 +100,13 @@ public class ProfileScreenFragment extends Fragment {
         user_name = (TextView) view.findViewById(R.id.user_name);
         user_email = (TextView) view.findViewById(R.id.user_email);
         singleton = Singleton.initInstance();
+        imgViewImage = (CircleImageView) view.findViewById(R.id.profile_image);
+        if(singleton.loginUser.getImgUrl() != "") {
+            Picasso.get().load(singleton.loginUser.getImgUrl())
+                    .fit()
+                    .centerCrop()
+                    .into(imgViewImage);
+        }
         initSingleton();
         return view;
     }

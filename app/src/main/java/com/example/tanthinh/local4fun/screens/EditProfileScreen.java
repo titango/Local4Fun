@@ -15,6 +15,9 @@ import android.widget.TextView;
 import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.models.Singleton;
 import com.example.tanthinh.local4fun.models.User;
+import com.example.tanthinh.local4fun.services.FireBaseAPI;
+import com.example.tanthinh.local4fun.services.UploadImage;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
@@ -29,6 +32,7 @@ public class EditProfileScreen extends AppCompatActivity {
     private CircleImageView imgPath,imgViewImage;
     private final int PICK_IMAGE_REQUEST = 4;
     private Uri filePath;
+    private  String imgPath1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,14 @@ public class EditProfileScreen extends AppCompatActivity {
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                singleton.loginUser.setFullname(fullname.getText().toString());
+                singleton.loginUser.setPhone(mobile.getText().toString());
+                singleton.loginUser.setEmail(user_email.getText().toString());
+                singleton.loginUser.setDescription(desciption.getText().toString());
+                UploadImage uploadImageService = new UploadImage();
+                imgPath1 = uploadImageService.uploadImage(EditProfileScreen.this, filePath);
+                singleton.loginUser.setImgUrl(imgPath1);
+                FireBaseAPI.updateUser(singleton.loginUser);
                 backToProfileScreen();
             }
         });
@@ -67,6 +79,12 @@ public class EditProfileScreen extends AppCompatActivity {
         });
 
         singleton = Singleton.initInstance();
+        if(singleton.loginUser.getImgUrl() != "") {
+            Picasso.get().load(singleton.loginUser.getImgUrl())
+                    .fit()
+                    .centerCrop()
+                    .into(imgViewImage);
+        }
         initSingleton();
     }
 

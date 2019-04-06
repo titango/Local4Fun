@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.models.Singleton;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChangePasswordScreen extends AppCompatActivity {
 
@@ -17,6 +20,7 @@ public class ChangePasswordScreen extends AppCompatActivity {
     private TextView currentPassword, newPassword, confirmPassword, user_name, user_email;
     private ImageView back;
     private Singleton singleton;
+    private CircleImageView imgViewImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,13 @@ public class ChangePasswordScreen extends AppCompatActivity {
             }
         });
         singleton = Singleton.initInstance();
+        imgViewImage = (CircleImageView) findViewById(R.id.profile_image);
+        if(singleton.loginUser.getImgUrl() != "") {
+            Picasso.get().load(singleton.loginUser.getImgUrl())
+                    .fit()
+                    .centerCrop()
+                    .into(imgViewImage);
+        }
         initSingleton();
     }
 

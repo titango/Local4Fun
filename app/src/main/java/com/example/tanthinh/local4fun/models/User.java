@@ -21,7 +21,16 @@ public class User {
         this.phone = phone;
         this.description = description;
         this.username = username;
-        this.imgUrl = "";
+    }
+
+    public User(String id, String fullname, String email, String phone, String description, String username, String imgUrl){
+        this.id = id;
+        this.fullname = fullname;
+        this.email = email;
+        this.phone = phone;
+        this.description = description;
+        this.username = username;
+        this.imgUrl = imgUrl;
     }
 
     public String getFullname() {
