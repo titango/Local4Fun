@@ -55,7 +55,7 @@ import static android.content.ContentValues.TAG;
  * Activities that contain this fragment must implement the
  * create an instance of this fragment.
  */
-public class ExploreScreenFragment extends Fragment implements OnDataReceiveCallback {
+public class ExploreScreenFragment extends Fragment {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -65,6 +65,7 @@ public class ExploreScreenFragment extends Fragment implements OnDataReceiveCall
     private static RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private static Context context;
+    private static ExploreScreenFragment currentExplore;
     public static ArrayList<Post> posts = new ArrayList<Post>();
     View v;
     Post p;
@@ -78,6 +79,9 @@ public class ExploreScreenFragment extends Fragment implements OnDataReceiveCall
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.context = getActivity();
+        currentExplore = this;
+        getPosts();
     }
 
     @Override
@@ -86,34 +90,8 @@ public class ExploreScreenFragment extends Fragment implements OnDataReceiveCall
 
         v = inflater.inflate(R.layout.fragment_explore, container, false);
 
-        getPosts();
-
         recyclerView = (RecyclerView)v.findViewById(R.id.post_block_id_rec_view);
-        recyclerView.setHasFixedSize(true);
 
-        layoutManager = new LinearLayoutManager(context);
-        recyclerView.setLayoutManager(layoutManager);
-
-        mAdapter = new PostAdapter(context, posts);
-        recyclerView.setAdapter(mAdapter);
-
-        this.context = getActivity();
-
-//        postList = new ArrayList();
-//        postList.add("Discover the beauty of city with me in Vancouver.");
-//        postList.add("This is the second app title that maybe extend to the second line for showing purpose lol");
-//        postList.add("This is the third app title that may extend to the second line");
-//
-//        recyclerView = (RecyclerView)v.findViewById(R.id.post_block_id_rec_view);
-//        recyclerView.setHasFixedSize(true);
-//
-//        layoutManager = new LinearLayoutManager(context);
-//        recyclerView.setLayoutManager(layoutManager);
-//
-//        mAdapter = new PostAdapter(context, postList);
-//        recyclerView.setAdapter(mAdapter);
-
-        // Inflate the layout for this fragment
         return v;
     }
 
@@ -121,72 +99,6 @@ public class ExploreScreenFragment extends Fragment implements OnDataReceiveCall
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recyclerView = (RecyclerView)v.findViewById(R.id.post_block_id_rec_view);
-        recyclerView.setHasFixedSize(true);
-
-        layoutManager = new LinearLayoutManager(context);
-        recyclerView.setLayoutManager(layoutManager);
-
-        mAdapter = new PostAdapter(context, posts);
-
-        recyclerView.setAdapter(mAdapter);
-
-        ((PostAdapter) mAdapter).setOnItemClickListener(new PostAdapter.MyClickListener() {
-            @Override
-            public void onItemClick(int position, View v) {
-               // Log.i(LOG_TAG, " Clicked on Item " + position);
-                Toast.makeText(context, "You clicked on post " + position, Toast.LENGTH_SHORT).show();
-
-                Gson gson = new Gson();
-                String postString = gson.toJson(posts.get(position), Post.class);
-
-                String location = posts.get(position).getLocation();
-
-                if (location == null || location.equals("")) {
-                    //Toast.makeText(this, "Please enter a meeting point", Toast.LENGTH_SHORT).show();
-
-                } else {
-
-                    Geocoder geocoder = new Geocoder(getContext());
-                    List<Address> list = null;
-                    try {
-                        list = geocoder.getFromLocationName(location, 1);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    //List<Address> list = geocoder.getFromLocationName(loc, 1);
-                    Address add = list.get(0);
-                    //String locality = add.getLocality();
-                    LatLng ll = new LatLng(add.getLatitude(), add.getLongitude());
-
-                    Bundle args = new Bundle();
-                    args.putParcelable("latLon", ll);
-                    args.putSerializable("desc", location);
-
-                    Intent pdsIntent = new Intent(getActivity(), PostDetailsScreen.class);
-                    pdsIntent.putExtra("postObject", postString);
-                    pdsIntent.putExtras(args);
-                    startActivity(pdsIntent);
-                }
-
-
-                //NOT SHOWING BOOKING SCREEN FRAGMENT
-//                Fragment fragment = new BookingScreenFragment();
-//                loadFragment(fragment);
-            }
-
-        });
-
-        FloatingActionButton fab = (FloatingActionButton)v.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent intent1 = new Intent(getActivity(), CreateNewPostScreen.class);
-                startActivity(intent1);
-
-            }
-        });
     }
 
     private void loadFragment(Fragment fragment) {
@@ -229,8 +141,43 @@ public class ExploreScreenFragment extends Fragment implements OnDataReceiveCall
 
     }
     public static void refreshUI(){
-        mAdapter = new PostAdapter(context, posts);
-        recyclerView.setAdapter(mAdapter);
+        recyclerView.setHasFixedSize(true);
+//        mAdapter = new PostAdapter(context, posts);
+//        recyclerView.setAdapter(mAdapter);
+
+        FireBaseAPI.getAllUsers(new OnDataReceiveCallback() {
+            @Override
+            public void onReviewReceived(ArrayList<Review> list) {
+
+            }
+
+            @Override
+            public void onPostReceived(ArrayList<Post> list) {
+
+            }
+
+            @Override
+            public void onUserReceived(ArrayList<User> list) {
+                Log.w("onUserRecieved", list.size() + "");
+
+                for(int i = 0; i < posts.size(); i++)
+                {
+                    String userId = posts.get(i).getUserId();
+                    Log.w("string userId", userId);
+
+                    for(int j = 0; j < list.size(); j++)
+                    {
+                        Log.e("list: ", list.get(j).getId() + "");
+                        if(userId.equals(list.get(j).getId()))
+                        {
+                            usersOnPost.put(posts.get(i).getId(), list.get(j));
+                        }
+                    }
+                }
+
+                currentExplore.createPostUI();
+            }
+        });
     }
 
     @Override
@@ -238,19 +185,76 @@ public class ExploreScreenFragment extends Fragment implements OnDataReceiveCall
         super.onResume();
     }
 
+    public void createPostUI()
+    {
+//        recyclerView = (RecyclerView)v.findViewById(R.id.post_block_id_rec_view);
+//        recyclerView.setHasFixedSize(true);
 
-    @Override
-    public void onReviewReceived(ArrayList<Review> list) {
+        layoutManager = new LinearLayoutManager(context);
+        recyclerView.setLayoutManager(layoutManager);
 
+        mAdapter = new PostAdapter(context, posts, usersOnPost);
+
+        recyclerView.setAdapter(mAdapter);
+
+        ((PostAdapter) mAdapter).setOnItemClickListener(new PostAdapter.MyClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
+                // Log.i(LOG_TAG, " Clicked on Item " + position);
+                Toast.makeText(context, "You clicked on post " + position, Toast.LENGTH_SHORT).show();
+
+                Gson gson = new Gson();
+                String postString = gson.toJson(posts.get(position), Post.class);
+                String userString = gson.toJson(usersOnPost.get(posts.get(position).getId()), User.class);
+
+                String location = posts.get(position).getLocation();
+
+                if (location == null || location.equals("")) {
+                    //Toast.makeText(this, "Please enter a meeting point", Toast.LENGTH_SHORT).show();
+
+                } else {
+
+                    Geocoder geocoder = new Geocoder(getContext());
+                    List<Address> list = null;
+                    try {
+                        list = geocoder.getFromLocationName(location, 1);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    //List<Address> list = geocoder.getFromLocationName(loc, 1);
+                    Address add = list.get(0);
+                    //String locality = add.getLocality();
+                    LatLng ll = new LatLng(add.getLatitude(), add.getLongitude());
+
+                    Bundle args = new Bundle();
+                    args.putParcelable("latLon", ll);
+                    args.putSerializable("desc", location);
+
+                    Intent pdsIntent = new Intent(getActivity(), PostDetailsScreen.class);
+                    pdsIntent.putExtra("postObject", postString);
+                    pdsIntent.putExtra("userObject", userString);
+                    pdsIntent.putExtras(args);
+                    startActivity(pdsIntent);
+                }
+
+
+                //NOT SHOWING BOOKING SCREEN FRAGMENT
+//                Fragment fragment = new BookingScreenFragment();
+//                loadFragment(fragment);
+            }
+
+        });
+
+        FloatingActionButton fab = (FloatingActionButton)v.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent1 = new Intent(getActivity(), CreateNewPostScreen.class);
+                startActivity(intent1);
+
+            }
+        });
     }
 
-    @Override
-    public void onPostReceived(ArrayList<Post> list) {
-
-    }
-
-    @Override
-    public void onUserReceived(ArrayList<User> list) {
-
-    }
 }
