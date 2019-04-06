@@ -93,15 +93,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void signIn(String email, String password) {
         Log.d(TAG, "signIn:" + email);
-        //Cheat
+
+//        //Cheat
         if(email.equals("") || email.equals(null))
         {
-            email = "a";
+            email = "aaaaaaa";
         }
         if(password.equals("") || password.equals(null))
         {
-            password = "b";
+            password = "bbbbbbb";
         }
+
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -323,6 +325,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void initSingleton( User user) {
         singleton.loginUser = user;
-        singleton.loginUser.setPassword("test");
+//        singleton.loginUser.setPassword("test");
     }
 }

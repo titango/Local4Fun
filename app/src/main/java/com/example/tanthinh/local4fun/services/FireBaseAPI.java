@@ -161,6 +161,9 @@ public class FireBaseAPI {
     public static String insertUser(User u){
         String id = myRef.child("User").push().getKey();
         myRef.child("User").child(id).setValue(u);
+
+        u.setId(id);
+        updateUser(u);
         return id;
     }
 

@@ -6,34 +6,45 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".utilities.accountRegister">
+    tools:context=".utilities.accountRegister"
+    android:background="@drawable/background2">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="200sp"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center">
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="150sp"
-            app:srcCompat="@drawable/logo" />
+            android:layout_weight="1"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="15dp"
+            app:srcCompat="@drawable/logo2" />
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="200sp"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="match_parent"
+
+        <EditText
+            android:id="@+id/registerFullName"
+            android:layout_width="300sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingRight="10sp"
-            android:text="@string/register_email_label"
-            android:textSize="18sp" />
+            android:ems="10"
+            android:hint="@string/register_fullname_label"
+            android:textColor="@color/blueDark"
+            android:textColorHint="@color/whiteLight"
+            android:textSize="16sp"
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/registerEmail"
@@ -41,16 +52,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
+            android:hint="@string/login_page_email"
+            android:textColor="@color/blueDark"
+            android:textColorHint="@color/whiteLight"
+            android:textSize="16sp"
             android:inputType="textPersonName" />
 
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingRight="10sp"
-            android:text="@string/register_pwd_label"
-            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/registerPwd"
@@ -58,17 +65,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingRight="10sp"
-            android:text="@string/register_repeatPwd_label"
-            android:textSize="18sp" />
+            android:hint="@string/Login_page_password"
+            android:textColor="@color/blueDark"
+            android:textColorHint="@color/whiteLight"
+            android:textSize="16sp"
+            android:inputType="textPassword" />
 
         <EditText
             android:id="@+id/registerCofPwd"
@@ -76,31 +77,48 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName" />
+            android:hint="@string/register_repeatPwd_label"
+            android:textColor="@color/blueDark"
+            android:textColorHint="@color/whiteLight"
+            android:textSize="16sp"
+            android:inputType="textPassword" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100sp"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="40sp"
+        android:paddingRight="40sp">
 
+        <!--<Button-->
+            <!--android:id="@+id/registerConfirmBtn"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:onClick="register"-->
+            <!--android:text="@string/register_btn_name"-->
+            <!--android:textAllCaps="false"-->
+            <!--android:textSize="18sp" />-->
         <Button
             android:id="@+id/registerConfirmBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="register"
+            android:layout_marginTop="10dp"
             android:text="@string/register_btn_name"
             android:textAllCaps="false"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:onClick="register"
+            android:background="@drawable/rounded_login"
+            android:textColor="@color/whiteLight"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
 
         <TextView
             android:id="@+id/textView3"
@@ -108,7 +126,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/register_have_password_label"
-            android:textSize="18sp" />
+            android:textColor="@color/whiteLight" />
 
         <TextView
             android:id="@+id/textView5"
@@ -116,8 +134,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="login"
+            android:textStyle="bold"
             android:text="@string/register_login_label"
-            android:textColor="@color/blueLight"
-            android:textSize="18sp" />
+            android:textColor="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
+
+            android:layout_marginLeft="10sp"/>
     </LinearLayout>
 </LinearLayout>
