@@ -21,7 +21,10 @@ import android.widget.Toast;
 
 import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.adapters.PostAdapter;
+import com.example.tanthinh.local4fun.intefaces.OnDataReceiveCallback;
 import com.example.tanthinh.local4fun.models.Post;
+import com.example.tanthinh.local4fun.models.Review;
+import com.example.tanthinh.local4fun.models.User;
 import com.example.tanthinh.local4fun.screens.BookingDetailsScreen;
 import com.example.tanthinh.local4fun.screens.CreateNewPostScreen;
 
@@ -41,7 +44,9 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.content.ContentValues.TAG;
 
@@ -50,7 +55,7 @@ import static android.content.ContentValues.TAG;
  * Activities that contain this fragment must implement the
  * create an instance of this fragment.
  */
-public class ExploreScreenFragment extends Fragment {
+public class ExploreScreenFragment extends Fragment implements OnDataReceiveCallback {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -65,6 +70,8 @@ public class ExploreScreenFragment extends Fragment {
     Post p;
 
     private static String LOG_TAG = "Explore Screen";
+
+    public static Map<String,User> usersOnPost= new HashMap<>();
 
     public ExploreScreenFragment() {}
 
@@ -229,5 +236,21 @@ public class ExploreScreenFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+
+    @Override
+    public void onReviewReceived(ArrayList<Review> list) {
+
+    }
+
+    @Override
+    public void onPostReceived(ArrayList<Post> list) {
+
+    }
+
+    @Override
+    public void onUserReceived(ArrayList<User> list) {
+
     }
 }
