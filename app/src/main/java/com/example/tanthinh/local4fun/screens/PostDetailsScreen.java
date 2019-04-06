@@ -180,7 +180,8 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
                 createReview(userId, fullname, postId, date, mRating, mReview);
                 //Review r = new Review();
                 //FireBaseAPI.insertReview(r);
-
+                ratingBar.setRating(0);
+                editTextReview.setText("");
 //                Intent intent = new Intent(getApplicationContext(), PostDetailsScreen.class);
 //                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //                startActivity(intent);
