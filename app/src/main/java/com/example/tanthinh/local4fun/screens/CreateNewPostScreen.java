@@ -474,6 +474,7 @@ public class CreateNewPostScreen extends AppCompatActivity {
                 plan, planDesc, pictures);
         post.setMinDate(minDate);
         post.setMaxDate(maxDate);
+        post.setUserId(Singleton.getInstance().loginUser.getId());
 
         FireBaseAPI.insertPost(post);
     }
