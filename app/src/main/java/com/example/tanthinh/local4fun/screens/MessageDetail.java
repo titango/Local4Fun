@@ -23,6 +23,7 @@ public class MessageDetail extends AppCompatActivity {
 
     private String mSenderName;
     private String mReceiverName;
+    private String imgUrl;
     private ListView mChatListView;
     private EditText mInputText;
     private ImageButton mSendButton;
@@ -71,6 +72,7 @@ public class MessageDetail extends AppCompatActivity {
         Intent intent = getIntent() ;
         mSenderName = intent.getStringExtra("SenderName");
         mReceiverName = intent.getStringExtra("ReceiverName");
+        imgUrl = intent.getStringExtra("ImgUrl");
     }
 
 
@@ -82,7 +84,7 @@ public class MessageDetail extends AppCompatActivity {
 
         if (!input.equals("")) {
             Log.d("Chat", "I sent something to firebase");
-            InstantMessage chat = new InstantMessage(input, mSenderName ,mReceiverName);
+            InstantMessage chat = new InstantMessage(input, mSenderName ,mReceiverName, imgUrl);
             Log.e("Chat" , "" + chat.getSender() + " " + chat.getMessage());
             mDatabaseReference.child("messages").push().setValue(chat);
             mInputText.setText("");
@@ -96,7 +98,7 @@ public class MessageDetail extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        mAdapter = new ChatListAdapter(this, mDatabaseReference, mSenderName , mReceiverName);
+        mAdapter = new ChatListAdapter(this, mDatabaseReference, mSenderName , mReceiverName , imgUrl);
         mChatListView.setAdapter(mAdapter);
     }
 

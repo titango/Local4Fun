@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -24,9 +26,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class messageListAdapter extends BaseAdapter {
     private Context mContext;
@@ -104,39 +109,55 @@ public class messageListAdapter extends BaseAdapter {
         User user = new User();
         user = snapshot.getValue(User.class);
 
-        TextView tv ;
         LinearLayout.LayoutParams lp;
-        if (convertView == null) {
-            tv = new TextView(mContext);
-            lp = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    100);
-            tv.setLayoutParams(lp);
+
+        View v = convertView;
+        if(v == null){
+            LayoutInflater vi = LayoutInflater.from(mContext);
+            v = vi.inflate(R.layout.custom_message_row, null);
         }
-        else
-        {
-            tv = (TextView) convertView;
+
+        TextView tv = (TextView)v.findViewById(R.id.txtSetting);
+
+        CircleImageView img = (CircleImageView) v.findViewById(R.id.profile_image);
+        if(user.getImgUrl() != ""){
+            Picasso.get().load(user.getImgUrl())
+                    .fit()
+                    .centerCrop()
+                    .into(img);
         }
+//        if (convertView == null) {
+//            tv = new TextView(mContext);
+//            lp = new LinearLayout.LayoutParams(
+//                    LinearLayout.LayoutParams.MATCH_PARENT,
+//                    100);
+//            tv.setLayoutParams(lp);
+//        }
+//        else
+//        {
+//            tv = (TextView) convertView;
+//        }
         tv.setText(user.getFullname());
         tv.setTextSize(22);
-        tv.setGravity(Gravity.CENTER | Gravity.LEFT);
-        tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_account_circle_black_24dp, 0, 0, 0);
+//        tv.setGravity(Gravity.CENTER | Gravity.LEFT);
+//        tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_account_circle_black_24dp, 0, 0, 0);
         final String name = user.getFullname();
 
 
 
 
         //currentName = singleton.loginUser.getFullname();
-
+        final String imgUrl = singleton.initInstance().loginUser.getImgUrl();
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, MessageDetail.class);
                 intent.putExtra("SenderName", currentName);
                 intent.putExtra("ReceiverName", name);
+                intent.putExtra("ImgUrl", imgUrl);
                 mContext.startActivity(intent);
             }
         });
-        return tv;
+        return v;
     }
 }

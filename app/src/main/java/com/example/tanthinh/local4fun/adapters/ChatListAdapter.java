@@ -13,12 +13,16 @@ import android.widget.TextView;
 
 import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.models.InstantMessage;
+import com.example.tanthinh.local4fun.models.Singleton;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatListAdapter extends BaseAdapter {
 
@@ -27,14 +31,16 @@ public class ChatListAdapter extends BaseAdapter {
     private String mSenderName ;
     private String mReceiverName ;
     private ArrayList<DataSnapshot> mSnapshotList;
+    private Singleton singleton;
+    private String imgUrl;
 
 
-
-    public ChatListAdapter(Activity activity, DatabaseReference ref, String sender, String receiver) {
+    public ChatListAdapter(Activity activity, DatabaseReference ref, String sender, String receiver, String imgUrl) {
 
         mActivity = activity;
         mSenderName = sender;
         mReceiverName = receiver;
+        imgUrl = imgUrl;
         // common error: typo in the db location. Needs to match what's in MainChatActivity.
         mDatabaseReference = ref.child("messages");
         mDatabaseReference.addChildEventListener(mListener);
@@ -82,7 +88,9 @@ public class ChatListAdapter extends BaseAdapter {
     private static class ViewHolder{
         TextView authorName;
         TextView body;
+        LinearLayout group_holder;
         LinearLayout.LayoutParams params;
+        private CircleImageView imgPath,imgViewImage;
     }
 
     @Override
@@ -110,9 +118,13 @@ public class ChatListAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.chat_msg_row, parent, false);
 
             final ViewHolder holder = new ViewHolder();
+            holder.group_holder = (LinearLayout) convertView.findViewById(R.id.group_holder);
             holder.authorName = (TextView) convertView.findViewById(R.id.author);
             holder.body = (TextView) convertView.findViewById(R.id.message);
             holder.params = (LinearLayout.LayoutParams) holder.authorName.getLayoutParams();
+            holder.imgViewImage = (CircleImageView) convertView.findViewById(R.id.profile_image);
+
+
             convertView.setTag(holder);
 
         }
@@ -121,6 +133,16 @@ public class ChatListAdapter extends BaseAdapter {
         final ViewHolder holder = (ViewHolder) convertView.getTag();
 
         boolean isMe = message.getSender().equals(mSenderName);
+
+        imgUrl = message.getImgPath();
+
+        if(imgUrl != "") {
+            Picasso.get().load(imgUrl)
+                    .fit()
+                    .centerCrop()
+                    .into(holder.imgViewImage);
+        }
+
         setChatRowAppearance(isMe, holder);
 
         String author = message.getSender();
@@ -146,6 +168,9 @@ public class ChatListAdapter extends BaseAdapter {
             // holder.authorName.setTextColor(colourAsARGB);
 
             holder.body.setBackgroundResource(R.drawable.bubble2);
+            holder.params.gravity = Gravity.END;
+
+
         } else {
             holder.params.gravity = Gravity.START;
             holder.authorName.setTextColor(Color.BLUE);
@@ -154,7 +179,7 @@ public class ChatListAdapter extends BaseAdapter {
 
         holder.authorName.setLayoutParams(holder.params);
         holder.body.setLayoutParams(holder.params);
-
+        holder.group_holder.setLayoutParams(holder.params);
     }
 
 

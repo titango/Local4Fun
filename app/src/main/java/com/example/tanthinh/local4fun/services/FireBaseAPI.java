@@ -210,14 +210,11 @@ public class FireBaseAPI {
                     }
 
                 }
-                if(id.length() == 0){
-                    id = myRef.child("User").push().getKey();
-                    singleton.loginUser.setId(id);
-                    myRef.child("User").child(id).setValue(singleton.loginUser);
-                }
-
-
-
+//                if(id.length() == 0){
+//                    id = myRef.child("User").push().getKey();
+//                    singleton.loginUser.setId(id);
+//                    myRef.child("User").child(id).setValue(singleton.loginUser);
+//                }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

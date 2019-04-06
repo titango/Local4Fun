@@ -4,11 +4,13 @@ public class InstantMessage {
     private String message;
     private String sender;
     private String receiver;
+    private String imgPath;
 
-    public InstantMessage(String message, String sender, String receiver) {
+    public InstantMessage(String message, String sender, String receiver, String imgPath) {
         this.message = message;
         this.sender = sender;
         this.receiver = receiver;
+        this.imgPath = imgPath;
     }
 
     public InstantMessage() {
@@ -25,5 +27,13 @@ public class InstantMessage {
 
     public String getreceiver() {
         return receiver;
+    }
+
+    public String getImgPath() {
+        return imgPath;
+    }
+
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
     }
 }
