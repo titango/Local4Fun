@@ -306,6 +306,7 @@
                 android:background="@drawable/dashed_border">
 
                 <TextView
+                    android:id="@+id/descriptionTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="20dp"
@@ -326,6 +327,7 @@
                     android:text="@string/summary_heading" />
 
                 <TextView
+                    android:id="@+id/summaryTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
@@ -386,6 +388,7 @@
                     android:text="@string/information_heading" />
 
                 <TextView
+                    android:id="@+id/mapInfoTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"

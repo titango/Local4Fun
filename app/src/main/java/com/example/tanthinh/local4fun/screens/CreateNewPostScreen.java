@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.models.Post;
+import com.example.tanthinh.local4fun.models.Singleton;
 import com.example.tanthinh.local4fun.models.User;
 import com.example.tanthinh.local4fun.services.FireBaseAPI;
 import com.example.tanthinh.local4fun.services.UploadImage;
@@ -173,9 +174,8 @@ public class CreateNewPostScreen extends AppCompatActivity {
 
                 plan.clear();
                 planDesc.clear();
-                pictures.clear();
 
-                userId =  FirebaseAuth.getInstance().getCurrentUser().getUid();
+                userId = Singleton.getInstance().loginUser.getId();
                 String postName = editTextPostName.getText().toString();
                 String tourType = spinnerTour.getSelectedItem().toString();
                 String description = editTextDescription.getText().toString();
@@ -183,16 +183,39 @@ public class CreateNewPostScreen extends AppCompatActivity {
                 Double duration = Double.parseDouble(spinnerDuration.getSelectedItem().toString());
                 Double price = Double.parseDouble(spinnerPrice.getSelectedItem().toString());
                 String location = editTextMeetingPoint.getText().toString();
-                plan.add(editTextPlanLocation1.getText().toString());
-                plan.add(editTextPlanLocation2.getText().toString());
-                plan.add(editTextPlanLocation3.getText().toString());
-                plan.add(editTextPlanLocation4.getText().toString());
-                plan.add(editTextPlanLocation5.getText().toString());
-                planDesc.add(editTextPlanLocation1Desc.getText().toString());
-                planDesc.add(editTextPlanLocation2Desc.getText().toString());
-                planDesc.add(editTextPlanLocation3Desc.getText().toString());
-                planDesc.add(editTextPlanLocation4Desc.getText().toString());
-                planDesc.add(editTextPlanLocation5Desc.getText().toString());
+
+                if(editTextPlanLocation1.getText().toString().trim().length() != 0){
+                    plan.add(editTextPlanLocation1.getText().toString());
+                }
+                if(editTextPlanLocation2.getText().toString().trim().length() != 0){
+                    plan.add(editTextPlanLocation2.getText().toString());
+                }
+                if(editTextPlanLocation3.getText().toString().trim().length() != 0){
+                    plan.add(editTextPlanLocation3.getText().toString());
+                }
+                if(editTextPlanLocation4.getText().toString().trim().length() != 0){
+                    plan.add(editTextPlanLocation4.getText().toString());
+                }
+                if(editTextPlanLocation5.getText().toString().trim().length() != 0){
+                    plan.add(editTextPlanLocation5.getText().toString());
+                }
+
+                if(editTextPlanLocation1Desc.getText().toString().trim().length() != 0){
+                    planDesc.add(editTextPlanLocation1Desc.getText().toString());
+                }
+                if(editTextPlanLocation2Desc.getText().toString().trim().length() != 0){
+                    planDesc.add(editTextPlanLocation2Desc.getText().toString());
+                }
+                if(editTextPlanLocation3Desc.getText().toString().trim().length() != 0){
+                    planDesc.add(editTextPlanLocation3Desc.getText().toString());
+                }
+                if(editTextPlanLocation4Desc.getText().toString().trim().length() != 0){
+                    planDesc.add(editTextPlanLocation4Desc.getText().toString());
+                }
+                if(editTextPlanLocation5Desc.getText().toString().trim().length() != 0){
+                    planDesc.add(editTextPlanLocation5Desc.getText().toString());
+                }
+
 
                 //pictures.add(downloadUrl.toString());
 
@@ -206,7 +229,7 @@ public class CreateNewPostScreen extends AppCompatActivity {
                 if(TextUtils.isEmpty(postName) || TextUtils.isEmpty(description) ||
                         TextUtils.isEmpty(summary) || TextUtils.isEmpty(location) ||
                         editTextPlanLocation1.getText().toString().trim().length() == 0 ||
-                        editTextPlanLocation1Desc.toString().trim().length() == 0) {
+                        editTextPlanLocation1Desc.getText().toString().trim().length() == 0) {
                     Toast.makeText(CreateNewPostScreen.this, "Complete the form", Toast.LENGTH_SHORT).show();
                 }else{
                     createPost(userId, postName, tourType, description, summary, duration, price, location,
