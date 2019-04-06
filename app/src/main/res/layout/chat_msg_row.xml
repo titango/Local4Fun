@@ -34,9 +34,10 @@
         <TextView
             android:id="@+id/author"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center_horizontal|center_vertical"
-            android:paddingLeft="10dp"
+            android:gravity="center_vertical|clip_vertical"
+
             android:paddingRight="10dp"
             android:text="@string/prompt_msg"
             android:textColor="@color/blueDark"

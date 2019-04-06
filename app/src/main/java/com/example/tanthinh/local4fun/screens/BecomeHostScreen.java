@@ -52,7 +52,7 @@ public class BecomeHostScreen extends Activity {
 
         singleton = Singleton.initInstance();
         imgViewImage = (CircleImageView) findViewById(R.id.profile_image);
-        if(singleton.loginUser.getImgUrl() != "") {
+        if(singleton.loginUser.getImgUrl() != null && singleton.loginUser.getImgUrl() != "") {
             Picasso.get().load(singleton.loginUser.getImgUrl())
                     .fit()
                     .centerCrop()
