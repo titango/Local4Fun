@@ -58,6 +58,9 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
     public TextView postTour;
     public TextView postPrice;
     public TextView postLocation;
+    public TextView summaryTextView;
+    public TextView descriptionTextView;
+    public TextView mapInfoTextView;
     public Post currentPost;
 
     private LinearLayout locationMarkerWrapper;
@@ -126,12 +129,26 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
             }
         });
 
+        displayDescriptionSummary();
+
         displayPlanSection();
         displayReviewSection();
 
         //Review r = new Review("-LbaIAoqazHPSY-cUms9", currentPost.getId(), new Date(), 3, "Thank you for your service!");
         //FireBaseAPI.insertReview(r);
 
+    }
+
+    private void displayDescriptionSummary()
+    {
+        descriptionTextView = findViewById(R.id.descriptionTextView);
+        summaryTextView = findViewById(R.id.summaryTextView);
+        mapInfoTextView = findViewById(R.id.mapInfoTextView);
+
+        descriptionTextView.setText(currentPost.getDescription());
+        summaryTextView.setText(currentPost.getSummary());
+
+        mapInfoTextView.setText(currentPost.getLocation());
     }
 
     private void displayPlanSection()
@@ -151,9 +168,12 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
         for(int i = 0; i < currentPost.plan.size(); i++)
         {
             // String text plans
-            String[] splitPlan = currentPost.plan.get(i).split("&&");
-            String planMarker = splitPlan[0];
-            String planLabel = splitPlan[1];
+//            String[] splitPlan = currentPost.plan.get(i).split("&&");
+//            String planMarker = splitPlan[0];
+//            String planLabel = splitPlan[1];
+
+            String planMarker = currentPost.plan.get(i);
+            String planLabel = currentPost.planDesc.get(i);
 
             String textWrapper = "";
             if( i == 0)

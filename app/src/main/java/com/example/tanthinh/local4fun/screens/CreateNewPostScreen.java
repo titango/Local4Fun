@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.models.Post;
+import com.example.tanthinh.local4fun.models.Singleton;
 import com.example.tanthinh.local4fun.models.User;
 import com.example.tanthinh.local4fun.services.FireBaseAPI;
 import com.example.tanthinh.local4fun.services.UploadImage;
@@ -174,7 +175,7 @@ public class CreateNewPostScreen extends AppCompatActivity {
                 plan.clear();
                 planDesc.clear();
 
-                userId =  FirebaseAuth.getInstance().getCurrentUser().getUid();
+                userId = Singleton.getInstance().loginUser.getId();
                 String postName = editTextPostName.getText().toString();
                 String tourType = spinnerTour.getSelectedItem().toString();
                 String description = editTextDescription.getText().toString();

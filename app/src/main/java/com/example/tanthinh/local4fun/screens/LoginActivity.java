@@ -91,12 +91,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void signIn(String email, String password) {
+
+        if(email.isEmpty() || email.equals(null))
+        {
+            email = "thinh1234@gmail.com";
+        }
+        if(password.isEmpty() || password.equals(null))
+        {
+            password = "thinh1234";
+        }
         Log.d(TAG, "signIn:" + email);
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful() || true) {
+                        if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             //Toast.makeText(LoginActivity.this, "login success.",Toast.LENGTH_SHORT).show();
@@ -106,7 +115,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            //Toast.makeText(LoginActivity.this, "Authentication failed.",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Authentication failed. Please try again",Toast.LENGTH_SHORT).show();
                         }
                     }
 
