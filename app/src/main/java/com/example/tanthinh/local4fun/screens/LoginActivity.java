@@ -84,24 +84,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         singleton = Singleton.initInstance();
     }
 
-    private void moveToMainActivity(User user){
-
-        initSingleton(user);
+    private void moveToMainActivity(Singleton singleton, FirebaseUser user){
+        FireBaseAPI.getUserByEmail(singleton, user.getEmail());
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
     private void signIn(String email, String password) {
         Log.d(TAG, "signIn:" + email);
-        //Cheat
-        if(email.equals("") || email.equals(null))
-        {
-            email = "a";
-        }
-        if(password.equals("") || password.equals(null))
-        {
-            password = "b";
-        }
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -112,11 +102,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             //Toast.makeText(LoginActivity.this, "login success.",Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
 
-                            loginUser = new User(user.getDisplayName(),user.getEmail(), user.getPhoneNumber(), "","");
-
-//                            FireBaseAPI.getUserAddIfDoesNotExist(user.getEmail());
-
-                            moveToMainActivity(loginUser);
+                            moveToMainActivity(singleton, user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
@@ -210,9 +196,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            loginUser = new User(user.getDisplayName(),user.getEmail(), user.getPhoneNumber(), "","");
-                            FireBaseAPI.getUserAddIfDoesNotExist(user.getEmail());
-                            moveToMainActivity(loginUser);
+                            moveToMainActivity(singleton, user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -241,8 +225,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
                 FirebaseUser user = mAuth.getCurrentUser();
-                User loginUser = new User(user.getDisplayName(),user.getEmail(), user.getPhoneNumber(), "","");
-                moveToMainActivity(loginUser);
+                moveToMainActivity(singleton, user);
             }
 
             @Override
@@ -279,9 +262,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Log.d(TAG, "signInWithCredential:success");
 
                             FirebaseUser user = mAuth.getCurrentUser();
-                            loginUser = new User(user.getDisplayName(),user.getEmail(), user.getPhoneNumber(), "","");
-                            FireBaseAPI.getUserAddIfDoesNotExist(user.getEmail());
-                            moveToMainActivity(loginUser);
+                            moveToMainActivity(singleton, user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -318,11 +299,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             default:
                 break;
         }
-    }
-
-
-    private void initSingleton( User user) {
-        singleton.loginUser = user;
-        singleton.loginUser.setPassword("test");
     }
 }

@@ -124,7 +124,7 @@
                         android:layout_width="@dimen/label_width_130"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/padding20"
-                        android:text="@string/email" />
+                        android:text="@string/fullname" />
 
                     <EditText
                         android:id="@+id/user_name_text"
@@ -146,7 +146,7 @@
                         android:layout_width="@dimen/label_width_130"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/padding20"
-                        android:text="@string/fullname" />
+                        android:text="@string/email" />
 
                     <EditText
                         android:id="@+id/user_email_text"

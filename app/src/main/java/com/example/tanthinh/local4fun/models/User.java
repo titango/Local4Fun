@@ -21,6 +21,7 @@ public class User {
         this.phone = phone;
         this.description = description;
         this.username = username;
+        this.imgUrl = "";
     }
 
     public String getFullname() {

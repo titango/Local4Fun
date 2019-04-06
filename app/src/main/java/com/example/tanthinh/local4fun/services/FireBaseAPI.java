@@ -15,6 +15,7 @@ import com.example.tanthinh.local4fun.intefaces.OnDataReceiveCallback;
 import com.example.tanthinh.local4fun.models.Booking;
 import com.example.tanthinh.local4fun.models.Post;
 import com.example.tanthinh.local4fun.models.Review;
+import com.example.tanthinh.local4fun.models.Singleton;
 import com.example.tanthinh.local4fun.models.User;
 import com.example.tanthinh.local4fun.screens.LoginActivity;
 import com.example.tanthinh.local4fun.screens.ScreenFragment.BookingScreenFragment;
@@ -41,6 +42,17 @@ public class FireBaseAPI {
     private static FirebaseDatabase database = FirebaseDatabase.getInstance();
     private static DatabaseReference myRef = database.getReference();
     List<User> list = new ArrayList<>();
+
+    public static User getLoginUser() {
+        return loginUser;
+    }
+
+    public static void setLoginUser(User loginUser) {
+        FireBaseAPI.loginUser = loginUser;
+    }
+
+    private static User loginUser;
+
     public FireBaseAPI(Activity context)
     {
         this.context = context;
@@ -170,6 +182,47 @@ public class FireBaseAPI {
         return id;
     }
 
+
+    public static void getUserByEmail(final Singleton singleton, final String email){
+
+        final ArrayList<Post> posts = new ArrayList<Post>();
+
+        Query phoneQuery = myRef.child("User");
+
+        phoneQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String id = "";
+                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
+                    User u = singleSnapshot.getValue(User.class);
+                    if (email!= null){
+                        if(email.equals(u.getEmail()))
+                        {
+//                            String id , fullname, String email, String phone, String description, String username
+                            singleton.loginUser = new User(u.getFullname(), u.getEmail()
+                            , u.getPhone(), u.getDescription(), u.getUsername());
+                            id = u.getId();
+                        }
+                    }
+
+                }
+                if(id.length() == 0){
+                    id = myRef.child("User").push().getKey();
+                    loginUser.setId(id);
+                    myRef.child("User").child(id).setValue(loginUser);
+                }
+
+
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e(TAG, "onCancelled", databaseError.toException());
+            }
+
+        });
+
+    }
 
 
 
