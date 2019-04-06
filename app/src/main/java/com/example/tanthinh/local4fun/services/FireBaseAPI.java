@@ -288,4 +288,31 @@ public class FireBaseAPI {
         myRef.child("User").child(u.getId()).setValue(u);
 
     }
+
+    public static void getAllUsers(final OnDataReceiveCallback callback){
+
+        final ArrayList<User> users = new ArrayList<User>();
+
+        Query phoneQuery = myRef.child("User");
+        phoneQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
+                    User u = singleSnapshot.getValue(User.class);
+                    users.add(u);
+                }
+
+                callback.onUserReceived(users);
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e(TAG, "onCancelled", databaseError.toException());
+            }
+
+        });
+    }
+
+
 }
