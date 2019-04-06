@@ -101,7 +101,7 @@ public class ProfileScreenFragment extends Fragment {
         user_email = (TextView) view.findViewById(R.id.user_email);
         singleton = Singleton.initInstance();
         imgViewImage = (CircleImageView) view.findViewById(R.id.profile_image);
-        if(singleton.loginUser.getImgUrl() != "") {
+        if(singleton.loginUser.getImgUrl() != null && singleton.loginUser.getImgUrl() != "") {
             Picasso.get().load(singleton.loginUser.getImgUrl())
                     .fit()
                     .centerCrop()

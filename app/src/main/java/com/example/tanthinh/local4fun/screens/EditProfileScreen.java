@@ -79,7 +79,7 @@ public class EditProfileScreen extends AppCompatActivity {
         });
 
         singleton = Singleton.initInstance();
-        if(singleton.loginUser.getImgUrl() != "") {
+        if(singleton.loginUser.getImgUrl() != null && singleton.loginUser.getImgUrl() != "") {
             Picasso.get().load(singleton.loginUser.getImgUrl())
                     .fit()
                     .centerCrop()

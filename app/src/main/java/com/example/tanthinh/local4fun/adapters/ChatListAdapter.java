@@ -136,7 +136,7 @@ public class ChatListAdapter extends BaseAdapter {
 
         imgUrl = message.getImgPath();
 
-        if(imgUrl != "") {
+        if(imgUrl != null && imgUrl != "") {
             Picasso.get().load(imgUrl)
                     .fit()
                     .centerCrop()
@@ -174,10 +174,10 @@ public class ChatListAdapter extends BaseAdapter {
         } else {
             holder.params.gravity = Gravity.START;
             holder.authorName.setTextColor(Color.BLUE);
-            holder.body.setBackgroundResource(R.drawable.bubble1);
+            holder.body.setBackgroundResource(R.drawable.bubble2);
         }
 
-        holder.authorName.setLayoutParams(holder.params);
+//        holder.authorName.setLayoutParams(holder.params);
         holder.body.setLayoutParams(holder.params);
         holder.group_holder.setLayoutParams(holder.params);
     }
