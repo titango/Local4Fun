@@ -7,33 +7,47 @@
     tools:context=".screens.CreateNewPostScreen"
     android:orientation="vertical">
 
+        <!--<android.support.v7.widget.Toolbar-->
+            <!--android:id="@+id/my_toolbar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="?attr/actionBarSize"-->
+            <!--android:elevation="4dp"-->
+            <!--style="@style/topToolbar">-->
 
-
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/my_toolbar"
+            <!--<ImageButton-->
+                <!--android:id="@+id/close_icon_btn"-->
+                <!--android:layout_width="20dp"-->
+                <!--android:layout_height="20dp"-->
+                <!--android:background="@drawable/close"-->
+                <!--android:layout_centerVertical="true"/>-->
+        <!--</android.support.v7.widget.Toolbar>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="10dp">
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:elevation="4dp"
-            style="@style/topToolbar">
-
-            <ImageButton
-                android:id="@+id/close_icon_btn"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/close"
-                android:layout_centerVertical="true"/>
-        </android.support.v7.widget.Toolbar>
-
+            android:layout_height="wrap_content"
+            android:text="@string/createYourPost"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textColor="@color/colorPrimaryDark"/>
+    </LinearLayout>
 
 
     <ScrollView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="vertical"
         android:fillViewport="true"
-        android:layout_weight="9.5">
+        android:layout_weight="9.5"
+        android:padding="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -102,6 +116,7 @@
 
         </RelativeLayout>
 
+        <!-- DURATION -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -129,6 +144,83 @@
             android:entries="@array/duration"
             android:layout_centerInParent="true"/>
         </RelativeLayout>
+
+            <!-- MIN DATE -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/minDate"
+                android:textColor="@color/blueDark"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="45dp"
+                    android:src="@drawable/ic_calendar"/>
+                <EditText
+                    android:id="@+id/editText1"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="@string/hintDate"
+                    android:textAlignment="center"/>
+
+            </LinearLayout>
+
+        <!-- MAX DATE -->
+        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/maxDate"
+                    android:textColor="@color/blueDark"
+                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="45dp"
+                        android:src="@drawable/ic_calendar"/>
+                    <EditText
+                        android:id="@+id/editText2"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="@string/hintDate"
+                        android:textAlignment="center"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
 
 
         <RelativeLayout
@@ -520,6 +612,29 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+        <ImageButton
+            android:id="@+id/back_arrow_btn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_arrow_back"
+            android:textColor="@android:color/white"
+            android:text="@string/back"
+            android:layout_centerVertical="true"/>
+
+        <Button
+            android:id="@+id/book_now_btn"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/mybutton"
+            android:text="@string/btnCreatePost"
+            android:textColor="@android:color/white"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
 
 </LinearLayout>
 

@@ -1,6 +1,9 @@
 package com.example.tanthinh.local4fun.screens;
 
 import android.support.v4.app.FragmentManager;
+
+import android.app.DatePickerDialog;
+
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,10 +21,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -54,6 +59,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,7 +83,13 @@ public class CreateNewPostScreen extends AppCompatActivity {
     private DatabaseReference mFirebaseDatabase;
     private FirebaseDatabase mFirebaseInstance;
 
-    private Toolbar topToolBar;
+    private DatePickerDialog picker;
+    private EditText eText1;
+    private EditText eText2;
+    private long bookingMinDate = 0;
+    private long bookingMaxDate = 0;
+
+//    private Toolbar topToolBar;
 
     AlertDialog alertDialog;
 
@@ -108,10 +120,10 @@ public class CreateNewPostScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_post_screen);
 
-        topToolBar = (Toolbar) findViewById(R.id.my_toolbar);
+//        topToolBar = (Toolbar) findViewById(R.id.my_toolbar);
 
 
-        close_icon_btn = (ImageButton)findViewById(R.id.close_icon_btn);
+        close_icon_btn = (ImageButton)findViewById(R.id.back_arrow_btn);
 
         editTextPostName = (EditText)findViewById(R.id.editTextPostName);
         editTextMeetingPoint = (EditText)findViewById(R.id.editTextMeetingPoint);
@@ -241,7 +253,7 @@ public class CreateNewPostScreen extends AppCompatActivity {
                     Toast.makeText(CreateNewPostScreen.this, "Complete the form", Toast.LENGTH_SHORT).show();
                 }else{
                     createPost(userId, postName, tourType, description, summary, duration, price, location,
-                            plan, planDesc, pictures);
+                            plan, planDesc, pictures, bookingMinDate, bookingMaxDate);
 
                     alertDialog();
                 }
@@ -262,6 +274,59 @@ public class CreateNewPostScreen extends AppCompatActivity {
 
 //                uploadImage();
 
+            }
+        });
+
+        // Calendar
+        eText1=(EditText) findViewById(R.id.editText1);
+        eText1.setInputType(InputType.TYPE_NULL);
+        eText1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+                // date picker dialog
+                picker = new DatePickerDialog(CreateNewPostScreen.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                eText1.setText((monthOfYear + 1) + "/" + dayOfMonth+ "/" + year);
+                                Calendar cal = Calendar.getInstance();
+                                cal.set(year, monthOfYear, dayOfMonth);
+                                bookingMinDate = cal.getTimeInMillis();
+                                Log.w("bookingMinDate", String.valueOf(bookingMinDate));
+                            }
+                        }, year, month, day);
+                picker.getDatePicker().setMinDate(System.currentTimeMillis());
+                picker.show();
+            }
+        });
+
+        eText2=(EditText) findViewById(R.id.editText2);
+        eText2.setInputType(InputType.TYPE_NULL);
+        eText2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+                // date picker dialog
+                picker = new DatePickerDialog(CreateNewPostScreen.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                eText2.setText((monthOfYear + 1) + "/" + dayOfMonth+ "/" + year);
+                                Calendar cal = Calendar.getInstance();
+                                cal.set(year, monthOfYear, dayOfMonth);
+                                bookingMaxDate = cal.getTimeInMillis();
+                                Log.w("bookingMaxDate", String.valueOf(bookingMaxDate));
+                            }
+                        }, year, month, day);
+                picker.getDatePicker().setMinDate(System.currentTimeMillis());
+                picker.show();
             }
         });
 
@@ -395,7 +460,7 @@ public class CreateNewPostScreen extends AppCompatActivity {
 
     private void createPost(String userId, String postName, String tourType, String description,
                             String summary, Double duration, Double price, String location, ArrayList<String> plan,
-                            ArrayList<String> planDesc, ArrayList<String> pictures) {
+                            ArrayList<String> planDesc, ArrayList<String> pictures, long minDate, long maxDate) {
         // TODO
         // In real apps this userId should be fetched
         // by implementing firebase auth
@@ -407,6 +472,8 @@ public class CreateNewPostScreen extends AppCompatActivity {
 
         Post post = new Post(userId, postName, tourType, description, summary, duration, price, location,
                 plan, planDesc, pictures);
+        post.setMinDate(minDate);
+        post.setMaxDate(maxDate);
 
         FireBaseAPI.insertPost(post);
     }

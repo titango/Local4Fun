@@ -13,6 +13,8 @@ public class Post {
     private Double pricePerPerson;
     private String tourType;
     private String location;
+    private long minDate = 0;
+    private long maxDate = 0;
 
     public Map<String, Boolean> stars = new HashMap<>();
     public ArrayList<String> plan = new ArrayList<>();
@@ -172,4 +174,19 @@ public class Post {
         this.location = location;
     }
 
+    public long getMinDate() {
+        return minDate;
+    }
+
+    public void setMinDate(long minDate) {
+        this.minDate = minDate;
+    }
+
+    public long getMaxDate() {
+        return maxDate;
+    }
+
+    public void setMaxDate(long maxDate) {
+        this.maxDate = maxDate;
+    }
 }

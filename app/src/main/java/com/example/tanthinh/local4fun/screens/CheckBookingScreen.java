@@ -81,6 +81,8 @@ public class CheckBookingScreen extends AppCompatActivity implements AdapterView
                                 bookingDate = eText.getText().toString();
                             }
                         }, year, month, day);
+                picker.getDatePicker().setMinDate(currentPost.getMinDate());
+                picker.getDatePicker().setMaxDate(currentPost.getMaxDate());
                 picker.show();
             }
         });
