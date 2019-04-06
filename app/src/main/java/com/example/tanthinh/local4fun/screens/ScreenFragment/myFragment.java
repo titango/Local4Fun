@@ -15,8 +15,12 @@ import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.example.tanthinh.local4fun.R;
+import com.example.tanthinh.local4fun.models.Booking;
 import com.example.tanthinh.local4fun.models.FingerprintHelper;
+import com.example.tanthinh.local4fun.models.Post;
+import com.example.tanthinh.local4fun.models.Singleton;
 import com.example.tanthinh.local4fun.screens.MainActivity;
+import com.example.tanthinh.local4fun.services.FireBaseAPI;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -28,6 +32,13 @@ public class myFragment extends DialogFragment implements FingerprintHelper.Call
     private TextView mAuthMsgTv;
     private ViewSwitcher mSwitcher;
     private FingerprintHelper mFingerPrintAuthHelper;
+
+    private double totalPrice = 0;
+    private int numberPerson = 0;
+    private String bookingDate = "";
+    private String numberTime = "";
+    private Post currentPost;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +122,17 @@ public class myFragment extends DialogFragment implements FingerprintHelper.Call
         Intent payIntent = new Intent(getApplicationContext(), MainActivity.class);
         payIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(payIntent);
+
+        Booking newBook = new Booking(
+                Singleton.getInstance().loginUser.getId(),
+                currentPost.getId(),
+                bookingDate,
+                Integer.valueOf(numberPerson),
+                totalPrice,
+                numberTime
+        );
+        FireBaseAPI.insertBooking(newBook);
+
     }
 
     @Override
@@ -128,5 +150,14 @@ public class myFragment extends DialogFragment implements FingerprintHelper.Call
                 mAuthMsgTv.setText(errorMessage);
                 break;
         }
+    }
+
+    public void setData(Post currentPost, int numberPerson, String bookingDate, double totalPrice, String numberTime)
+    {
+        this.currentPost = currentPost;
+        this.numberPerson = numberPerson;
+        this.bookingDate = bookingDate;
+        this.totalPrice = totalPrice;
+        this.numberTime = numberTime;
     }
 }

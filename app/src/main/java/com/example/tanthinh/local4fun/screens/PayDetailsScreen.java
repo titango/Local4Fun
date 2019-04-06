@@ -17,8 +17,10 @@ public class PayDetailsScreen extends AppCompatActivity {
     private Button book_now_btn;
 
     private double totalPrice = 0;
-    private String numberPerson = "";
+    private int numberPerson = 0;
     private String bookingDate = "";
+    private String numberTime = "";
+
     private Post currentPost;
 
     @Override
@@ -31,7 +33,8 @@ public class PayDetailsScreen extends AppCompatActivity {
         Gson gson = new Gson();
         currentPost = gson.fromJson(postString, Post.class);
         totalPrice = (double)initIntent.getExtras().get("totalPrice");
-        numberPerson = (String)initIntent.getExtras().get("numberPerson");
+        numberPerson = (int)initIntent.getExtras().get("numberPerson");
+        numberTime = (String)initIntent.getExtras().get("numberTime");
         bookingDate = (String)initIntent.getExtras().get("bookingDate");
 
         back_arrow_btn = findViewById(R.id.back_arrow_btn);
@@ -48,6 +51,7 @@ public class PayDetailsScreen extends AppCompatActivity {
             public void onClick(View view) {
                 myFragment fragment
                         = new myFragment();
+                fragment.setData(currentPost,numberPerson,bookingDate,totalPrice,numberTime);
                 fragment.show(getFragmentManager(), "my fragment");
 
             }

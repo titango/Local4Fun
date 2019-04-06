@@ -35,7 +35,8 @@ public class CheckBookingScreen extends AppCompatActivity implements AdapterView
     private Button book_now_btn;
 
     private double totalPrice = 0;
-    private String numberPerson = "";
+    private int numberPerson = 0;
+    private String numberTime = "";
     private String bookingDate = "";
 
     private Post currentPost;
@@ -113,6 +114,7 @@ public class CheckBookingScreen extends AppCompatActivity implements AdapterView
                 payIntent.putExtra("postObject", postString);
                 payIntent.putExtra("totalPrice", totalPrice);
                 payIntent.putExtra("numberPerson", numberPerson);
+                payIntent.putExtra("numberTime", numberTime);
                 payIntent.putExtra("bookingDate", bookingDate);
                 startActivity(payIntent);
             }
@@ -126,13 +128,14 @@ public class CheckBookingScreen extends AppCompatActivity implements AdapterView
         {
             Log.w("selected", "numperson");
             int numPerson = Integer.parseInt((String)adapterView.getItemAtPosition(i));
+            numberPerson = numPerson;
             totalPrice = numPerson * currentPost.getPricePerPerson();
             totalPriceTxtView.setText("$" + String.valueOf(totalPrice));
         }else
         {
             Log.w("selected", "numTime");
-            numberPerson = (String)adapterView.getItemAtPosition(i);
-            Log.w("num time selected",numberPerson);
+            numberTime = (String)adapterView.getItemAtPosition(i);
+            Log.w("num time selected",numberTime);
         }
 
     }
