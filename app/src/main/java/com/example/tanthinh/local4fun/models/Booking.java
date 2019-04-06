@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Booking {
 
+    private String id;
     private String postId;
     private String userId;
     private Date date;
@@ -14,6 +15,14 @@ public class Booking {
         this.postId = postId;
         this.date = date;
         this.numberOfPeople = numberOfPeople;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUserId() {

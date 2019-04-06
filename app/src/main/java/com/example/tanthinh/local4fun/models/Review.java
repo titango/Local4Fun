@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Review {
 
+    private String id;
     private String userId;
     private String postId;
     private Date reviewDate;
@@ -19,6 +20,14 @@ public class Review {
         this.reviewDate = reviewDate;
         this.rating = rating;
         this.comment = comment;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getPostId() {

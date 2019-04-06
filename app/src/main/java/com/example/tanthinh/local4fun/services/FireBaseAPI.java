@@ -125,9 +125,6 @@ public class FireBaseAPI {
         String id = myRef.child("Post").push().getKey();
         p.setId(id);
 
-        /*
-        ? Send pictures to file storage
-         */
         myRef.child("Post").child(id).setValue(p);
         return id;
     }
@@ -135,6 +132,7 @@ public class FireBaseAPI {
     public static String insertBooking(Booking b){
         String id = myRef.child("Booking").push().getKey();
         myRef.child("Booking").child(id).setValue(b);
+        b.setId(id);
         return id;
     }
 
@@ -170,18 +168,11 @@ public class FireBaseAPI {
 
     }
 
-    public static String insertUser(User u){
-        String id = myRef.child("User").push().getKey();
-        myRef.child("User").child(id).setValue(u);
-
-        u.setId(id);
-        updateUser(u);
-        return id;
-    }
 
     public static String insertReview(Review u){
         String id = myRef.child("Review").push().getKey();
         myRef.child("Review").child(id).setValue(u);
+        u.setId(id);
         return id;
     }
 
@@ -287,6 +278,14 @@ public class FireBaseAPI {
 
         myRef.child("User").child(u.getId()).setValue(u);
 
+    }
+    public static String insertUser(User u){
+        String id = myRef.child("User").push().getKey();
+        myRef.child("User").child(id).setValue(u);
+
+        u.setId(id);
+        //updateUser(u);
+        return id;
     }
 
     public static void getAllUsers(final OnDataReceiveCallback callback){
