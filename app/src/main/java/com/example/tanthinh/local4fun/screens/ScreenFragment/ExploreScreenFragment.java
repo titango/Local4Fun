@@ -163,7 +163,7 @@ public class ExploreScreenFragment extends Fragment {
                 for(int i = 0; i < posts.size(); i++)
                 {
                     String userId = posts.get(i).getUserId();
-                    Log.w("string userId", userId);
+                    Log.w("string userId", userId + "");
 
                     for(int j = 0; j < list.size(); j++)
                     {
