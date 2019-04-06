@@ -97,15 +97,6 @@ public class FireBaseAPI {
 
                 for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
                     Post p = singleSnapshot.getValue(Post.class);
-                    /*Post p = new Post(singleSnapshot.child("userId").getValue().toString(),
-                            singleSnapshot.child("title").getValue().toString(),"tourType?",
-                            singleSnapshot.child("description").getValue().toString(),
-                            Double.parseDouble(singleSnapshot.child("hours").getValue().toString()),
-                            Double.parseDouble(singleSnapshot.child("pricePerPerson").getValue().toString()),singleSnapshot.child("location").getValue().toString());
-
-                    for(DataSnapshot picSnapshot : singleSnapshot.child("pictures/addresses").getChildren()){
-                        p.addPicture(picSnapshot.getValue().toString());
-                    }*/
                     ExploreScreenFragment.posts.add(p);
                 }
 
@@ -128,6 +119,8 @@ public class FireBaseAPI {
         myRef.child("Post").child(id).setValue(p);
         return id;
     }
+
+
 
     public static String insertBooking(Booking b){
         String id = myRef.child("Booking").push().getKey();
@@ -221,6 +214,36 @@ public class FireBaseAPI {
         });
 
     }
+
+    public static void searchPosts(final OnDataReceiveCallback callback, final String title){
+
+        final ArrayList<Post> posts = new ArrayList<Post>();
+
+        Query phoneQuery = myRef.child("Post");
+        phoneQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
+                    Post p = singleSnapshot.getValue(Post.class);
+
+                    if(p.getTitle().contains(title)){
+                        posts.add(p);
+                    }
+
+                }
+
+                callback.onPostReceived(posts);
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e(TAG, "onCancelled", databaseError.toException());
+            }
+
+        });
+    }
+
 
     public static void getReviews(final OnDataReceiveCallback callback, final String postId){
 
