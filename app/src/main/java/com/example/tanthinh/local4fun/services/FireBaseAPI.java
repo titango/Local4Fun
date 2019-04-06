@@ -131,8 +131,9 @@ public class FireBaseAPI {
 
     public static String insertBooking(Booking b){
         String id = myRef.child("Booking").push().getKey();
-        myRef.child("Booking").child(id).setValue(b);
         b.setId(id);
+        myRef.child("Booking").child(id).setValue(b);
+
         return id;
     }
 
@@ -149,8 +150,13 @@ public class FireBaseAPI {
 
                     if(userId.equals(singleSnapshot.child("userId").getValue().toString()))
                     {
-                        BookingScreenFragment.bookings.add(new Booking(userId,singleSnapshot.child("postId").getValue().toString(),
-                                new Date(),((Long)singleSnapshot.child("numberOfPeople").getValue()).intValue()));
+                        BookingScreenFragment.bookings.add(new Booking(
+                                userId,
+                                singleSnapshot.child("postId").getValue().toString(),
+                                singleSnapshot.child("date").getValue().toString(),
+                                ((Long)singleSnapshot.child("numberOfPeople").getValue()).intValue(),
+                                ((Long)singleSnapshot.child("totalPrice").getValue()).doubleValue(),
+                                (singleSnapshot.child("numberTime").getValue().toString())));
                     }
 
                     //ExploreScreenFragment.posts.add(p);

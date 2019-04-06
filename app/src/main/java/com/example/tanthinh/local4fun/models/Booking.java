@@ -7,14 +7,18 @@ public class Booking {
     private String id;
     private String postId;
     private String userId;
-    private Date date;
+    private String date;
     private int numberOfPeople;
+    private double totalPrice;
+    private String time;
 
-    public Booking(String userId,String postId, Date date, int numberOfPeople) {
+    public Booking(String userId,String postId, String date, int numberOfPeople, double price, String time) {
         this.userId = userId;
         this.postId = postId;
         this.date = date;
         this.numberOfPeople = numberOfPeople;
+        this.totalPrice = price;
+        this.time = time;
     }
 
     public String getId() {
@@ -37,15 +41,15 @@ public class Booking {
         return postId;
     }
 
-    public void setPostId(Post post) {
-        this.postId = postId;
-    }
+//    public void setPostId(Post post) {
+//        this.postId = postId;
+//    }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -55,5 +59,25 @@ public class Booking {
 
     public void setNumberOfPeople(int numberOfPeople) {
         this.numberOfPeople = numberOfPeople;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

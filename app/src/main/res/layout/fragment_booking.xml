@@ -17,19 +17,19 @@
 
         <requestFocus />
 
-        <SearchView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:iconifiedByDefault="false"
-            android:queryHint="Explore Tour"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:defaultFocusHighlightEnabled="false"
-            android:focusedByDefault="false"
-            >
-        </SearchView>
+        <!--<SearchView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:iconifiedByDefault="false"-->
+            <!--android:queryHint="Explore Tour"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:defaultFocusHighlightEnabled="false"-->
+            <!--android:focusedByDefault="false"-->
+            <!--&gt;-->
+        <!--</SearchView>-->
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/post_block_id_rec_view"
