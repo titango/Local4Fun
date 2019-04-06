@@ -120,7 +120,7 @@ public class messageListAdapter extends BaseAdapter {
         TextView tv = (TextView)v.findViewById(R.id.txtSetting);
 
         CircleImageView img = (CircleImageView) v.findViewById(R.id.profile_image);
-        if(user.getImgUrl() != ""){
+        if(user.getImgUrl() != null && user.getImgUrl() != ""){
             Picasso.get().load(user.getImgUrl())
                     .fit()
                     .centerCrop()
