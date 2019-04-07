@@ -26,6 +26,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -120,8 +122,12 @@ public class messageListAdapter extends BaseAdapter {
         TextView tv = (TextView)v.findViewById(R.id.txtSetting);
 
         CircleImageView img = (CircleImageView) v.findViewById(R.id.profile_image);
-        if(user.getImgUrl() != null && user.getImgUrl() != ""){
+        if(user.getImgUrl() != null && !user.getImgUrl().equals("")){
+
+            Picasso.get().invalidate(user.getImgUrl());
             Picasso.get().load(user.getImgUrl())
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .fit()
                     .centerCrop()
                     .into(img);

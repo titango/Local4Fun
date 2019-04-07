@@ -17,6 +17,8 @@ import com.example.tanthinh.local4fun.models.Singleton;
 import com.example.tanthinh.local4fun.models.User;
 import com.example.tanthinh.local4fun.services.FireBaseAPI;
 import com.example.tanthinh.local4fun.services.UploadImage;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -79,8 +81,12 @@ public class EditProfileScreen extends AppCompatActivity {
         });
 
         singleton = Singleton.initInstance();
-        if(singleton.loginUser.getImgUrl() != null && singleton.loginUser.getImgUrl() != "") {
+        if(singleton.loginUser.getImgUrl() != null && !singleton.loginUser.getImgUrl().equals("")) {
+
+            Picasso.get().invalidate(singleton.loginUser.getImgUrl());
             Picasso.get().load(singleton.loginUser.getImgUrl())
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .fit()
                     .centerCrop()
                     .into(imgViewImage);

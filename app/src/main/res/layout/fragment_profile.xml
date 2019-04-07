@@ -31,6 +31,8 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="92dp"
+                    android:elevation="1.0dp"
+                    android:translationZ="1.0dp"
                     android:src="@mipmap/ic_launcher_round"
                     app:civ_border_color="@color/whiteLight"
                     app:civ_border_width="2dp"

@@ -34,6 +34,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -139,7 +141,10 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
             userPics.setImageResource(R.drawable.ic_user_icon);
         }else
         {
+            Picasso.get().invalidate(postUser.getImgUrl());
             Picasso.get().load(postUser.getImgUrl())
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .fit()
                     .centerCrop()
                     .into(userPics);

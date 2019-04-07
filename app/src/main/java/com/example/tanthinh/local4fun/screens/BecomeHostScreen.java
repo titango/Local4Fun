@@ -12,6 +12,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.models.Singleton;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -52,8 +54,12 @@ public class BecomeHostScreen extends Activity {
 
         singleton = Singleton.initInstance();
         imgViewImage = (CircleImageView) findViewById(R.id.profile_image);
-        if(singleton.loginUser.getImgUrl() != null && singleton.loginUser.getImgUrl() != "") {
+        if(singleton.loginUser.getImgUrl() != null && !singleton.loginUser.getImgUrl().equals("")) {
+
+            Picasso.get().invalidate(singleton.loginUser.getImgUrl());
             Picasso.get().load(singleton.loginUser.getImgUrl())
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .fit()
                     .centerCrop()
                     .into(imgViewImage);

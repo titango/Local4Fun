@@ -97,6 +97,7 @@ public class accountRegister extends AppCompatActivity {
                             //Create user's object and insert to realtime
                             User newuser = new User(fullnameTV.getText().toString(),
                                     emailTV.getText().toString(),"", "", fullnameTV.getText().toString());
+                            newuser.setImgUrl("");
                             FireBaseAPI.insertUser(newuser);
 
                             Toast.makeText(accountRegister.this, "Authentication success.",

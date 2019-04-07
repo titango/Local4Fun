@@ -14,7 +14,10 @@ import android.widget.TextView;
 import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.models.Post;
 import com.example.tanthinh.local4fun.models.User;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.util.List;
 import java.util.Map;
@@ -114,7 +117,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             holder.userPics.setImageResource(R.drawable.ic_user_icon);
         }else
         {
+            Picasso.get().invalidate(userOfPost.getImgUrl());
             Picasso.get().load(userOfPost.getImgUrl())
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .fit()
                     .centerCrop()
                     .into(holder.userPics);

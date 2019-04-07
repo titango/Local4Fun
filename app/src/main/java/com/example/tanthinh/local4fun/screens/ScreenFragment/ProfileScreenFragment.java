@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,8 @@ import com.example.tanthinh.local4fun.screens.EditProfileScreen;
 import com.example.tanthinh.local4fun.screens.LoginActivity;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -101,11 +104,21 @@ public class ProfileScreenFragment extends Fragment {
         user_email = (TextView) view.findViewById(R.id.user_email);
         singleton = Singleton.initInstance();
         imgViewImage = (CircleImageView) view.findViewById(R.id.profile_image);
-        if(singleton.loginUser.getImgUrl() != null && singleton.loginUser.getImgUrl() != "") {
-            Picasso.get().load(singleton.loginUser.getImgUrl())
-                    .fit()
-                    .centerCrop()
+
+        if(singleton.loginUser.getImgUrl() != null && !singleton.loginUser.getImgUrl().equals("")) {
+
+
+            Log.w("Load user pics", singleton.loginUser.getImgUrl() + "");
+
+            Picasso.get().invalidate(singleton.loginUser.getImgUrl());
+            Picasso.get().load(singleton.loginUser.getImgUrl().toString())
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .into(imgViewImage);
+
+//            imgViewImage.getLayoutParams().height = 120;
+//            imgViewImage.getLayoutParams().width = 120;
+//            imgViewImage.requestLayout();
         }
         initSingleton();
         return view;
