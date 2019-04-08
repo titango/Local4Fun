@@ -98,7 +98,6 @@ public class ExploreScreenFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
     }
 
     private void loadFragment(Fragment fragment) {
@@ -197,6 +196,8 @@ public class ExploreScreenFragment extends Fragment {
 
         recyclerView.setAdapter(mAdapter);
 
+
+
         ((PostAdapter) mAdapter).setOnItemClickListener(new PostAdapter.MyClickListener() {
             @Override
             public void onItemClick(int position, View v) {
@@ -233,14 +234,11 @@ public class ExploreScreenFragment extends Fragment {
                     Intent pdsIntent = new Intent(getActivity(), PostDetailsScreen.class);
                     pdsIntent.putExtra("postObject", postString);
                     pdsIntent.putExtra("userObject", userString);
+                    pdsIntent.putExtra("showBookingButton", true);
                     pdsIntent.putExtras(args);
                     startActivity(pdsIntent);
                 }
 
-
-                //NOT SHOWING BOOKING SCREEN FRAGMENT
-//                Fragment fragment = new BookingScreenFragment();
-//                loadFragment(fragment);
             }
 
         });

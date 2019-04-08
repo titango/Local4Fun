@@ -1,47 +1,65 @@
 package com.example.tanthinh.local4fun.screens.ScreenFragment;
 
 import android.content.Context;
+import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.tanthinh.local4fun.R;
 
 import com.example.tanthinh.local4fun.adapters.BookingAdapter;
+import com.example.tanthinh.local4fun.intefaces.OnDataReceiveCallback;
 import com.example.tanthinh.local4fun.models.Booking;
 import com.example.tanthinh.local4fun.models.Post;
 
 import com.example.tanthinh.local4fun.adapters.PostAdapter;
+import com.example.tanthinh.local4fun.models.Review;
 import com.example.tanthinh.local4fun.models.Singleton;
+import com.example.tanthinh.local4fun.models.User;
+import com.example.tanthinh.local4fun.screens.PostDetailsScreen;
 import com.example.tanthinh.local4fun.services.FireBaseAPI;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class BookingScreenFragment extends Fragment implements OnMapReadyCallback{
+public class BookingScreenFragment extends Fragment{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     private static RecyclerView recyclerView;
-    //private RecyclerView.Adapter mAdapter;
+    private static BookingScreenFragment currentBooking;
+
+
     private static RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
+    private static RecyclerView.LayoutManager layoutManager;
     private static Context context;
     public static ArrayList<Booking> bookings = new ArrayList<Booking>();
     View v;
 
+    public static Map<String,User> usersOnPost= new HashMap<>();
 
+    public static ArrayList<Post> posts = new ArrayList<Post>();
 
     GoogleMap mMap;
     Marker marker;
@@ -60,14 +78,6 @@ public class BookingScreenFragment extends Fragment implements OnMapReadyCallbac
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ExploreScreenFragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static BookingScreenFragment newInstance(String param1, String param2) {
         BookingScreenFragment fragment = new BookingScreenFragment();
@@ -86,8 +96,9 @@ public class BookingScreenFragment extends Fragment implements OnMapReadyCallbac
 //            mParam1 = getArguments().getString(ARG_PARAM1);
 //            mParam2 = getArguments().getString(ARG_PARAM2);
 //        }
-
-
+        getBookings();
+        this.context = getActivity();
+        currentBooking = this;
 
     }
 
@@ -96,27 +107,8 @@ public class BookingScreenFragment extends Fragment implements OnMapReadyCallbac
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_booking, container, false);
-//        SupportMapFragment mapFrag = (SupportMapFragment)
-//                getFragmentManager().
-//                        findFragmentById(R.id.map);
-//        mapFrag.getMapAsync(BookingScreenFragment.this);
-
-
-        getBookings();
 
         recyclerView = (RecyclerView) v.findViewById(R.id.post_block_id_rec_view);
-        recyclerView.setHasFixedSize(true);
-
-        layoutManager = new LinearLayoutManager(context);
-        recyclerView.setLayoutManager(layoutManager);
-
-        mAdapter = new BookingAdapter(bookings);
-
-        recyclerView.setAdapter(mAdapter);
-
-        this.context = getActivity();
-
-
 
         return v;
     }
@@ -152,11 +144,6 @@ public class BookingScreenFragment extends Fragment implements OnMapReadyCallbac
 //        mListener = null;
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-
-
-    }
     public static void getBookings(){
         bookings = new ArrayList<>();
         FireBaseAPI.getBookings(Singleton.getInstance().loginUser.getId());
@@ -164,9 +151,99 @@ public class BookingScreenFragment extends Fragment implements OnMapReadyCallbac
 
     public static void refreshUI(){
 
-        mAdapter = new BookingAdapter(bookings);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(context);
+        recyclerView.setLayoutManager(layoutManager);
+
+        FireBaseAPI.getAllUsers(new OnDataReceiveCallback() {
+            @Override
+            public void onReviewReceived(ArrayList<Review> list) {
+
+            }
+
+            @Override
+            public void onPostReceived(ArrayList<Post> list) {
+
+            }
+
+            @Override
+            public void onUserReceived(ArrayList<User> list) {
+                Log.w("onUserRecieved", list.size() + "");
+
+                for (int i = 0; i < posts.size(); i++) {
+                    String userId = posts.get(i).getUserId();
+                    Log.w("string userId", userId + "");
+
+                    for (int j = 0; j < list.size(); j++) {
+                        Log.e("list: ", list.get(j).getId() + "");
+                        if (userId.equals(list.get(j).getId())) {
+                            usersOnPost.put(posts.get(i).getId(), list.get(j));
+                        }
+                    }
+                }
+
+                Log.w("After booking bookings", bookings.size() + "");
+                Log.w("After bookings posts", posts.size()+"");
+                Log.w("After bookings users", usersOnPost.size()+"");
+                currentBooking.createBookingUI();
+            }
+
+        });
+    }
+
+    public static void getPosts(){
+
+        posts = new ArrayList<>();
+        FireBaseAPI.getPostsBooking();
+    }
+
+    private void createBookingUI()
+    {
+        mAdapter = new BookingAdapter(bookings,posts,usersOnPost);
         recyclerView.setAdapter(mAdapter);
 
+        ((BookingAdapter) mAdapter).setOnItemClickListener(new BookingAdapter.MyClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
+                // Log.i(LOG_TAG, " Clicked on Item " + position);
+                Toast.makeText(context, "You clicked on post " + position, Toast.LENGTH_SHORT).show();
+
+                Gson gson = new Gson();
+                String postString = gson.toJson(posts.get(position), Post.class);
+                String userString = gson.toJson(usersOnPost.get(posts.get(position).getId()), User.class);
+
+                String location = posts.get(position).getLocation();
+
+                if (location == null || location.equals("")) {
+                    Toast.makeText(getActivity(), "Something wrong", Toast.LENGTH_SHORT).show();
+
+                } else {
+
+                    Geocoder geocoder = new Geocoder(getContext());
+                    List<Address> list = null;
+                    try {
+                        list = geocoder.getFromLocationName(location, 1);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    //List<Address> list = geocoder.getFromLocationName(loc, 1);
+                    Address add = list.get(0);
+                    //String locality = add.getLocality();
+                    LatLng ll = new LatLng(add.getLatitude(), add.getLongitude());
+
+                    Bundle args = new Bundle();
+                    args.putParcelable("latLon", ll);
+                    args.putSerializable("desc", location);
+
+                    Intent pdsIntent = new Intent(getActivity(), PostDetailsScreen.class);
+                    pdsIntent.putExtra("postObject", postString);
+                    pdsIntent.putExtra("userObject", userString);
+                    pdsIntent.putExtra("showBookingButton", false);
+                    pdsIntent.putExtras(args);
+                    startActivity(pdsIntent);
+                }
+            }
+        });
     }
 
     /**

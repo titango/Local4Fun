@@ -109,7 +109,31 @@ public class FireBaseAPI {
             }
 
         });
+    }
 
+    public static void getPostsBooking()
+    {
+        final ArrayList<Post> posts = new ArrayList<Post>();
+
+        Query phoneQuery = myRef.child("Post");
+        phoneQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
+                    Post p = singleSnapshot.getValue(Post.class);
+                    BookingScreenFragment.posts.add(p);
+                }
+
+                BookingScreenFragment.refreshUI();
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e(TAG, "onCancelled", databaseError.toException());
+            }
+
+        });
     }
 
     public static String insertPost(Post p){
@@ -149,13 +173,13 @@ public class FireBaseAPI {
                                 singleSnapshot.child("date").getValue().toString(),
                                 ((Long)singleSnapshot.child("numberOfPeople").getValue()).intValue(),
                                 ((Long)singleSnapshot.child("totalPrice").getValue()).doubleValue(),
-                                "2:30"));
+                                singleSnapshot.child("time").getValue().toString()));
                     }
 
                     //ExploreScreenFragment.posts.add(p);
                 }
 
-                BookingScreenFragment.refreshUI();
+                BookingScreenFragment.getPosts();
 
             }
             @Override

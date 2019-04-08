@@ -49,6 +49,7 @@ import me.relex.circleindicator.CircleIndicator;
 public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCallback, OnDataReceiveCallback {
 
     //GOOGLE MAP
+    private boolean showBookingButton;
     GoogleMap mMap;
     Marker marker;
     String location;
@@ -92,10 +93,13 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
 
     private void init()
     {
+        showBookingButton = true;
+
         //Get post object
         Intent initIntent = getIntent();
         final String postString = (String)initIntent.getExtras().get("postObject");
         final String userString = (String)initIntent.getExtras().get("userObject");
+        showBookingButton = (boolean)initIntent.getExtras().get("showBookingButton");
 
         Gson gson = new Gson();
         currentPost = gson.fromJson(postString, Post.class);
@@ -163,6 +167,15 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
                 finish();
             }
         });
+
+        if(showBookingButton)
+        {
+            book_now_btn.setVisibility(View.VISIBLE);
+        }else
+        {
+            book_now_btn.setVisibility(View.INVISIBLE);
+        }
+
         book_now_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -277,8 +290,6 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
         //currentPost.plan.add("Metrotown && Check out shopping at Metrotown");
         //currentPost.plan.add("Downtown && Center of Vancouver!!");
 
-
-
         for(int i = 0; i < currentPost.plan.size(); i++)
         {
             // String text plans
@@ -287,7 +298,16 @@ public class PostDetailsScreen extends AppCompatActivity implements OnMapReadyCa
 //            String planLabel = splitPlan[1];
 
             String planMarker = currentPost.plan.get(i);
-            String planLabel = currentPost.planDesc.get(i);
+            String planLabel;
+
+            if(i >= currentPost.planDesc.size())
+            {
+                planLabel = "";
+            }else
+            {
+                planLabel = currentPost.planDesc.get(i);
+            }
+
 
             String textWrapper = "";
             if( i == 0)
