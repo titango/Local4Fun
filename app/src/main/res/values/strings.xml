@@ -202,5 +202,6 @@
     <string name="txtDescription">Description:</string>
     <string name="editTextReview">Write a review...</string>
     <string name="btnPostReview">Post</string>
+    <string name="search">Search</string>
 
 </resources>
