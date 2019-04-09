@@ -94,11 +94,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if(email.isEmpty() || email.equals(null))
         {
-            email = "thinh1234@gmail.com";
+            email = "!@#!@#!@#";
         }
         if(password.isEmpty() || password.equals(null))
         {
-            password = "thinh1234";
+            password = "!@#!@#!@#";
         }
         Log.d(TAG, "signIn:" + email);
         mAuth.signInWithEmailAndPassword(email, password)
