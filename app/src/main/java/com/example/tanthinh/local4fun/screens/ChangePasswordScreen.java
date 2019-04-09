@@ -7,9 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tanthinh.local4fun.R;
 import com.example.tanthinh.local4fun.models.Singleton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -17,10 +19,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ChangePasswordScreen extends AppCompatActivity {
 
     private Button changePasswordButton;
-    private TextView currentPassword, newPassword, confirmPassword, user_name, user_email;
+    private TextView currentEmail, newPassword, confirmEmail, user_name, user_email;
     private ImageView back;
     private Singleton singleton;
     private CircleImageView imgViewImage;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +39,8 @@ public class ChangePasswordScreen extends AppCompatActivity {
             }
         });
 
-        currentPassword = (TextView) findViewById(R.id.current_password_text);
-        newPassword = (TextView) findViewById(R.id.new_password_text);
-        confirmPassword = (TextView) findViewById(R.id.confirm_password_text);
+        currentEmail = (TextView) findViewById(R.id.email_text);
+        confirmEmail = (TextView) findViewById(R.id.confirm_email_text);
         user_name = (TextView) findViewById(R.id.user_name);
         user_email = (TextView) findViewById(R.id.user_email);
 
@@ -61,19 +63,24 @@ public class ChangePasswordScreen extends AppCompatActivity {
     }
 
     private void updatePassword() {
-        boolean checkCurrentPassword = singleton.loginUser.comparePassword(currentPassword.getText().toString());
-        if(checkCurrentPassword){
-            String newPass = newPassword.getText().toString();
-            String comfirmNewPass = confirmPassword.getText().toString();
-            if(newPass.equals(comfirmNewPass)) {
-                singleton.loginUser.setPassword(newPass);
-            }
+        if(currentEmail.getText().toString().equalsIgnoreCase(confirmEmail.getText().toString())){
+            sendEmail(currentEmail.getText().toString());
+            backToProfileScreen();
+        }else {
+            Toast.makeText(ChangePasswordScreen.this, "Email does not match.",
+                    Toast.LENGTH_SHORT).show();
         }
+    }
+    public void sendEmail(String email){
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.sendPasswordResetEmail(email);
+        Toast.makeText(ChangePasswordScreen.this, "Email sent success.",
+                Toast.LENGTH_SHORT).show();
     }
 
     private void initSingleton() {
         user_name.setText(singleton.loginUser.getFullname());
-        user_email.setText(singleton.loginUser.getEmail());
+        user_email.setText("");
     }
 
     private void backToProfileScreen(){
