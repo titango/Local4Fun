@@ -251,7 +251,7 @@ public class FireBaseAPI {
                 for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
                     Post p = singleSnapshot.getValue(Post.class);
 
-                    if(p.getTitle().toLowerCase().contains(title.toLowerCase())){
+                    if(p.getTitle().toLowerCase().contains(title.toLowerCase()) || p.getLocation().toLowerCase().contains(title.toLowerCase())){
                         posts.add(p);
                     }
 
